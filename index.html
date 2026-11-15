@@ -107,8 +107,10 @@ a:hover .roll::after{transform:none}
 .spot-tip{--tone:rgba(255,255,255,.2);position:absolute;z-index:9;left:0;top:0;display:flex;align-items:center;white-space:nowrap;pointer-events:none;transform:translateY(-50%);visibility:hidden;transition:visibility 0s .4s}
 .spot-tip.is-on{visibility:visible;pointer-events:auto;transition-delay:0s}
 .spot-tip.is-left{flex-direction:row-reverse;transform:translate(-100%,-50%)}
-.st-bridge{position:absolute;left:-16px;top:-12px;bottom:-12px;width:44px}                /* invisible: keeps the hover alive on the way to the tag */
-.is-left .st-bridge{left:auto;right:-16px}
+/* invisible strip between hotspot and tag: keeps the hover alive on the way over — it starts at the
+   hotspot's edge and never covers the hotspot itself (it used to, which broke clicks and the hover) */
+.st-bridge{position:absolute;left:0;top:-14px;bottom:-14px;width:30px}
+.is-left .st-bridge{left:auto;right:0}
 .st-lead{position:relative;flex:none;display:block;width:16px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.35),#fff);transform:scaleX(0);transform-origin:0 50%;transition:transform .2s ease}
 .st-lead::after{content:"";position:absolute;right:-2px;top:-2px;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8)}
 .is-left .st-lead{transform-origin:100% 50%;background:linear-gradient(270deg,rgba(255,255,255,.35),#fff)}
@@ -140,9 +142,10 @@ a:hover .roll::after{transform:none}
 .spot-tip.is-on .st-card:hover{background-color:rgba(255,255,255,.26)}
 .spot-tip.is-on .st-card:hover .st-go{background:#fff;color:var(--ink);border-color:#fff;text-shadow:none}
 .spot-tip.is-on .st-card:hover .st-go svg{transform:translateX(2px)}
-.hotspot:hover,.hotspot:focus-visible{background:#fff;outline:none}
-.hotspot:hover::before,.hotspot:hover::after,.hotspot:focus-visible::before,.hotspot:focus-visible::after{background:var(--ink)}
-.hotspot:hover::after{transform:rotate(180deg)}
+/* .is-active = its tag is open: the hotspot keeps its hover look while the pointer is on the tag (no flicker) */
+.hotspot:hover,.hotspot:focus-visible,.hotspot.is-active{background:#fff;outline:none}
+.hotspot:hover::before,.hotspot:hover::after,.hotspot:focus-visible::before,.hotspot:focus-visible::after,.hotspot.is-active::before,.hotspot.is-active::after{background:var(--ink)}
+.hotspot:hover::after,.hotspot.is-active::after{transform:rotate(180deg)}
 .scrim{position:absolute;inset:0;pointer-events:none;background:
   linear-gradient(90deg,rgba(6,30,56,.4) 0%,rgba(6,30,56,.16) 30%,rgba(6,30,56,0) 50%),
   linear-gradient(0deg,rgba(10,18,28,.42) 0%,rgba(10,18,28,0) 24%)}
@@ -245,7 +248,8 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 .pc-arrows button:hover{background:#fff;color:var(--ink)}
 .pc-arrows svg{width:14px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 
-.hero-foot{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.hero-foot{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none}
+.hero-foot > *{pointer-events:auto}                                    /* the empty middle of the row doesn't block the bottles */
 /* page switcher — changes the whole hero. Kept light: no panel, just thin type and hairlines over a soft shade */
 .pager{position:relative;display:flex;align-items:center;gap:26px;text-shadow:0 1px 12px rgba(4,20,38,.35)}
 .pager::before{content:"";position:absolute;z-index:-1;left:-110px;right:-140px;top:-70px;bottom:-60px;pointer-events:none;
@@ -1601,6 +1605,7 @@ void main(){
     veilTitle.textContent = PAGES[n].title;
     veil.classList.remove('mark', 'mark-out', 'fb-in', 'fb-out');
     veil.classList.add('is-on');
+    hideTip();                                                                               // close any open hotspot tag
     const swap = () => { hero.classList.add('is-reset'); void hero.offsetWidth; select(0); };   // covered: back to the pre-entrance state
     const replay = () => { hero.classList.remove('is-reset'); setPager(n); veil.classList.add('mark-out'); };   // …and play in again
     const done = () => { veil.classList.remove('is-on', 'mark', 'mark-out', 'fb-in', 'fb-out'); busy = false; };
@@ -1653,25 +1658,29 @@ void main(){
 
   // hotspot label — lives above the card; opens to the right, flips left only at the screen edge
   const tip = $('spot-tip'), tipName = $('st-name'), tipType = $('st-type'); let tipFor = null, hideT = 0;
+  let tipW = 0;
   function placeTip() {
     if (!tipFor) return;
     const r = tipFor.getBoundingClientRect(), h = hero.getBoundingClientRect();
-    const left = r.right + 2 + tip.offsetWidth > h.right - 14;                               // flip only at the screen edge
+    const left = r.right + tipW > h.right - 14;                                               // flip only at the screen edge
     tip.classList.toggle('is-left', left);
-    tip.style.left = `${(left ? r.left - 2 : r.right + 2) - h.left}px`;
+    tip.style.left = `${(left ? r.left : r.right) - h.left}px`;                               // flush with the hotspot's edge, never over it
     tip.style.top = `${r.top + r.height / 2 - h.top}px`;
   }
-  const hideTip = () => { tipFor = null; tip.classList.remove('is-on'); };
+  const hideTip = () => { if (tipFor) tipFor.classList.remove('is-active'); tipFor = null; tip.classList.remove('is-on'); };
   const keepTip = () => clearTimeout(hideT);
-  const dropTip = () => { clearTimeout(hideT); hideT = setTimeout(hideTip, 280); };        // time to travel onto the plate
+  const dropTip = () => { clearTimeout(hideT); hideT = setTimeout(hideTip, 280); };        // time to travel onto the tag
   spots.forEach(b => {
     const show = () => {
       keepTip();
       if (tipFor !== b) {                                                                    // replay the unfold for each product
-        tip.classList.remove('is-on'); void tip.offsetWidth;
+        if (tipFor) tipFor.classList.remove('is-active');
+        tip.classList.remove('is-on');
         tipFor = b; tipName.textContent = b.dataset.name; tipType.textContent = b.dataset.type;
         tip.style.setProperty('--tone', PRODUCTS[+b.dataset.i].glow);
+        tip.style.left = '0px'; tipW = tip.offsetWidth;                                      // measure unconstrained by the old position
       }
+      b.classList.add('is-active');
       placeTip(); tip.classList.add('is-on');
     };
     b.addEventListener('pointerenter', show); b.addEventListener('focus', show);
