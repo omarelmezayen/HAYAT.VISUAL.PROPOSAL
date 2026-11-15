@@ -30,13 +30,13 @@ button{font:inherit;color:inherit}
    · Display  Cormorant Garamond, roman only — the headline (400), product names (500) and every numeral
               (400 when large, 500 when small), always in lining figures.
    · Accent   Pinyon Script — the one word "Whisper".
-   · Text     IBM Plex Sans Arabic, the brand typeface, always 500:
-              caps M  11px · .2em  — navigation, the hero kicker, the page-change title
-              caps S  9.5px · .2em — every other label (card meta, pager, hotspot tag, replay)
-              body    14px · .02em — buttons and links                                                      */
-.nav-links a,.kicker,.veil-mark span{font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1}
-.pc-info p,.pg-title,#replay,.st-type{font-family:var(--font);font-size:9.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1}
-.btn,.more{font-family:var(--font);font-size:14px;font-weight:500;letter-spacing:.02em}
+   · Text     IBM Plex Sans Arabic, the brand typeface, always 500, in normal case (no tracked capitals) —
+              set like the "Explore the edit" link:
+              text M  14px · .02em — navigation, buttons and links, the hero kicker, the page-change title
+              text S  12.5px · .01em — every other label (card meta, pager, hotspot tag, replay)            */
+.nav-links a,.kicker,.veil-mark span,.btn,.more{font-family:var(--font);font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:none}
+.nav-links a,.kicker,.veil-mark span{line-height:1}
+.pc-info p,.pg-title,#replay,.st-type{font-family:var(--font);font-size:12.5px;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1}
 .title,.pc-info h2,.st-name,.pg-num,.pc-idx,.kicker .no,.nav-links sup,.bag .n{font-family:var(--serif);font-style:normal;text-transform:none;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 .title,.pg-num .cur{font-weight:400}
 .pc-info h2,.st-name,.pc-idx,.pg-num .tot,.kicker .no,.nav-links sup,.bag .n{font-weight:500;letter-spacing:0}
@@ -283,7 +283,7 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 .veil-mark{position:absolute;left:50%;top:50%;display:flex;flex-direction:column;align-items:center;gap:18px;transform:translate(-50%,-50%);color:var(--iv)}
 .veil-mark img{height:58px;width:auto}
 .veil-mark b{display:block;width:44px;height:1px;background:currentColor;opacity:.45;transform:scaleX(0);transition:transform .7s var(--ease)}
-.veil-mark span{white-space:nowrap;padding-left:.2em}
+.veil-mark span{white-space:nowrap}
 .veil-mark img,.veil-mark span{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .8s var(--ease)}
 .hero-veil.mark .veil-mark img{opacity:1;transform:none}
 .hero-veil.mark .veil-mark b{transform:none;transition-delay:.18s}
