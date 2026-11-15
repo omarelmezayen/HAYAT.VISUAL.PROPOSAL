@@ -1064,6 +1064,30 @@ float stars(vec2 frag){
   }}
   return acc;
 }
+/* leaves: near the front the screen (and the logo on it) breaks into tiny flat leaf silhouettes instead of
+   pixels — same rhythm as the pixels, different shape.  x: coverage · y: hue · z: lit · w: glint */
+vec4 leaves(vec2 frag, float k){
+  /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
+     (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
+     one by one at random, so what is left is a lace of leaf shapes. */
+  float cs = floor(mix(3., 8.5, k*k))*uDpr;
+  vec2 g = frag/cs, cb = floor(g);
+  float crum = pow(k, 2.2)*1.04;
+  vec4 r = vec4(0.);
+  for(int j=-1;j<=1;j++){ for(int i=-1;i<=1;i++){
+    vec2 c = cb + vec2(float(i), float(j));
+    float h = h21(c*1.37 + 2.1);
+    if (h < crum) continue;                       /* this one has crumbled away */
+    float h2 = h21(c*.73 + 7.7), h3 = h21(c*.37 + 1.3);
+    vec2 lp = g - c - .5 - (vec2(h2, h3) - .5)*.4;
+    float ang = h2*6.2832, ca = cos(ang), sa = sin(ang);
+    vec2 q = mat2(ca, -sa, sa, ca)*lp;
+    float dl = max(length(q - vec2(.64, 0.)), length(q + vec2(.64, 0.))) - 1.06;   /* leaf ≈ 1.7 × .84 cells */
+    float cov = 1. - smoothstep(-.9/cs, .9/cs, dl);
+    if (cov > r.x) r = vec4(cov, h3, step(h21(c*2.31 + 5.3) + .04, k*.62), step(.94, h21(c*.71 + floor(uT*16.))));
+  }}
+  return r;
+}
 void main(){
   vec2 frag = gl_FragCoord.xy;
   vec2 rel = frag - uC;
@@ -1073,27 +1097,20 @@ void main(){
   float n = fbm(np*2.4 + vec2(0., uT*.22)) - .5;
   float m = fbm(ROT*np*7. - uT*.5) - .5;
   float e = uFront - (d + n*.30*amp + m*.06*amp);
-  float k = smoothstep(-.2, 0., e)*uFx;
-  float sty = max(k, uStyl*uFx);
-  float ps = max(1., floor(mix(1., 7., k*k))*uDpr);
-  vec2 cell = floor(frag/ps);
-  vec2 q = (cell + .5)*ps;
+  float outside = step(e, 0.);                    /* the screen that is still there */
+  float k = smoothstep(-.2, 0., e)*uFx*outside;
   vec3 base = texture2D(uTex, frag/uRes).rgb;
-  vec3 blk = texture2D(uTex, q/uRes).rgb;
-  float lum = dot(blk, vec3(.299,.587,.114));
-  float lnm = clamp((lum - .055)/.80, 0., 1.);
-  float on = step(b8(cell) + .02, lnm*1.25);
-  vec3 dith = mix(DK, min(blk*1.18 + .03, vec3(1.)), on);
-  vec3 col = mix(base, dith, sty);
-  float outside = step(e, 0.);
-  float crum = pow(k, 3.2)*.9;
-  float a = 1. - step(h21(cell*.917 + 3.1), crum)*step(.0005, crum);
-  a *= outside;
+  vec4 L = leaves(frag, k);
+  float aBg = 1. - smoothstep(.04, .2, k);        /* the solid surface hands over to the leaf mesh… */
+  float a = outside*max(aBg, L.x);                /* …which crumbles leaf by leaf */
+  float lum = dot(base, vec3(.299,.587,.114));
+  float on = L.z*(1. - smoothstep(.12, .4, lum)); /* some leaves on the burgundy catch a flat light; the logo keeps its colours */
+  vec3 col = mix(base, mix(RO*.95, mix(IV, WH, L.y*.5), L.y*.85), on*.6*L.x);
   float ae = abs(e);
   float rim = exp(-ae*60.), rimCore = exp(-ae*170.);
   float inner = e > 0. ? exp(-e*26.) : 0.;
   float outer = e < 0. ? exp(e*16.) : 0.;
-  float glit = step(.985, h21(cell*.71 + floor(uT*16.)))*k*on*outside;
+  float glit = L.w*k*on*L.x;                      /* the glint lights the leaf, not its whole cell */
   float st = stars(frag)*exp(-abs(e + .02)*12.);
   vec3 light = mix(RO*1.4, WH, rimCore)*rim*1.05 + WH*inner*.55 + mix(RO, IV, .5)*outer*.22 + WH*(st + glit*.9);
   light *= uFx;
@@ -1155,7 +1172,7 @@ void main(){
   const P = [], PET = [];
   let petalAcc = 0;
   function burst(x, y, n, rgb, speed) {
-    for (let i = 0; i < n && P.length < 3400; i++) {
+    for (let i = 0; i < n && P.length < 2800; i++) {
       const a = Math.random() * 6.283, sp = speed * (.3 + Math.random());
       const c = Math.random() < .35 ? [255, 244, 236] : rgb;
       P.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 10, age: 0, life: .9 + Math.random() * 1.3, sz: .7 + Math.random() * 1.6, c, ph: Math.random() * 6.28 });
@@ -1165,7 +1182,7 @@ void main(){
     if (front <= .004 || !sample) return;
     const rf = front * maxR;
     const n = Math.min(320, Math.round(dt * 3200 * Math.min(1, rf / 260 + .2)));
-    for (let i = 0; i < n && P.length < 3400; i++) {
+    for (let i = 0; i < n && P.length < 2800; i++) {
       const a = Math.random() * Math.PI * 2, r = rf * (.9 + Math.random() * .2);
       const x = hx + Math.cos(a) * r, y = hy + Math.sin(a) * r;
       if (x < 0 || y < 0 || x >= W || y >= H) continue;
@@ -1205,13 +1222,28 @@ void main(){
       p.rot += p.vr * dt; p.fl += p.vf * dt;
     }
   }
+  // each speck of scent dust is a tiny leaf (one small sprite per colour, cached) instead of a square
+  const leafCache = new Map();
+  function leafOf(r, g, b) {
+    const key = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4);
+    let c = leafCache.get(key);
+    if (!c) {
+      c = mkCanvas(32); const x = c.getContext('2d');
+      x.translate(16, 16); x.fillStyle = `rgb(${(r >> 4) * 16 + 8},${(g >> 4) * 16 + 8},${(b >> 4) * 16 + 8})`;
+      x.beginPath(); x.moveTo(0, -15); x.quadraticCurveTo(9, 0, 0, 15); x.quadraticCurveTo(-9, 0, 0, -15); x.fill();
+      leafCache.set(key, c);
+    }
+    return c;
+  }
   function drawDust() {
     for (const p of P) {
       const k = p.age / p.life, al = Math.pow(1 - k, 1.4) * Math.min(1, p.age / .08), inside = p.inside || 0;
-      const r = lerp(p.c[0], 156, inside) | 0, g = lerp(p.c[1], 97, inside) | 0, b = lerp(p.c[2], 103, inside) | 0;
-      fx.fillStyle = `rgba(${r},${g},${b},${al.toFixed(3)})`;
-      fx.fillRect(p.x, p.y, p.sz, p.sz);
+      if (al < .01) continue;
+      const r = lerp(p.c[0], 156, inside) | 0, g = lerp(p.c[1], 97, inside) | 0, b = lerp(p.c[2], 103, inside) | 0, L = p.sz * 2.4;
+      fx.setTransform(dpr, 0, 0, dpr, dpr * p.x, dpr * p.y); fx.rotate(p.ph + p.age * 2.2);
+      fx.globalAlpha = al; fx.drawImage(leafOf(r, g, b), -L / 2, -L / 2, L, L);
     }
+    fx.globalAlpha = 1; fx.setTransform(dpr, 0, 0, dpr, 0, 0);
     for (const p of PET) {
       const k = p.age / p.life, al = Math.pow(1 - k, 1.2) * Math.min(1, p.age / .2), c = Math.cos(p.fl);
       fx.save(); fx.translate(p.x, p.y); fx.rotate(p.rot); fx.scale((c < 0 ? -1 : 1) * Math.max(.14, Math.abs(c)), 1);
@@ -1492,6 +1524,30 @@ float stars(vec2 frag){
   }}
   return acc;
 }
+/* leaves: near the front the surface breaks into tiny flat leaf silhouettes instead of pixels — same rhythm
+   as the pixels, different shape.  x: coverage · y: hue · z: lit · w: glint */
+vec4 leaves(vec2 frag, float k){
+  /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
+     (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
+     one by one at random, so what is left is a lace of leaf shapes. */
+  float cs = floor(mix(3., 8.5, k*k))*uDpr;
+  vec2 g = frag/cs, cb = floor(g);
+  float crum = pow(k, 2.2)*1.04;
+  vec4 r = vec4(0.);
+  for(int j=-1;j<=1;j++){ for(int i=-1;i<=1;i++){
+    vec2 c = cb + vec2(float(i), float(j));
+    float h = h21(c*1.37 + 2.1);
+    if (h < crum) continue;                       /* this one has crumbled away */
+    float h2 = h21(c*.73 + 7.7), h3 = h21(c*.37 + 1.3);
+    vec2 lp = g - c - .5 - (vec2(h2, h3) - .5)*.4;
+    float ang = h2*6.2832, ca = cos(ang), sa = sin(ang);
+    vec2 q = mat2(ca, -sa, sa, ca)*lp;
+    float dl = max(length(q - vec2(.64, 0.)), length(q + vec2(.64, 0.))) - 1.06;   /* leaf ≈ 1.7 × .84 cells */
+    float cov = 1. - smoothstep(-.9/cs, .9/cs, dl);
+    if (cov > r.x) r = vec4(cov, h3, step(h21(c*2.31 + 5.3) + .04, k*.62), step(.94, h21(c*.71 + floor(uT*16.))));
+  }}
+  return r;
+}
 void main(){
   vec2 frag = gl_FragCoord.xy;
   vec2 np = frag/uRes.y;
@@ -1502,19 +1558,16 @@ void main(){
   float ed = e*uDir;                              /* > 0: inside the burgundy */
   float side = step(0., ed);
   float k = (1. - smoothstep(0., .2, ed))*side;   /* 1 at the front, 0 deep inside the veil */
-  float ps = max(1., floor(mix(1., 8., k*k)))*uDpr;
-  vec2 cell = floor(frag/ps);
-  vec3 base = DK;                                 /* flat Burgundy Black — a gradient here banded into stripes */
-  float on = step(b8(cell) + .04, k*.62);
-  float hue = h21(cell*.37 + 1.3);
-  vec3 col = mix(base, mix(RO*.95, mix(IV, GD, hue), hue*.85), on*.6);
-  float crum = pow(k, 3.)*.9;
-  float a = side*(1. - step(h21(cell*.917 + 3.1), crum)*step(.0005, crum));
+  vec4 L = leaves(frag, k);
+  float aBg = 1. - smoothstep(.04, .2, k);        /* the solid surface hands over to the leaf mesh… */
+  float a = side*max(aBg, L.x);                   /* …which crumbles leaf by leaf */
+  float on = L.z;                                 /* some leaves catch the light — a flat colour, like the lit pixels */
+  vec3 col = mix(DK, mix(RO*.95, mix(IV, GD, L.y), L.y*.85), on*.6*L.x);
   float ae = abs(e);
   float rim = exp(-ae*55.), rimCore = exp(-ae*170.);
   float inner = ed > 0. ? exp(-ed*24.) : 0.;
   float outer = ed < 0. ? exp(ed*14.) : 0.;
-  float glit = step(.985, h21(cell*.71 + floor(uT*16.)))*k*on;
+  float glit = L.w*k*on*L.x;                      /* the glint lights the leaf, not its whole cell */
   float st = stars(frag)*exp(-abs(ed + .02)*30.); /* sparkles only along the front — not a faint field over the whole veil */
   vec3 light = mix(RO*1.4, WH, rimCore)*rim*.85 + WH*inner*.4 + mix(RO, GD, .5)*outer*.26 + WH*(st + glit*.9);
   float la = clamp(dot(light, vec3(.3333)), 0., 1.);
@@ -1558,14 +1611,21 @@ void main(){
     g.uniform1f(vu.uFront, front); g.uniform1f(vu.uT, t); g.uniform1f(vu.uDpr, VD); g.uniform1f(vu.uDir, dir);
     g.drawArrays(g.TRIANGLES, 0, 3);
   }
-  // dust thrown off the front — square specks like the dithered pixels, drifting up and fading
+  // dust thrown off the front — the same specks as before (amount, drift, light), each a tiny leaf instead of a square
   const DUST = [], DCOL = ['255,246,236', '231,212,199', '236,206,150', '222,160,166'];
+  const LEAF = DCOL.map(rgb => {
+    const c = document.createElement('canvas'); c.width = c.height = 32; const x = c.getContext('2d');
+    x.translate(16, 16); x.fillStyle = `rgb(${rgb})`;
+    x.beginPath(); x.moveTo(0, -15); x.quadraticCurveTo(9, 0, 0, 15); x.quadraticCurveTo(-9, 0, 0, -15); x.fill();
+    return c;
+  });
   function stepDust(front, dt, t) {
     if (front > -.15 && front < 1.15) {
       const yb = VH * (1 - front), n = Math.round(dt * 560);
       for (let i = 0; i < n && DUST.length < 1500; i++) {
         DUST.push({ x: Math.random() * VW, y: yb + (Math.random() - .5) * VH * .24, vx: (Math.random() - .5) * 28, vy: -(30 + Math.random() * 140),
-          life: .6 + Math.random() * 1.1, age: 0, s: (Math.random() < .12 ? 2.4 : 1.1) + Math.random(), c: DCOL[(Math.random() * DCOL.length) | 0], ph: Math.random() * 6.28 });
+          life: .6 + Math.random() * 1.1, age: 0, s: (Math.random() < .12 ? 2.4 : 1.1) + Math.random(), ci: (Math.random() * DCOL.length) | 0, ph: Math.random() * 6.28,
+          rot: Math.random() * 6.283, vr: (Math.random() - .5) * 4 });
       }
     }
     dctx.setTransform(VD, 0, 0, VD, 0, 0); dctx.clearRect(0, 0, VW, VH);
@@ -1574,10 +1634,12 @@ void main(){
       const p = DUST[i]; p.age += dt;
       if (p.age >= p.life) { DUST[i] = DUST[DUST.length - 1]; DUST.pop(); continue; }
       p.vx += Math.sin(t * 2.4 + p.ph) * 24 * dt; p.vy -= 28 * dt;
-      p.x += p.vx * dt; p.y += p.vy * dt;
-      const k = p.age / p.life, a = (k < .15 ? k / .15 : 1 - (k - .15) / .85) * .85;
-      dctx.fillStyle = `rgba(${p.c},${a.toFixed(3)})`; dctx.fillRect(p.x, p.y, p.s, p.s);
+      p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
+      const k = p.age / p.life, a = (k < .15 ? k / .15 : 1 - (k - .15) / .85) * .85, L = p.s * 2.3;
+      dctx.setTransform(VD, 0, 0, VD, VD * p.x, VD * p.y); dctx.rotate(p.rot);
+      dctx.globalAlpha = a; dctx.drawImage(LEAF[p.ci], -L / 2, -L / 2, L, L);
     }
+    dctx.globalAlpha = 1; dctx.setTransform(VD, 0, 0, VD, 0, 0);
     dctx.globalCompositeOperation = 'source-over';
   }
   const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
