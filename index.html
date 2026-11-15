@@ -6,7 +6,7 @@
 <title>Hayat Secret — Ocean Whisper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Poppins:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 :root{
   --bb:#130C0D;      /* Burgundy Black — Pantone 440 CP */
@@ -16,6 +16,7 @@
   --g:clamp(16px,2.8vw,56px);   /* page gutter — nav, copy, card and footer all hang on it */
   --font:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
   --serif:"Cormorant Garamond","Cormorant",Garamond,"Times New Roman",serif;   /* display — headline, product names, numerals (lining figures) */
+  --social:"Poppins","IBM Plex Sans Arabic",system-ui,sans-serif;               /* calls to action + reviews — a friendly, social-feed voice */
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box}
@@ -26,20 +27,23 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
 
 /* ============================== TYPE SYSTEM ==============================
-   Three voices, nothing else (the preloader carries no text — only the logo artwork):
+   Four voices, nothing else (the preloader carries no text — only the logo artwork):
    · Display  Cormorant Garamond, roman only — the headline (400), product names (500) and every numeral
               (400 when large, 500 when small), always in lining figures.
-   · Accent   Pinyon Script — the one word "Whisper".
-   · Text     IBM Plex Sans Arabic, the brand typeface, always 500, in normal case (no tracked capitals) —
-              set like the "Explore the edit" link:
-              text M  14px · .02em — navigation, buttons and links, the hero kicker, the page-change title
-              text S  12.5px · .01em — every other label (card meta, pager, hotspot tag, replay)            */
-.nav-links a,.kicker,.veil-mark span,.btn,.more{font-family:var(--font);font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:none}
-.nav-links a,.kicker,.veil-mark span{line-height:1}
-.pc-info p,.pg-title,#replay,.st-type{font-family:var(--font);font-size:12.5px;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1}
-.title,.pc-info h2,.st-name,.pg-num,.pc-idx,.kicker .no,.nav-links sup,.bag .n{font-family:var(--serif);font-style:normal;text-transform:none;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+   · Accent   Pinyon Script, in gold — the word "Whisper" and the review rating.
+   · Text     IBM Plex Sans Arabic, the brand typeface, always 500, in normal case (no tracked capitals):
+              text M  14px · .02em — navigation, the hero kicker, the page-change title
+              text S  12.5px · .01em — every other label (card meta, pager, hotspot tag, replay)
+   · Social   Poppins — the calls to action and the reviews: rounded, friendly, the voice of a social feed
+              button 14.5px 500 · review count 12.5px 500                                                     */
+.nav-links a,.kicker,.veil-mark span{font-family:var(--font);font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:none;line-height:1}
+.pc-info p,.pg-title,#replay,.st-type,.pc-badge,.st-cur,.pc-cur,.pc-was{font-family:var(--font);font-size:12.5px;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1}
+.btn,.pc-cta,.reviews{font-family:var(--social);text-transform:none;letter-spacing:0}
+.btn,.pc-cta{font-size:14.5px;font-weight:500}
+.pc-badge{font-family:var(--social);font-size:12px;font-weight:600}
+.title,.pc-info h2,.st-name,.pg-num,.pc-idx,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now{font-family:var(--serif);font-style:normal;text-transform:none;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 .title,.pg-num .cur{font-weight:400}
-.pc-info h2,.st-name,.pc-idx,.pg-num .tot,.kicker .no,.nav-links sup,.bag .n{font-weight:500;letter-spacing:0}
+.pc-info h2,.st-name,.pc-idx,.pg-num .tot,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now{font-weight:500;letter-spacing:0}
 .pc-info h2,.st-name{line-height:1.05;letter-spacing:-.005em}
 
 /* ============================== NAVIGATION ============================== */
@@ -88,9 +92,10 @@ a:hover .roll::after{transform:none}
 @media (prefers-reduced-motion:reduce){ .t-haze{animation:none} }
 .l-products{transform:translate3d(calc(var(--px,0)*-11px),calc(var(--py,0)*-5px),0)}
 .shadows{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
-.shadows g{opacity:0;transition:opacity 1.6s ease var(--d,0s)}
+.shadows{opacity:0;transition:opacity 1.6s ease .4s}   /* faded as one composited layer: fading the blurred SVG groups one by one repainted their blur every frame of the reveal */
 .product{position:absolute;padding:0;border:0;background:none;cursor:pointer;opacity:0;transform:translateY(54px);
-  transition:opacity 1.3s ease var(--d,0s),transform 1.8s var(--ease) var(--d,0s),filter .5s ease}
+  transition:opacity 1.3s ease var(--d,0s),transform 1.8s var(--ease) var(--d,0s),filter .5s ease;
+  transform-origin:50% 100%;scale:var(--ps,1)}   /* each bottle is sized about its own base, so it stays standing on its step */
 .product img{display:block;width:100%;height:100%;pointer-events:none;transition:transform .7s var(--ease)}
 .product:hover img,.product.is-on img{transform:translateY(-10px)}
 .product:hover,.product.is-on{filter:brightness(1.05) drop-shadow(0 0 26px rgba(255,255,255,.3))}
@@ -130,6 +135,10 @@ a:hover .roll::after{transform:none}
 .st-txt{display:flex;flex-direction:column;align-items:flex-start;gap:7px;padding:3px 0}
 .st-type{opacity:.85}
 .st-name{font-size:21px}
+/* the price, after a hairline: the figure in the display serif, the currency as a small label */
+.st-price{display:flex;align-items:baseline;gap:5px;margin-left:-4px;padding:8px 0 8px 18px;border-left:1px solid rgba(255,255,255,.3)}
+.st-price b{font-size:23px;line-height:1}
+.st-cur{opacity:.85}
 .st-go{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);
   transition:background .3s,color .3s,border-color .3s}
 .st-go svg{width:13px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--ease)}
@@ -151,7 +160,7 @@ a:hover .roll::after{transform:none}
   linear-gradient(0deg,rgba(10,18,28,.42) 0%,rgba(10,18,28,0) 24%)}
 
 /* headline block — an editorial lock-up: index + flowing wave, two-weight title that "whispers", hanging subline */
-.hero-copy{--fs:clamp(62px,7.1vw,138px);position:absolute;z-index:5;left:var(--g);top:46%;transform:translateY(-50%)}
+.hero-copy{--fs:clamp(62px,min(6.6vw,13vh),128px);position:absolute;z-index:5;left:var(--g);top:50%;transform:translateY(-50%)}   /* centred on the page, top to bottom */
 .kicker{display:flex;align-items:center;gap:14px;margin:0 0 calc(var(--fs)*.07);text-shadow:0 1px 14px rgba(4,24,46,.25)}
 .kicker .no{font-size:18px;line-height:1;opacity:.92}
 .kicker .wave{width:48px;height:10px;display:block;overflow:hidden}
@@ -176,12 +185,12 @@ a:hover .roll::after{transform:none}
 .swash{position:absolute;left:6%;right:2%;bottom:-.06em;width:92%;height:.42em;overflow:visible;pointer-events:none}
 .swash path{fill:none;stroke:url(#swash-g);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.7s cubic-bezier(.6,0,.2,1) 2.2s}
 .is-revealed .swash path{stroke-dashoffset:0}
-.ctas{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:calc(var(--fs)*.24)}
-.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:18px;height:56px;padding:0 8px 0 28px;border-radius:999px;color:var(--ink);
+.ctas{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:calc(var(--fs)*.24)}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 7px 0 24px;border-radius:999px;color:var(--ink);
   background:linear-gradient(135deg,#FBF0D9 0%,#EBCF97 48%,#D3AE6A 100%);box-shadow:0 18px 36px -18px rgba(5,24,44,.7),inset 0 1px 0 rgba(255,255,255,.6);transition:box-shadow .35s,transform .35s}
 .btn::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
 /* the label rolls like the nav links; the arrow is pushed out and a fresh one slides in behind it */
-.btn .roll,.more .roll{white-space:nowrap;line-height:1.3}
+.btn .roll{white-space:nowrap;line-height:1.3}
 .btn .ic{position:relative;overflow:hidden;flex:none;width:40px;height:40px;border-radius:50%;background:var(--ink);color:#F2DCAE;transition:transform .55s var(--ease)}
 .btn .ic svg{position:absolute;left:50%;top:50%;width:16px;height:12px;margin:-6px 0 0 -8px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .55s var(--ease)}
 .btn .ic .a2{transform:translateX(-30px)}
@@ -190,12 +199,24 @@ a:hover .roll::after{transform:none}
 .btn:hover .ic{transform:scale(1.05)}
 .btn:hover .ic .a1{transform:translateX(30px)}
 .btn:hover .ic .a2{transform:none;transition-delay:.08s}
-.more{position:relative;display:inline-block;padding-bottom:7px;text-shadow:0 1px 14px rgba(4,24,46,.25)}
-.more::after,.more::before{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transition:transform .55s var(--ease)}
-.more::after{transform-origin:right}
-.more::before{transform:scaleX(0);transform-origin:left;transition-delay:.2s}
-.more:hover::after{transform:scaleX(0)}
-.more:hover::before{transform:scaleX(1)}
+/* social proof beside the main call to action: the rating as a number, a hairline, then the stars over the
+   review count (the count underlines on hover) */
+.reviews{display:inline-flex;align-items:center;gap:10px;text-shadow:0 1px 14px rgba(4,24,46,.25)}
+/* the rating is set in the same script and gold as "Whisper" */
+.rv-num{font-family:"Pinyon Script",cursive;font-size:46px;font-weight:400;line-height:1;letter-spacing:0;padding:.04em .14em .14em .04em;margin:-.12em -.06em -.18em 0;
+  background:linear-gradient(100deg,#F6E3BC 0%,#DDB572 40%,#F4DDAE 66%,#D3A962 100%);-webkit-background-clip:text;background-clip:text;
+  color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 3px 12px rgba(5,24,44,.45))}
+.rv-txt{display:flex;flex-direction:column;gap:6px;padding-left:10px;border-left:1px solid rgba(255,255,255,.38)}
+.rv-stars{color:#EED39A;font-size:11.5px;letter-spacing:2px;line-height:1}
+.rv-count{font-size:12.5px;font-weight:500;line-height:1;opacity:.88;padding-bottom:2px;
+  background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--ease)}
+.reviews:hover .rv-count{background-size:100% 1px}
+/* tighter reviews, for screens where the bottles stand close to the copy */
+.hero.rv-tight .ctas{gap:14px}
+.hero.rv-tight .rv-num{font-size:38px}
+.hero.rv-tight .reviews{gap:8px}
+.hero.rv-tight .rv-txt{gap:5px;padding-left:8px}
+.hero.rv-tight .rv-count{font-size:11.5px}
 
 /* product card — a glass frame that scrolls through the edit */
 @property --tone{syntax:'<color>';inherits:true;initial-value:rgba(170,214,240,.62)}
@@ -209,40 +230,44 @@ a:hover .roll::after{transform:none}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .pc-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:2px 6px 0}
 .pc-mark{height:22px;width:auto;display:block;opacity:.92}
-.pc-idx{display:flex;align-items:baseline;font-size:20px;line-height:1}
-.pc-idx .w{display:block;overflow:hidden;padding:.06em 0 .1em;margin:-.06em 0 -.1em}
-.pc-idx b{display:block;font-weight:inherit}
-.pc-idx b.flip{animation:pgIn .8s var(--ease) both}
-.pc-idx i{font-style:normal;font-size:.72em;opacity:.55;margin:0 6px 0 7px}
-.pc-idx em{font-style:normal;font-size:.72em;opacity:.7}
-.pc-media{--tone:rgba(170,214,240,.62);position:relative;height:clamp(196px,26vh,260px);margin:12px 0 0;border-radius:20px;overflow:hidden;transition:--tone 1.1s ease;
-  background:radial-gradient(120% 90% at 50% 100%,rgba(255,255,255,.34),rgba(255,255,255,.06) 60%),rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22)}
-.pc-media::before{content:"";position:absolute;left:50%;top:46%;width:86%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--tone),rgba(255,255,255,0) 66%)}
-.pc-media::after{content:"";position:absolute;left:22%;right:22%;bottom:10%;height:12px;border-radius:50%;background:radial-gradient(closest-side,rgba(8,26,44,.4),rgba(8,26,44,0))}
-.pc-img{position:absolute;z-index:1;left:50%;bottom:12%;max-height:74%;max-width:60%;width:auto;opacity:0;transform:translate(-50%,46%);filter:drop-shadow(0 14px 14px rgba(8,26,44,.32));
-  transition:transform 1s var(--ease),opacity .55s ease}
-.pc-img.is-on{opacity:1;transform:translate(-50%,0)}
-.pc-img.is-prev{opacity:0;transform:translate(-50%,-46%)}
-.pc-info{padding:16px 6px 0;overflow:hidden}
-.pc-info h2{margin:0;font-size:28px}
-.pc-info p{margin:9px 0 0;opacity:.78;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-info.swap > *{animation:rollIn .75s var(--ease) both}
-.pc-info.swap p{animation-delay:.06s}
-@keyframes rollIn{from{transform:translateY(70%);opacity:0}to{transform:none;opacity:1}}
-.pc-bottom{display:flex;align-items:center;gap:14px;padding:16px 6px 2px}
-.pc-progress{flex:1;display:flex;gap:6px}
-.seg{position:relative;flex:1;height:20px;padding:0;border:0;background:none;cursor:pointer}
-.seg::before,.seg i{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;border-radius:2px}
-.seg::before{background:rgba(255,255,255,.32)}
-.seg i{background:#fff;transform-origin:0 50%;transform:scaleX(0)}
-.seg.is-done i{transform:scaleX(1)}
-.seg.is-on i{animation:fill 5.2s linear forwards}
-body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-state:paused}
-@keyframes fill{to{transform:scaleX(1)}}
-.pc-arrows{display:flex;gap:6px}
-.pc-arrows button{width:34px;height:34px;display:grid;place-items:center;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);cursor:pointer;transition:background .3s,color .3s}
-.pc-arrows button:hover{background:#fff;color:var(--ink)}
-.pc-arrows svg{width:14px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+/* the bundle: the four pieces stand together in the frame; the one picked on the scene lifts, the rest step back */
+.pc-badge{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-shadow:none}
+.pc-media{--tone:rgba(255,226,180,.62);position:relative;height:clamp(206px,27vh,268px);margin:12px 0 0;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.22);
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03) 56%,rgba(255,247,234,.24))}
+.pc-media::before{content:"";position:absolute;left:50%;top:42%;width:124%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--tone),rgba(255,255,255,0) 56%)}  /* warm light behind the group */
+/* a shallow glass pedestal the four pieces share — every base stands inside its ellipse
+   (centre 19% up, half-width 45%, half-height 15%): the back row on its far half, the front row on its near half */
+.bd-plinth{position:absolute;left:50%;bottom:4%;width:90%;height:30%;transform:translateX(-50%);border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.42),rgba(255,255,255,.16) 62%,rgba(255,255,255,0));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -6px 14px -8px rgba(8,26,44,.25)}
+.bd-item{position:absolute;left:var(--x);bottom:var(--b);height:var(--h);transform:translateX(-50%);transition:transform .6s var(--ease),opacity .4s ease}
+.bd-item img{display:block;height:100%;width:auto;filter:drop-shadow(0 10px 8px rgba(8,26,44,.24))}
+.bd-item::after{content:"";position:absolute;z-index:-1;left:4%;right:4%;bottom:-4px;height:9px;border-radius:50%;background:radial-gradient(closest-side,rgba(8,26,44,.45),rgba(8,26,44,0))}  /* contact shadow */
+.bd-jasmine{--x:41%;--b:21%;--h:66%;z-index:1}                            /* back row: a step behind, a touch dimmer */
+.bd-diffuser{--x:69%;--b:21%;--h:43%;z-index:1}
+.bd-jasmine img,.bd-diffuser img{filter:drop-shadow(0 10px 8px rgba(8,26,44,.24)) brightness(.95)}
+.bd-ocean{--x:55%;--b:9%;--h:58%;z-index:3}                              /* front row */
+.bd-citrus{--x:30%;--b:10%;--h:37%;z-index:4}
+.pc-media.has-on .bd-item{opacity:.45}
+.pc-media.has-on .bd-item.is-on{opacity:1;transform:translateX(-50%) translateY(-6px)}
+.pc-info{padding:16px 6px 0}
+.pc-info h2{margin:0;font-size:24px;white-space:nowrap}
+.pc-info p{margin:0 0 8px;opacity:.8}
+/* bundle price: the price to pay in the display serif, then the four pieces' full price struck through */
+.pc-price{display:flex;align-items:baseline;gap:6px;margin:10px 0 0}
+.pc-now{font-size:27px;line-height:1;color:#FFF3DC}
+.pc-cur{opacity:.9}
+.pc-was{margin-left:6px;opacity:.6;text-decoration:line-through;text-decoration-thickness:1px}
+/* what's inside, as small glass chips */
+.pc-chips{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0 0;padding:0;list-style:none}
+.pc-chips li{display:inline-flex;align-items:center;height:23px;padding:0 7px;border-radius:999px;border:1px solid rgba(255,255,255,.42);background:rgba(255,255,255,.1);
+  font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:0;line-height:1}
+.pc-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;height:46px;margin:16px 0 0;padding:0 6px 0 18px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-shadow:none;transition:background .3s}
+.pc-cta:hover{background:#fff}
+.pc-cta .roll{white-space:nowrap;line-height:1.3}
+.pc-cta .ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#F2DCAE;transition:transform .45s var(--ease)}
+.pc-cta:hover .ic{transform:translateX(2px)}
+.pc-cta svg{width:14px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 
 .hero-foot{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none}
 .hero-foot > *{pointer-events:auto}                                    /* the empty middle of the row doesn't block the bottles */
@@ -291,9 +316,9 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 .hero-veil.mark-out .veil-mark img,.hero-veil.mark-out .veil-mark span{opacity:0;transform:translateY(-10px);transition-duration:.3s,.5s}
 .hero-veil.mark-out .veil-mark b{transform:scaleX(0);transition-duration:.3s}
 /* while the curtain is closed the hero goes back to its pre-entrance state, then plays in again */
-.is-revealed .hero.is-reset .rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows g,
+.is-revealed .hero.is-reset .rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows,
 .is-revealed .hero.is-reset .title .ch,.is-revealed .hero.is-reset .script .w,.is-revealed .hero.is-reset .swash path,.is-revealed .hero.is-reset .l-bg img{transition:none!important}
-.is-revealed .hero.is-reset .hero-copy .rise,.is-revealed .hero.is-reset .pcard.rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows g{opacity:0}
+.is-revealed .hero.is-reset .hero-copy .rise,.is-revealed .hero.is-reset .pcard.rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows{opacity:0}
 .is-revealed .hero.is-reset .hero-copy .rise{transform:translateY(22px)}
 .is-revealed .hero.is-reset .pcard.rise{transform:translateY(-44%) translateX(44px)}
 .is-revealed .hero.is-reset .product{transform:translateY(54px)}
@@ -312,16 +337,15 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 .is-revealed .pcard.rise{transform:translateY(-44%)}
 .is-revealed .l-bg img{transform:none}
 .is-revealed .product{opacity:1;transform:none}
-.is-revealed .shadows g{opacity:1}
+.is-revealed .shadows{opacity:1}
 .is-revealed .hotspot{opacity:1;transform:none}
+/* while the preloader is up the hero lies under it: its looping animations wait until the page is through, so nothing
+   under the curtain repaints every frame (the gold shimmer on "Whisper" is a full repaint of a drop-shadowed script line) */
+body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .kicker .wave path,body:not(.is-ready) .script .w{animation-play-state:paused}
 
 /* near-square landscape screens (4:3 tablets, small laptops): text on top, products below, no card */
 .hero.is-compact .hero-copy{top:clamp(112px,15vh,150px);transform:none;--fs:clamp(58px,7.4vw,112px)}
 .hero.is-compact .pcard{display:none}
-@media (min-width:861px) and (max-width:1400px){
-  .ctas{gap:18px 26px}
-  .hero:not(.is-compact) .more{flex-basis:100%}
-}
 @media (max-width:1180px){
   .nav-links{display:none}
   .menu-btn{display:grid}
@@ -342,7 +366,8 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
   .pg-num{white-space:nowrap}.pg-track i.on{width:26px}
   #replay{width:34px;height:34px;padding:0;justify-content:center;font-size:14px;letter-spacing:0}#replay .lbl{display:none}
   .hero-foot{bottom:20px}
-  .is-portrait .l-bg img,.is-portrait .tint{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%);mask-image:linear-gradient(180deg,transparent 0,#000 30%)}
+  /* the cabin's ceiling and the top of the window frame fade out completely, so the photo melts into the sky above */
+  .is-portrait .l-bg img,.is-portrait .tint{-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%);mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%)}
 }
 
 /* ================================ PRELOADER ================================ */
@@ -359,7 +384,7 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 .pl-bar i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,rgba(231,212,199,.2),rgba(231,212,199,.9))}
 @media (prefers-reduced-motion:reduce){ .hotspot i{animation:none} }
 </style>
-<noscript><style>#hs-pre{display:none}body{overflow:auto}.rise,.product,.shadows g,.hotspot{opacity:1!important;transform:none!important}.l-bg img{transform:none}</style></noscript>
+<noscript><style>#hs-pre{display:none}body{overflow:auto}.rise,.product,.shadows,.hotspot{opacity:1!important;transform:none!important}.l-bg img{transform:none}</style></noscript>
 </head>
 <body>
 
@@ -389,7 +414,9 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
 <main>
 <section class="hero" id="hero" aria-label="Ocean Whisper">
   <div class="hero-stage" id="hero-stage">
-    <div class="layer l-bg"><img src="assets/hero/01-clean-coastal-photograph.jpg" alt="" width="1672" height="941">
+    <!-- the cabin photograph uncropped: the cabin hero file shows its band y 74–874; the band above (the ceiling beam)
+         and below (the floor) is the same photograph, there so the scene can zoom out on less-wide screens -->
+    <div class="layer l-bg"><img src="assets/hero/01-coastal-cabin-display.jpg" alt="" width="1672" height="941">
       <div class="tint" aria-hidden="true"><i class="t-warm"></i><i class="t-haze"></i><i class="t-sun"></i></div>
     </div>
     <div class="layer l-products">
@@ -398,19 +425,22 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
           <filter id="cast-blur" x="-30%" y="-45%" width="165%" height="195%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="5"/></filter>
           <filter id="contact-blur" x="-35%" y="-100%" width="170%" height="280%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="3"/></filter>
         </defs>
-        <g style="--d:.55s"><path d="M552 801 Q590 795 674 801 L790 841 L748 857 L621 830 L550 812 Z" fill="#482e20" opacity=".32" filter="url(#cast-blur)"/><ellipse cx="618" cy="808" rx="60" ry="9" fill="#372414" opacity=".58" filter="url(#contact-blur)"/></g>
-        <g style="--d:.35s"><path d="M749 759 C791 753 846 748 879 761 L1051 840 L1004 857 L821 804 L744 775 Z" fill="#482e20" opacity=".32" filter="url(#cast-blur)"/><ellipse cx="806" cy="765" rx="67" ry="12" fill="#372414" opacity=".58" filter="url(#contact-blur)"/></g>
-        <g style="--d:.45s"><path d="M940 674 Q975 670 1041 673 L1131 713 L1100 728 L977 703 L935 685 Z" fill="#482e20" opacity=".32" filter="url(#cast-blur)"/><ellipse cx="992" cy="680" rx="59" ry="9" fill="#372414" opacity=".58" filter="url(#contact-blur)"/></g>
-        <g style="--d:.65s"><path d="M1074 770 Q1136 755 1245 767 L1457 842 L1408 859 L1188 823 L1085 791 Z" fill="#482e20" opacity=".32" filter="url(#cast-blur)"/><ellipse cx="1164" cy="777" rx="90" ry="13" fill="#372414" opacity=".58" filter="url(#contact-blur)"/></g>
+        <!-- contact + cast shadows from the cabin hero file: each product stands on a step of the display -->
+        <g style="--d:.55s" transform="translate(536 809) scale(1) translate(-617 -813)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="642" cy="810" rx="66" ry="7"/><ellipse cx="618" cy="808" rx="60" ry="9" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
+        <g style="--d:.35s" transform="translate(792 736) scale(1) translate(-805 -771)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="830" cy="768" rx="74" ry="7"/><ellipse cx="806" cy="765" rx="67" ry="12" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
+        <g style="--d:.45s" transform="translate(1008 644) scale(0.9) translate(-992 -685)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="1017" cy="682" rx="65" ry="7"/><ellipse cx="992" cy="680" rx="59" ry="9" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
+        <g style="--d:.65s" transform="translate(1220 778) scale(1) translate(-1164 -785)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="1189" cy="782" rx="99" ry="7"/><ellipse cx="1164" cy="777" rx="90" ry="13" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
       </svg>
-      <button class="product" type="button" data-i="1" aria-label="Jasmine Royale" style="left:928px;top:179px;width:127px;height:508px;--d:.45s"><img src="assets/hero/02-jasmine-royale-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="0" aria-label="Ocean Whisper" style="left:733px;top:285px;width:145px;height:488px;--d:.35s"><img src="assets/hero/04-ocean-whisper-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="2" aria-label="Citrus Jasmine" style="left:552px;top:522px;width:130px;height:294px;--d:.55s"><img src="assets/hero/03-citrus-jasmine-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="3" aria-label="Portable Diffuser" style="left:1060px;top:464px;width:207px;height:323px;--d:.65s"><img src="assets/hero/05-portable-diffuser-cutout.png" alt=""></button>
-      <button class="hotspot" type="button" data-i="0" data-name="Ocean Whisper" data-type="Extrait de Parfum" style="left:878px;top:330px;--d:1.1s" aria-label="Ocean Whisper"><i></i></button>
-      <button class="hotspot" type="button" data-i="1" data-name="Jasmine Royale" data-type="Fabric Scent Spray" style="left:1058px;top:236px;--d:1.2s" aria-label="Jasmine Royale"><i></i></button>
-      <button class="hotspot" type="button" data-i="2" data-name="Citrus Jasmine" data-type="Aroma Oil" style="left:684px;top:560px;--d:1.3s" aria-label="Citrus Jasmine"><i></i></button>
-      <button class="hotspot" type="button" data-i="3" data-name="Portable Diffuser" data-type="Home Fragrance" style="left:1250px;top:500px;--d:1.4s" aria-label="Portable Diffuser"><i></i></button>
+      <!-- positions from the cabin hero file (its group transforms applied): Jasmine Royale on the top step at 90%,
+           Ocean Whisper on the middle step, Citrus Jasmine low left, the diffuser on the right -->
+      <button class="product" type="button" data-i="1" aria-label="Jasmine Royale" style="left:950.4px;top:188.6px;width:114.3px;height:457.2px;--d:.45s"><img src="assets/hero/02-jasmine-royale-cutout.png" alt=""></button>
+      <button class="product" type="button" data-i="0" aria-label="Ocean Whisper" style="left:720px;top:250px;width:145px;height:488px;--d:.35s"><img src="assets/hero/04-ocean-whisper-cutout.png" alt=""></button>
+      <button class="product" type="button" data-i="2" aria-label="Citrus Jasmine" style="left:471px;top:518px;width:130px;height:294px;--d:.55s"><img src="assets/hero/03-citrus-jasmine-cutout.png" alt=""></button>
+      <button class="product" type="button" data-i="3" aria-label="Portable Diffuser" style="left:1116px;top:457px;width:207px;height:323px;--d:.65s"><img src="assets/hero/05-portable-diffuser-cutout.png" alt=""></button>
+      <button class="hotspot" type="button" data-i="0" data-name="Ocean Whisper" data-type="Extrait de Parfum" style="left:865px;top:295px;--d:1.1s" aria-label="Ocean Whisper"><i></i></button>
+      <button class="hotspot" type="button" data-i="1" data-name="Jasmine Royale" data-type="Fabric Scent Spray" style="left:1067px;top:240px;--d:1.2s" aria-label="Jasmine Royale"><i></i></button>
+      <button class="hotspot" type="button" data-i="2" data-name="Citrus Jasmine" data-type="Aroma Oil" style="left:603px;top:556px;--d:1.3s" aria-label="Citrus Jasmine"><i></i></button>
+      <button class="hotspot" type="button" data-i="3" data-name="Portable Diffuser" data-type="Home Fragrance" style="left:1138px;top:512px;--d:1.4s" aria-label="Portable Diffuser"><i></i></button>
     </div>
   </div>
   <div class="scrim"></div>
@@ -419,6 +449,7 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
     <i class="st-lead"></i>
     <a class="st-card" id="st-card" href="#" tabindex="-1">
       <span class="st-txt"><small class="st-type" id="st-type"></small><b class="st-name" id="st-name"></b></span>
+      <span class="st-price"><b id="st-price"></b><small class="st-cur"></small></span>
       <span class="st-go" aria-hidden="true"><svg viewBox="0 0 14 10"><path d="M1 5h11.5M9 1l4 4-4 4"/></svg></span>
     </a>
   </div>
@@ -446,35 +477,38 @@ body:not(.is-revealed) .seg.is-on i,.pcard:hover .seg.is-on i{animation-play-sta
       </span>
     </h1>
     <div class="ctas rise" style="--d:.9s">
-      <a class="btn" href="#"><span class="roll" data-t="Shop Ocean Whisper"><span>Shop Ocean Whisper</span></span><span class="ic" aria-hidden="true"><svg class="a1" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg><svg class="a2" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></span></a>
-      <a class="more" href="#"><span class="roll" data-t="Explore the edit"><span>Explore the edit</span></span></a>
+      <a class="btn" href="#"><span class="roll" data-t="Shop the collection"><span>Shop the collection</span></span><span class="ic" aria-hidden="true"><svg class="a1" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg><svg class="a2" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></span></a>
+      <!-- social proof: the rating and how many reviews it rests on (placeholder figures — replace with the real ones) -->
+      <a class="reviews" href="#" aria-label="Rated 4.9 out of 5 from 1.2k reviews">
+        <b class="rv-num">4.9</b>
+        <span class="rv-txt"><span class="rv-stars" aria-hidden="true">★★★★★</span><span class="rv-count">1.2k reviews</span></span>
+      </a>
     </div>
   </div>
 
-  <aside class="pcard rise" style="--d:.5s" aria-label="The Coastal Edit">
+  <!-- the edit as one bundle: the four pieces together, at a bundle price (the discount figure is a placeholder) -->
+  <aside class="pcard rise" style="--d:.5s" aria-label="The Coastal Bundle">
     <div class="pc-top">
       <img class="pc-mark" src="assets/hayat-secret-icon-white.svg" alt="">
-      <span class="pc-idx"><span class="w"><b id="pc-n">01</b></span><i>/</i><em>04</em></span>
+      <span class="pc-badge">Save 20%</span>
     </div>
+    <!-- a small studio group shot: back row (the tall spray, the diffuser) a step behind, front row (the perfume,
+         the oil) forward and lower, all on one glass pedestal with their own contact shadows -->
     <div class="pc-media" id="pc-media">
-      <img class="pc-img is-on" src="assets/hero/07-ocean-whisper-preview.png" alt="Ocean Whisper">
-      <img class="pc-img" src="assets/hero/08-jasmine-royale-preview.png" alt="Jasmine Royale">
-      <img class="pc-img" src="assets/hero/09-citrus-jasmine-preview.png" alt="Citrus Jasmine">
-      <img class="pc-img" src="assets/hero/10-portable-diffuser-preview.png" alt="Portable Diffuser">
+      <i class="bd-plinth" aria-hidden="true"></i>
+      <span class="bd-item bd-jasmine" data-i="1"><img src="assets/hero/08-jasmine-royale-preview.png" alt="Jasmine Royale"></span>
+      <span class="bd-item bd-diffuser" data-i="3"><img src="assets/hero/10-portable-diffuser-preview.png" alt="Portable Diffuser"></span>
+      <span class="bd-item bd-ocean" data-i="0"><img src="assets/hero/07-ocean-whisper-preview.png" alt="Ocean Whisper"></span>
+      <span class="bd-item bd-citrus" data-i="2"><img src="assets/hero/09-citrus-jasmine-preview.png" alt="Citrus Jasmine"></span>
     </div>
-    <div class="pc-info" id="pc-info" aria-live="polite"><h2 id="pc-name">Ocean Whisper</h2><p id="pc-size">Extrait de Parfum · 100 ML</p></div>
-    <div class="pc-bottom">
-      <div class="pc-progress" role="tablist" aria-label="Products">
-        <button class="seg is-on" role="tab" aria-selected="true" aria-label="Ocean Whisper"><i></i></button>
-        <button class="seg" role="tab" aria-selected="false" aria-label="Jasmine Royale"><i></i></button>
-        <button class="seg" role="tab" aria-selected="false" aria-label="Citrus Jasmine"><i></i></button>
-        <button class="seg" role="tab" aria-selected="false" aria-label="Portable Diffuser"><i></i></button>
-      </div>
-      <div class="pc-arrows">
-        <button type="button" id="pc-prev" aria-label="Previous product"><svg viewBox="0 0 14 10"><path d="M13 5H1.5M5 1 1 5l4 4"/></svg></button>
-        <button type="button" id="pc-next" aria-label="Next product"><svg viewBox="0 0 14 10"><path d="M1 5h11.5M9 1l4 4-4 4"/></svg></button>
-      </div>
+    <div class="pc-info">
+      <p class="pc-kick">Bundle · 4 pieces</p>
+      <h2>The Coastal Bundle</h2>
+      <!-- the bundle price: the four pieces' prices added up, less the bundle discount (filled in from the product data) -->
+      <div class="pc-price" id="pc-price"><b class="pc-now" id="pc-now"></b><small class="pc-cur"></small><s class="pc-was" id="pc-was"></s></div>
+      <ul class="pc-chips" aria-label="In the bundle"><li>Extrait</li><li>Spray</li><li>Oil</li><li>Diffuser</li></ul>
     </div>
+    <a class="pc-cta" href="#"><span class="roll" data-t="Shop the bundle"><span>Shop the bundle</span></span><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></span></a>
   </aside>
 
   <div class="hero-foot rise" style="--d:.6s">
@@ -623,13 +657,15 @@ window.HSArt = (() => {
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches && !qs.has('motion');
 
   /* ---------- timeline (seconds) ---------- */
+  // the logo builds in about 2.9 s (it took 4.3 s): a shorter gather, the ribbons opening faster and closer together,
+  // the name and the tagline overlapping them; the reveal follows straight after
   const T = {
-    gatherStart: .25, gatherEnd: 1.55,
-    bloom: 1.5, pieceGap: .085, pieceDur: 1.15,
-    wordStart: 2.7, wordGap: .035, wordDur: 1.0,
-    tagStart: 3.2, tagGap: .02, tagDur: .9,
-    sheenStart: 3.45, sheenDur: .9,                 // the sheen passes while the tagline settles…
-    countEnd: 4.0, minDissolve: 4.6, dissolveDur: 2.8, tail: 2.6   // …and the reveal follows almost at once (was a ~1s hold)
+    gatherStart: .1, gatherEnd: .78,
+    bloom: .74, pieceGap: .05, pieceDur: .72,       // a brisker build: the ribbons open faster and closer together
+    wordStart: 1.38, wordGap: .024, wordDur: .64,
+    tagStart: 1.62, tagGap: .014, tagDur: .6,
+    sheenStart: 1.8, sheenDur: .68,                 // the sheen passes while the tagline settles…
+    countEnd: 2.3, minDissolve: 2.7, dissolveDur: 2.3, tail: 2.2   // …the reveal follows at once, and climbs in 2.3 s
   };
   const LOGO = { cx: 540, cy: 540, w: 474, h: 792, hx: 522, hy: 640 };   // vertical lockup bounds + the heart of the drop
 
@@ -682,9 +718,8 @@ window.HSArt = (() => {
      While it grows it also unfolds (rotates open around its base) like a petal.
      ========================================================================= */
   const rig = (() => {
-    const soft = svgEl('filter', { id: 'hs-soft', filterUnits: 'userSpaceOnUse', x: -120, y: -120, width: 1320, height: 1320 });
-    soft.appendChild(svgEl('feGaussianBlur', { stdDeviation: 7 }));
-    defs.appendChild(soft);
+    // no blur filter on the masks: a Gaussian blur over eleven masks, re-rasterised every frame, was what made the
+    // build stutter. The round-capped stroke already gives the growing tip a soft, rounded front.
     const glint = svgEl('radialGradient', { id: 'hs-glint' });
     [[0, 'rgba(255,250,244,.95)'], [.35, 'rgba(255,236,228,.42)'], [1, 'rgba(255,236,228,0)']].forEach(([o, c]) => glint.appendChild(svgEl('stop', { offset: o, 'stop-color': c })));
     defs.appendChild(glint);
@@ -699,13 +734,22 @@ window.HSArt = (() => {
 
     pieces.forEach(pc => {
       const d = pc.base.getAttribute('d');
-      const m = svgEl('mask', { id: `hs-m-${pc.id}`, maskUnits: 'userSpaceOnUse', x: -120, y: -120, width: 1320, height: 1320 });
-      pc.maskPath = svgEl('path', { d, fill: 'none', stroke: '#fff', 'stroke-width': 82, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', filter: 'url(#hs-soft)' });
+      const ba = pc.base.getBBox(), bs = pc.shade ? pc.shade.getBBox() : ba, pad = 50;   // the mask covers its own ribbon only
+      const mx = Math.min(ba.x, bs.x) - pad, my = Math.min(ba.y, bs.y) - pad;
+      const m = svgEl('mask', { id: `hs-m-${pc.id}`, maskUnits: 'userSpaceOnUse', x: mx, y: my,
+        width: Math.max(ba.x + ba.width, bs.x + bs.width) + pad - mx, height: Math.max(ba.y + ba.height, bs.y + bs.height) + pad - my });
+      pc.maskPath = svgEl('path', { d, fill: 'none', stroke: '#fff', 'stroke-width': 82, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
       m.appendChild(pc.maskPath); defs.appendChild(m);
       clip.appendChild(svgEl('path', { d }));
       pc.len = pc.base.getTotalLength();
+      // the outline, sampled once — the glints read from this table instead of calling getPointAtLength every frame
+      pc.pts = new Float32Array(321 * 2);
       let best = 0, bestY = -Infinity;                       // base = the lowest point of the ribbon
-      for (let k = 0; k <= 320; k++) { const l = pc.len * k / 320, p = pc.base.getPointAtLength(l); if (p.y > bestY) { bestY = p.y; best = l; } }
+      for (let k = 0; k <= 320; k++) {
+        const l = pc.len * k / 320, p = pc.base.getPointAtLength(l);
+        pc.pts[2 * k] = p.x; pc.pts[2 * k + 1] = p.y;
+        if (p.y > bestY) { bestY = p.y; best = l; }
+      }
       pc.p0 = best;
       const pv = pc.base.getPointAtLength(best); pc.pv = [pv.x, pv.y];
       const bb = pc.base.getBBox();
@@ -741,19 +785,25 @@ window.HSArt = (() => {
   })();
 
   /* ---------- layout ---------- */
-  let W, H, dpr, s, tx, ty, hx, hy, cxL, cyL, maxR;
+  let W, H, dpr, gdpr = 1, s, tx, ty, hx, hy, cxL, cyL, maxR;
+  // the WebGL dissolve renders at ≤ 1.25× (a full-screen fragment shader at 2× was the main cost of the reveal);
+  // the canvas is stretched to the screen, and the petals / dust stay sharp at full resolution on their own canvas
+  function sizeCanvases() {
+    gdpr = Math.min(dpr, 1.25);
+    glCanvas.width = Math.round(W * gdpr); glCanvas.height = Math.round(H * gdpr);
+    fxCanvas.width = Math.round(W * dpr); fxCanvas.height = Math.round(H * dpr);
+  }
   function layout() {
     W = innerWidth; H = innerHeight; dpr = Math.min(window.devicePixelRatio || 1, 2);
     stage.setAttribute('viewBox', `0 0 ${W} ${H}`);
     stage.setAttribute('width', W); stage.setAttribute('height', H);
-    s = Math.min((H * .54) / LOGO.h, (W * .76) / LOGO.w);
+    s = Math.min((H * .38) / LOGO.h, (W * .56) / LOGO.w);              // the lockup sits smaller, with more room around it
     cxL = W / 2; cyL = H / 2;
     tx = cxL - LOGO.cx * s; ty = cyL - LOGO.cy * s;
     logoG.setAttribute('transform', `translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${s.toFixed(5)})`);
     hx = tx + LOGO.hx * s; hy = ty + LOGO.hy * s;
     maxR = Math.max(Math.hypot(hx, hy), Math.hypot(W - hx, hy), Math.hypot(hx, H - hy), Math.hypot(W - hx, H - hy));
-    glCanvas.width = fxCanvas.width = Math.round(W * dpr);
-    glCanvas.height = fxCanvas.height = Math.round(H * dpr);
+    sizeCanvases();
   }
   let markK = 1;
   const toScreen = (x, y) => [tx + s * (LOGO.hx + markK * (x - LOGO.hx)), ty + s * (LOGO.hy + markK * (y - LOGO.hy))];
@@ -763,13 +813,13 @@ window.HSArt = (() => {
   function renderIntro(t) {
     pollen = [];
     // essence: gathers while the petals spiral in, flashes at the bloom, then gives way to the ribbons
-    const gather = smooth(T.gatherStart + .2, T.bloom, t), after = smooth(T.bloom, T.bloom + 1.3, t);
+    const gather = smooth(T.gatherStart + .15, T.bloom, t), after = smooth(T.bloom, T.bloom + .9, t);
     const flash = Math.exp(-Math.pow((t - T.bloom) / .16, 2));
     const eo = gather * (1 - after) * (.82 + .18 * Math.sin(t * 4.2)) + flash * .45;
     rig.essence.setAttribute('opacity', clamp01(eo).toFixed(3));
     rig.essence.setAttribute('r', (50 + 85 * gather + 55 * flash).toFixed(1));
 
-    markK = .955 + .045 * eOutQuart(clamp01((t - T.bloom) / 2.6));
+    markK = .955 + .045 * eOutQuart(clamp01((t - T.bloom) / 1.8));
     if (markK >= .99999) markG.removeAttribute('transform');
     else markG.setAttribute('transform', `translate(${LOGO.hx} ${LOGO.hy}) scale(${markK.toFixed(5)}) translate(${-LOGO.hx} ${-LOGO.hy})`);
 
@@ -795,8 +845,9 @@ window.HSArt = (() => {
       const ga = Math.pow(Math.sin(Math.PI * p), 1.3) * .7, cr = Math.cos(rot / DEG), sr = Math.sin(rot / DEG);
       [pc.p0 - r, pc.p0 + r].forEach((pos, j) => {
         if (2 * r >= L && j) { pc.gl[j].setAttribute('opacity', 0); return; }
-        const q = pc.base.getPointAtLength(mod(pos, L));
-        const dx = (q.x - px) * sc, dy = (q.y - py) * sc;
+        const f = mod(pos, L) / L * 320, k0 = Math.min(319, f | 0), w = f - k0, P2 = pc.pts;
+        const qx = P2[2 * k0] + (P2[2 * k0 + 2] - P2[2 * k0]) * w, qy = P2[2 * k0 + 1] + (P2[2 * k0 + 3] - P2[2 * k0 + 1]) * w;
+        const dx = (qx - px) * sc, dy = (qy - py) * sc;
         const X = px + dx * cr - dy * sr, Y = py + dx * sr + dy * cr;
         pc.gl[j].setAttribute('cx', X.toFixed(1)); pc.gl[j].setAttribute('cy', Y.toFixed(1)); pc.gl[j].setAttribute('opacity', ga.toFixed(3));
         if (ga > .15) pollen.push(toScreen(X, Y));
@@ -946,15 +997,15 @@ window.HSArt = (() => {
   }
   function spawnSeed(t) {                                   // a petal that spirals into the heart and becomes the essence
     const k = clamp(Math.min(W, H) / 820, .7, 1.35), [x, y] = edgePoint(30);
-    const arrive = lerp(1.18, T.gatherEnd, Math.random());
+    const arrive = lerp(T.bloom - .24, T.bloom - .02, Math.random());      // the seeds all land before the bloom — nothing sparks after it
     RS.push({ kind: 'seed', spr: pick(SPR.seed), x0: x, y0: y, x, y, r0: Math.hypot(x - hx, y - hy), th0: Math.atan2(y - hy, x - hx),
-      spin: (Math.random() < .75 ? 1 : -1) * (1.5 + Math.random() * 1.3), t0: t, dur: Math.max(.6, arrive - t), size: (38 + Math.random() * 24) * k,
+      spin: (Math.random() < .75 ? 1 : -1) * (1.5 + Math.random() * 1.3), t0: t, dur: Math.max(.28, arrive - t), size: (38 + Math.random() * 24) * k,
       rot: 0, fl: Math.random() * 6.283, vf: 2 + Math.random() * 2, z: .5, amax: .95, a: 0 });
     RS.sort((p, q) => p.z - q.z);
   }
   function emitPetals(t, dt, u) {
     if (REDUCED) return;
-    while (seedCount < SEEDS && t >= T.gatherStart + seedCount / SEEDS * .75) { seedCount++; spawnSeed(t); }
+    while (seedCount < SEEDS && t >= T.gatherStart + seedCount / SEEDS * .34) { seedCount++; spawnSeed(t); }
     const area = clamp((W * H) / (1280 * 800), .45, 1.5);
     let rate = 13 * area * smooth(.05, 1.2, t);
     if (u >= 0) rate *= 1 - smooth(.12, .3, u);                         // no new petals drift in over the revealed page
@@ -967,7 +1018,7 @@ window.HSArt = (() => {
     }
   }
   function stepPetals(t, dt, front, u) {
-    const rf = Math.max(0, front) * maxR, guard = u < .12;
+    const fy = H * (1 - Math.max(0, front)), guard = u < .12;              // the front is a line climbing from the bottom
     const inhale = isFinite(dStart) && u < 0 ? smooth(dStart - .95, dStart, t) : 0;
     const rx = LOGO.w * s * .5 + 46, ry = LOGO.h * s * .5 + 18;
     for (let i = RS.length - 1; i >= 0; i--) {
@@ -979,7 +1030,7 @@ window.HSArt = (() => {
         p.rot = th + Math.PI / 2; p.fl += p.vf * dt;
         p.scale = .25 + .75 * (1 - e);
         p.a = p.amax * smooth(0, .12, q) * (1 - smooth(.82, 1, q));
-        if (q >= 1) { burst(hx, hy, 9, p.spr._rgb, 40); RS.splice(i, 1); }
+        if (q >= 1) { burst(hx, hy, 5, p.spr._rgb, 40, .7); RS.splice(i, 1); }   // a small, short puff: no light lingers at the heart
         continue;
       }
       p.age += dt;
@@ -989,9 +1040,9 @@ window.HSArt = (() => {
       const k = Math.min(1, dt * 1.2), inw = p.kicked ? p.inw : p.inw * (1 + 2.4 * inhale);   // the inhale before the reveal
       p.vx += ((cx * p.flow + dxc / dc * inw) - p.vx) * k;
       p.vy += ((cy * p.flow + dyc / dc * inw) - p.vy) * k;
-      if (u >= 0 && !p.kicked && Math.hypot(p.x - hx, p.y - hy) < rf) {      // the dissolve wave blows them outwards
-        p.kicked = true; const dd = Math.hypot(p.x - hx, p.y - hy) || 1;
-        p.inw = -60 * (1.2 - p.z * .6); p.vx += (p.x - hx) / dd * 150; p.vy += (p.y - hy) / dd * 150; p.vr *= 2.2;
+      if (u >= 0 && !p.kicked && front > 0 && p.y > fy) {                  // the rising front lifts them up and away
+        p.kicked = true;
+        p.inw = -60 * (1.2 - p.z * .6); p.vx += (Math.random() - .5) * 120; p.vy -= 150; p.vr *= 2.2;
         p.life = Math.min(p.life, p.age + (p.kind === 'rose' || p.z > .86 ? .8 : 1.4));       // once over the page, petals fade fast — no veil left on the hero
       }
       p.x += (p.vx + Math.sin(p.age * 1.3 + p.ph) * 10) * dt;
@@ -1070,7 +1121,7 @@ vec4 leaves(vec2 frag, float k){
   /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
      (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
      one by one at random, so what is left is a lace of leaf shapes. */
-  float cs = floor(mix(3., 8.5, k*k))*uDpr;
+  float cs = floor(mix(7., 15.5, k*k))*uDpr;      /* larger leaves, so fewer of them */
   vec2 g = frag/cs, cb = floor(g);
   float crum = pow(k, 2.2)*1.04;
   vec4 r = vec4(0.);
@@ -1082,7 +1133,7 @@ vec4 leaves(vec2 frag, float k){
     vec2 lp = g - c - .5 - (vec2(h2, h3) - .5)*.4;
     float ang = h2*6.2832, ca = cos(ang), sa = sin(ang);
     vec2 q = mat2(ca, -sa, sa, ca)*lp;
-    float dl = max(length(q - vec2(.64, 0.)), length(q + vec2(.64, 0.))) - 1.06;   /* leaf ≈ 1.7 × .84 cells */
+    float dl = max(length(q - vec2(.55, 0.)), length(q + vec2(.55, 0.))) - .91;    /* leaf ≈ 1.45 × .72 cells */
     float cov = 1. - smoothstep(-.9/cs, .9/cs, dl);
     if (cov > r.x) r = vec4(cov, h3, step(h21(c*2.31 + 5.3) + .04, k*.62), step(.94, h21(c*.71 + floor(uT*16.))));
   }}
@@ -1090,29 +1141,28 @@ vec4 leaves(vec2 frag, float k){
 }
 void main(){
   vec2 frag = gl_FragCoord.xy;
-  vec2 rel = frag - uC;
-  float d = length(rel)/uMaxR;
-  vec2 np = rel/uRes.y;
+  float d = frag.y/uRes.y;                        /* the front climbs from the bottom of the screen (was: a ring from the heart) */
+  vec2 np = frag/uRes.y;
   float amp = clamp(uFront*2.4, .1, 1.);
   float n = fbm(np*2.4 + vec2(0., uT*.22)) - .5;
   float m = fbm(ROT*np*7. - uT*.5) - .5;
   float e = uFront - (d + n*.30*amp + m*.06*amp);
+  if (e > .14) { gl_FragColor = vec4(0.); return; }   /* well behind the front: already revealed — skip the rest */
+  if (e < -.26) { gl_FragColor = vec4(texture2D(uTex, frag/uRes).rgb, 1.); return; }   /* far ahead of it: the screen as is */
   float outside = step(e, 0.);                    /* the screen that is still there */
   float k = smoothstep(-.2, 0., e)*uFx*outside;
   vec3 base = texture2D(uTex, frag/uRes).rgb;
-  vec4 L = leaves(frag, k);
+  vec4 L = k > 0. ? leaves(frag, k) : vec4(0.);   /* the leaf mesh only where it can show */
   float aBg = 1. - smoothstep(.04, .2, k);        /* the solid surface hands over to the leaf mesh… */
   float a = outside*max(aBg, L.x);                /* …which crumbles leaf by leaf */
   float lum = dot(base, vec3(.299,.587,.114));
   float on = L.z*(1. - smoothstep(.12, .4, lum)); /* some leaves on the burgundy catch a flat light; the logo keeps its colours */
   vec3 col = mix(base, mix(RO*.95, mix(IV, WH, L.y*.5), L.y*.85), on*.6*L.x);
-  float ae = abs(e);
-  float rim = exp(-ae*60.), rimCore = exp(-ae*170.);
-  float inner = e > 0. ? exp(-e*26.) : 0.;
   float outer = e < 0. ? exp(e*16.) : 0.;
   float glit = L.w*k*on*L.x;                      /* the glint lights the leaf, not its whole cell */
-  float st = stars(frag)*exp(-abs(e + .02)*12.);
-  vec3 light = mix(RO*1.4, WH, rimCore)*rim*1.05 + WH*inner*.55 + mix(RO, IV, .5)*outer*.22 + WH*(st + glit*.9);
+  float st = abs(e) < .16 ? stars(frag)*exp(-abs(e + .02)*24.) : 0.;
+  /* no white rim / bright inner glow along the front any more — just a faint rose warmth and the sparkles */
+  vec3 light = mix(RO, IV, .5)*outer*.16 + WH*(st*.8 + glit*.9);
   light *= uFx;
   float la = clamp(dot(light, vec3(.3333)), 0., 1.);
   float oa = clamp(a + la, 0., 1.);
@@ -1159,59 +1209,59 @@ void main(){
     gl.uniform1f(uni.uFx, fxAmt);
     gl.uniform1f(uni.uStyl, styl);
     gl.uniform1f(uni.uT, t);
-    gl.uniform1f(uni.uDpr, dpr);
+    gl.uniform1f(uni.uDpr, gdpr);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
+  // the front starts right at the bottom edge and moves at once (it used to start below the screen with a slow
+  // ease-in, so the first ~0.75 s of the reveal showed nothing), then eases off towards the top — never stopping
   function frontAt(u) {
-    if (u <= 0) return -.2;
-    if (u < .26) return lerp(-.2, .055, eOutCubic(u / .26));
-    return .055 + (1.24 - .055) * eInOutCubic(clamp01((u - .26) / .74));
+    if (u <= 0) return -.05;
+    const q = clamp01(u);
+    return -.05 + 1.29 * (.55 * q + .45 * (1 - (1 - q) * (1 - q)));
   }
 
   /* ---------- dust: scent particles (petal dissolves, pollen, the dissolve front) + thrown petals ---------- */
   const P = [], PET = [];
   let petalAcc = 0;
-  function burst(x, y, n, rgb, speed) {
-    for (let i = 0; i < n && P.length < 2800; i++) {
+  function burst(x, y, n, rgb, speed, lifeK = 1) {
+    for (let i = 0; i < n && P.length < 1400; i++) {
       const a = Math.random() * 6.283, sp = speed * (.3 + Math.random());
       const c = Math.random() < .35 ? [255, 244, 236] : rgb;
-      P.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 10, age: 0, life: .9 + Math.random() * 1.3, sz: .7 + Math.random() * 1.6, c, ph: Math.random() * 6.28 });
+      P.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 10, age: 0, life: (.9 + Math.random() * 1.3) * lifeK, sz: .7 + Math.random() * 1.6, c, ph: Math.random() * 6.28 });
     }
   }
+  // the front is a line climbing from the bottom of the screen: y = H·(1 − front), give or take its noise
   function spawnDust(dt, front) {
     if (front <= .004 || !sample) return;
-    const rf = front * maxR;
-    const n = Math.min(320, Math.round(dt * 3200 * Math.min(1, rf / 260 + .2)));
-    for (let i = 0; i < n && P.length < 2800; i++) {
-      const a = Math.random() * Math.PI * 2, r = rf * (.9 + Math.random() * .2);
-      const x = hx + Math.cos(a) * r, y = hy + Math.sin(a) * r;
+    const fy = H * (1 - front);
+    const n = Math.min(80, Math.round(dt * 800));                        // fewer specks, each a larger leaf
+    for (let i = 0; i < n && P.length < 1400; i++) {
+      const x = Math.random() * W, y = fy + (Math.random() - .5) * H * .12;
       if (x < 0 || y < 0 || x >= W || y >= H) continue;
       let c = sampleAt(x | 0, y | 0);
       const lum = (.299 * c[0] + .587 * c[1] + .114 * c[2]) / 255;
       if (lum < .13) { if (Math.random() > .3) continue; c = Math.random() < .5 ? [231, 212, 199] : [201, 154, 156]; }
-      const sp = 16 + Math.random() * 70;
-      P.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - (14 + Math.random() * 42), age: 0, life: .8 + Math.random() * 1.5, sz: .6 + Math.random() * 1.8, c, ph: Math.random() * 6.28 });
+      P.push({ x, y, vx: (Math.random() - .5) * 50, vy: -(24 + Math.random() * 90), age: 0, life: .9 + Math.random() * 1.5, sz: .9 + Math.random() * 1.5, c, ph: Math.random() * 6.28 });
     }
   }
   function spawnPetal(front) {
-    const rf = front * maxR, a = Math.random() * Math.PI * 2, r = rf * (.85 + Math.random() * .2);
-    const x = hx + Math.cos(a) * r, y = hy + Math.sin(a) * r;
-    if (x < -20 || y < -20 || x > W + 20 || y > H + 20) return;
-    const sp = 50 + Math.random() * 120, k = clamp(Math.min(W, H) / 820, .75, 1.4);
+    const x = Math.random() * W, y = H * (1 - front) + (Math.random() - .5) * H * .08;
+    if (y < -20 || y > H + 20) return;
+    const k = clamp(Math.min(W, H) / 820, .75, 1.4);
     // thrown over the page that is being revealed: light colourways only, and short-lived so nothing lingers on the hero
-    PET.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 30, rot: Math.random() * 6.28, vr: (Math.random() - .5) * 3.5, fl: Math.random() * 6.28, vf: 2 + Math.random() * 3,
+    PET.push({ x, y, vx: (Math.random() - .5) * 120, vy: -(60 + Math.random() * 120), rot: Math.random() * 6.28, vr: (Math.random() - .5) * 3.5, fl: Math.random() * 6.28, vf: 2 + Math.random() * 3,
       age: 0, life: 1.1 + Math.random() * .8, size: (30 + Math.random() * 26) * k, spr: pick(SPR.seed), ph: Math.random() * 6.28 });
   }
   function stepDust(dt, front) {
-    const rf = Math.max(0, front) * maxR;
-    for (const [x, y] of pollen) if (Math.random() < dt * 26) burst(x, y, 1, [255, 240, 232], 16);
+    const fy = H * (1 - Math.max(0, front)), live = front > 0;
+    for (const [x, y] of pollen) if (Math.random() < dt * 9) burst(x, y, 1, [255, 240, 232], 16);
     for (let i = P.length - 1; i >= 0; i--) {
       const p = P[i];
       p.age += dt;
       if (p.age >= p.life) { P[i] = P[P.length - 1]; P.pop(); continue; }
       p.vx *= 1 - .9 * dt; p.vy = p.vy * (1 - .6 * dt) - 12 * dt;
       p.x += (p.vx + Math.sin(p.age * 3 + p.ph) * 10) * dt; p.y += p.vy * dt;
-      p.inside = rf > 0 ? clamp01((rf - Math.hypot(p.x - hx, p.y - hy)) / 80) : 0;
+      p.inside = live ? clamp01((p.y - fy) / 80) : 0;
     }
     for (let i = PET.length - 1; i >= 0; i--) {
       const p = PET[i];
@@ -1239,7 +1289,7 @@ void main(){
     for (const p of P) {
       const k = p.age / p.life, al = Math.pow(1 - k, 1.4) * Math.min(1, p.age / .08), inside = p.inside || 0;
       if (al < .01) continue;
-      const r = lerp(p.c[0], 156, inside) | 0, g = lerp(p.c[1], 97, inside) | 0, b = lerp(p.c[2], 103, inside) | 0, L = p.sz * 2.4;
+      const r = lerp(p.c[0], 156, inside) | 0, g = lerp(p.c[1], 97, inside) | 0, b = lerp(p.c[2], 103, inside) | 0, L = p.sz * 4.2;
       fx.setTransform(dpr, 0, 0, dpr, dpr * p.x, dpr * p.y); fx.rotate(p.ph + p.age * 2.2);
       fx.globalAlpha = al; fx.drawImage(leafOf(r, g, b), -L / 2, -L / 2, L, L);
     }
@@ -1250,21 +1300,6 @@ void main(){
       fx.globalAlpha = al; fx.drawImage(p.spr, -p.size / 2, -p.size / 2, p.size, p.size); fx.restore();
     }
     fx.globalAlpha = 1;
-  }
-
-  /* the inhale: light gathers in the heart of the drop just before it opens */
-  function drawHeartGlow(t) {
-    if (!isFinite(dStart)) return;
-    const a = smooth(dStart - .85, dStart + .05, t) * (1 - smooth(dStart + .2, dStart + 1.1, t));
-    if (a < .004) return;
-    // an exponential-looking falloff, so it reads as light — a linear ramp to transparent looked like a grey ball
-    const R = Math.min(W, H) * (.08 + .1 * smooth(dStart - .2, dStart + .6, t));
-    const g = fx.createRadialGradient(hx, hy, 0, hx, hy, R);
-    [[0, 255, 250, 244, .95], [.07, 255, 240, 232, .72], [.18, 252, 222, 214, .36], [.34, 232, 176, 178, .14], [.58, 200, 132, 140, .045], [1, 170, 104, 112, 0]]
-      .forEach(([o, r, gg, b, al]) => g.addColorStop(o, `rgba(${r},${gg},${b},${(al * a).toFixed(3)})`));
-    fx.globalCompositeOperation = 'lighter';
-    fx.fillStyle = g; fx.fillRect(hx - R, hy - R, R * 2, R * 2);
-    fx.globalCompositeOperation = 'source-over';
   }
 
   /* =========================================================================
@@ -1287,7 +1322,7 @@ void main(){
       shown = FREEZE != null ? target : shown + (target - shown) * Math.min(1, dt * 9);
       barEl.style.transform = `scaleX(${shown.toFixed(4)})`;                // the only progress cue: a hairline along the foot
     }
-    if (!snapDone && t >= dStart - .4) { makeSnapshot(); snapDone = true; }
+    if (!snapDone && t >= dStart - .4) { makeSnapshot(); snapDone = true; }      // fallback — normally taken in start()
 
     const u = t >= dStart ? (t - dStart) / T.dissolveDur : -1;
     const front = u >= 0 ? frontAt(u) : -1;
@@ -1297,8 +1332,8 @@ void main(){
         if (!swapped) scene.style.visibility = 'hidden';
         else if (u >= 1.04 && glCanvas.style.visibility !== 'hidden') glCanvas.style.visibility = 'hidden';
       } else {
-        const r = Math.max(0, front) * maxR;
-        const mask = `radial-gradient(circle at ${hx}px ${hy}px, transparent ${r}px, #000 ${r + 90}px)`;
+        const r = Math.max(0, front) * H;                                    // no WebGL: a soft wipe from the bottom
+        const mask = `linear-gradient(to top, transparent ${r}px, #000 ${r + 90}px)`;
         scene.style.webkitMaskImage = mask; scene.style.maskImage = mask;
       }
       if (!swapped) { swapped = true; pre.classList.add('is-through'); }
@@ -1315,7 +1350,6 @@ void main(){
     if (render) {
       fx.setTransform(dpr, 0, 0, dpr, 0, 0);
       fx.clearRect(0, 0, W, H);
-      drawHeartGlow(t);
       drawPetals();
       drawDust();
     }
@@ -1325,11 +1359,18 @@ void main(){
     }
   }
 
+  // ?perf — records each frame's cost (script + WebGL, finished) in window.HSPerf, split before / during the reveal
+  const PERF = qs.has('perf') ? { intro: [], dissolve: [] } : null;
+  if (PERF) window.HSPerf = PERF;
   function loop(now) {
     if (finished) return;
     raf = requestAnimationFrame(loop);
     const dt = Math.min(.05, (now - last) / 1000) * SPEED; last = now;
-    update(clock(), dt);
+    if (!PERF) { update(clock(), dt); return; }
+    const a = performance.now(), t = clock();
+    update(t, dt); if (glOK && t >= dStart) gl.finish();
+    (t >= dStart ? PERF.dissolve : PERF.intro).push(+(performance.now() - a).toFixed(2));
+    PERF.dStart = dStart; PERF.loadedT = loadedT; PERF.particles = [RS.length, P.length, PET.length];
   }
   function finish() {
     finished = true; cancelAnimationFrame(raf);
@@ -1348,6 +1389,9 @@ void main(){
     document.body.classList.remove('is-revealed', 'is-ready');
     window.scrollTo(0, 0);
     snapDone = swapped = revealed = unlocked = finished = false; shown = 0;
+    // the snapshot (the resting logo painted to a canvas and uploaded as a texture) is taken here, before the clock
+    // starts and while the screen is still plain burgundy — never in the middle of the logo build, where it stalled a frame
+    makeSnapshot(); snapDone = true;
     if (loaded) loadedT = 0;
     dStart = Infinity;
     t0 = last = performance.now();
@@ -1372,12 +1416,15 @@ void main(){
   }
 
   /* ---------- boot ---------- */
+  // the reveal waits for the page (images) — and for the web fonts only briefly: the preloader itself uses none,
+  // and on a slow connection they could hold the finished logo on screen for seconds
+  const delay = ms => new Promise(r => setTimeout(r, ms));
   const loadP = Promise.race([
     Promise.all([
       document.readyState === 'complete' ? Promise.resolve() : new Promise(r => addEventListener('load', r, { once: true })),
-      document.fonts ? document.fonts.ready : Promise.resolve()
+      document.fonts ? Promise.race([document.fonts.ready, delay(1200)]) : Promise.resolve()
     ]),
-    new Promise(r => setTimeout(r, 9000))
+    delay(9000)
   ]);
   loadP.then(() => { if (!loaded) { loaded = true; loadedT = clock(); } });
   layout();
@@ -1387,8 +1434,8 @@ void main(){
     clearTimeout(rz);
     rz = setTimeout(() => {
       if (finished || pre.style.display === 'none') return;
-      if (!snapDone) layout();
-      else { W = innerWidth; H = innerHeight; glCanvas.width = fxCanvas.width = Math.round(W * dpr); glCanvas.height = fxCanvas.height = Math.round(H * dpr); }
+      if (!swapped) { layout(); makeSnapshot(); snapDone = true; }                // before the reveal: re-lay the logo and re-take the snapshot
+      else { W = innerWidth; H = innerHeight; sizeCanvases(); }
     }, 120);
   });
   $('replay').addEventListener('click', start);
@@ -1402,25 +1449,133 @@ void main(){
    ========================================================================= */
 (() => {
   'use strict';
-  const hero = document.getElementById('hero'), stage = document.getElementById('hero-stage'), nav = document.getElementById('nav');
-  const AW = 1672, AH = 941, FOCUS_X = 905;
-  const OVERSCAN = 1.032, PAR = 16;      // the stage is a touch larger than the screen so the parallax never shows an edge
+  const hero = document.getElementById('hero'), stage = document.getElementById('hero-stage');
+  const nav = document.getElementById('nav');
+  const AW = 1672, AH = 941;
+  // the photograph (the whole stage) always covers the screen. On the cabin hero file's own 1920×919 it shows at the
+  // file's scale; on less-wide screens it zooms out into the band above and below the file's frame (y 74–874)
+  // ── the two numbers to tune ──
+  const OVER = 1.01;         // the photo covers the whole screen, a hair larger so the parallax never shows its edge
+  const BOTTLES = .88;       // the bottles a touch smaller than in the cabin file (1 = its own size), each on its own step
+  // the bottles are sized about their own bases (the CSS scale on .product, origin bottom-centre); their contact
+  // shadows and hotspots follow, so everything stays seated where the cabin file put it
+  const bottleEls = [...stage.querySelectorAll('.product')], spotEls = [...stage.querySelectorAll('.hotspot')];
+  const shadowGs = [...stage.querySelectorAll('.shadows g')].map(g => ({ g, t: g.getAttribute('transform') }));
+  const baseOf = el => [parseFloat(el.style.left) + parseFloat(el.style.width) / 2, parseFloat(el.style.top) + parseFloat(el.style.height)];
+  spotEls.forEach(b => { b._x = parseFloat(b.style.left); b._y = parseFloat(b.style.top); });
+  // f: the bottles' size; cx: how far the Citrus Jasmine jar slides right along its step (stage px) — only on screens
+  // too narrow for it to clear the reviews where the file puts it. Its shadow and hotspot go with it
+  let pf = -1, pcx = -1;
+  function sizeProducts(f, cx = 0) {
+    if (f === pf && cx === pcx) return; pf = f; pcx = cx;
+    stage.style.setProperty('--ps', f.toFixed(4));
+    bottleEls.forEach(p => { p.style.translate = p.dataset.i === '2' && cx ? `${cx.toFixed(1)}px 0` : ''; });
+    spotEls.forEach(b => {
+      const [bx, by] = baseOf(bottleEls.find(p => p.dataset.i === b.dataset.i)), d = b.dataset.i === '2' ? cx : 0;
+      b.style.left = `${(bx + (b._x - bx) * f + d).toFixed(1)}px`; b.style.top = `${(by + (b._y - by) * f).toFixed(1)}px`;
+    });
+    shadowGs.forEach(({ g, t }, k) => g.setAttribute('transform', (k === 0 && cx ? `translate(${cx.toFixed(1)} 0) ` : '') +
+      t.replace(/scale\(([\d.]+)\)/, (m, v) => `scale(${(+v * f).toFixed(4)})`)));   // the first group is the jar's shadow
+  }
   function fit() {
-    const W = hero.clientWidth, H = hero.clientHeight, ar = W / H, portrait = ar < 1.15, compact = !portrait && ar < 1.5;
+    const W = hero.clientWidth, H = hero.clientHeight, ar = W / H, compact = ar >= 1.15 && ar < 1.5;
+    const portrait = matchMedia('(max-aspect-ratio: 23/20)').matches;      // the same test as the photograph's <source>
+    hero.classList.toggle('is-portrait', portrait);           // first: the copy's layout depends on these, and is measured below
+    hero.classList.toggle('is-compact', compact);
     let s, tx, ty;
+    copy.style.marginTop = '';                                // the copy always sits centred on the page
     if (!portrait) {
-      s = Math.max(W / AW, H / AH) * OVERSCAN;
-      tx = clamp(W * (compact ? .56 : .548) - FOCUS_X * s, W - AW * s + PAR, -PAR);
-      // centre vertically, but never let the bottles' bases (y≈868) leave the screen on very wide displays
-      ty = clamp(Math.min((H - AH * s) * (compact ? 1 : .5), H - 30 - 868 * s), H - AH * s + PAR, -PAR);
+      // the photo as it is, edge to edge: it covers the screen, centred — nothing added around it or faded out
+      s = Math.max(W / AW, H / AH) * OVER;
+      const sw = AW * s, sh = AH * s;
+      sizeProducts(BOTTLES);
+      tx = (W - sw) / 2;
+      // the bottles, as a group, centred top to bottom between the nav and the foot of the screen (compact: low,
+      // under the copy) — within the photo's own top and bottom, and never with their footing (y≈830) off the screen
+      const gTop = Math.min(...BOX0.map(([, y, , hh]) => y + hh * (1 - BOTTLES))), gFoot = 818;
+      const yMin = H - sh, yMax = Math.max(yMin, Math.min(0, H - 16 - 830 * s));
+      ty = clamp(compact ? yMax : (nav.offsetHeight + H) / 2 - (gTop + gFoot) / 2 * s, yMin, yMax);
+      [tx, ty] = settle(s, tx, ty, W, sw, yMax, BOTTLES);      // the diffuser clear of the card, the bottles clear of the reviews
     } else {
-      s = Math.max((W * .98) / 760, (H * .5) / AH);
-      tx = W / 2 - FOCUS_X * s;
+      // portrait: fit the whole product group on the display (x 471–1323 on the cabin stage) across the screen,
+      // the uncropped photograph's foot on the screen's foot
+      s = Math.max((W * .96) / 860, (H * .46) / AH);
+      tx = W / 2 - 897 * s;
       ty = H - AH * s;
+      sizeProducts(1);
     }
     stage.style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${s.toFixed(4)})`;
-    hero.classList.toggle('is-portrait', portrait);
-    hero.classList.toggle('is-compact', compact);
+  }
+  // the copy stays centred on the page and the reviews beside its button; the scene makes room. The diffuser may tuck
+  // under the bundle card by at most ~30% of its width. If a bottle would run into the reviews: 1 · the reviews draw a
+  // little tighter; 2 · the photo sinks a little (the bottles toward the foot of the screen); 3 · it steps right —
+  // never past its own edges; 4 · the Citrus jar slides right along its step (up to 70 stage px); 5 · only if all of
+  // that is not enough, the copy lifts by the remainder. The bottles' places come from the stage maths (their boxes on
+  // the 1672×941 stage, sized about their bases); the copy and the card are measured where they will rest, without
+  // their entrance offsets.
+  const BOX0 = [[950.4, 188.6, 114.3, 457.2], [720, 250, 145, 488], [471, 518, 130, 294], [1116, 457, 207, 323]];
+  let BOXES = BOX0;
+  const copy = document.querySelector('.hero-copy');
+  const moved = el => { const t = getComputedStyle(el).transform; return t && t !== 'none' ? new DOMMatrix(t) : new DOMMatrix(); };
+  function settle(s, tx, ty, W, sw, yMax, f) {
+    BOXES = BOX0.map(([x, y, w, hh]) => [x + w * (1 - f) / 2, y + hh * (1 - f), w * f, hh * f]);
+    const h = hero.getBoundingClientRect(), card = document.querySelector('.pcard');
+    // 0 · on narrower screens the wide photo is cropped at the sides and the diffuser drifts under the bundle card:
+    //     the photo steps left until no more than ~30% of the diffuser is behind the card (never past its own right edge)
+    let cl = Infinity;
+    if (card && card.offsetWidth) {
+      cl = card.getBoundingClientRect().left - moved(card).e - h.left;
+      const [x4, , w4] = BOXES[3], maxTx = cl + .3 * w4 * s - (x4 + w4) * s;
+      if (tx > maxTx) tx = Math.max(maxTx, W - sw + 4);
+    }
+    hero.classList.remove('rv-tight');
+    if (!copy.offsetWidth) return [tx, ty];
+    const rv = document.querySelector('.reviews');
+    if (!rv || !rv.offsetWidth) return [tx, ty];
+    let L, R, T, B;
+    const measure = () => {
+      const rm = moved(rv.closest('.rise') || rv), a = rv.getBoundingClientRect();
+      L = a.left - rm.e - h.left; R = a.right - rm.e - h.left; T = a.top - rm.f - h.top; B = a.bottom - rm.f - h.top;
+    };
+    measure();
+    const M = 24, MV = 14;
+    const hits = (tx, ty, boxes = BOXES) => boxes.filter(([x, y, w, hh]) => {
+      const bl = tx + x * s, bt = ty + y * s;
+      return R + M > bl && L < bl + w * s && B + MV > bt && T - MV < bt + hh * s;
+    });
+    if (!hits(tx, ty).length) return [tx, ty];
+    // 1 · the reviews draw a little tighter
+    hero.classList.add('rv-tight'); measure();
+    let hit = hits(tx, ty);
+    if (!hit.length) return [tx, ty];
+    // 2 · the photo sinks, just enough for the bottles that a short drop clears
+    let down = 0;
+    for (const [, y] of hit) { const need = B + MV - (ty + y * s); if (ty + need <= yMax) down = Math.max(down, need); }
+    ty += down;
+    // 3 · the photo steps right by what is left — only as far as its own edge (and the card rule) allows
+    hit = hits(tx, ty);
+    if (!hit.length) return [tx, ty];
+    let need = 0;
+    for (const [x] of hit) need = Math.max(need, R + M - (tx + x * s));
+    let cap = Math.max(0, -tx - 4);
+    if (isFinite(cl)) { const [x4, , w4] = BOXES[3]; cap = Math.min(cap, Math.max(0, cl + .3 * w4 * s - (tx + (x4 + w4) * s))); }
+    tx += Math.min(need, cap);
+    // 4 · the Citrus jar slides right along its step
+    if (hits(tx, ty).includes(BOXES[2])) {
+      const cx = Math.min(70, Math.max(0, (R + M - (tx + BOXES[2][0] * s)) / s));
+      sizeProducts(f, cx);
+      BOXES = BOXES.map((b, k) => k === 2 ? [b[0] + cx, b[1], b[2], b[3]] : b);
+    }
+    // 5 · last resort: the copy lifts by whatever is still in the way (never closer to the nav than 22px)
+    hit = hits(tx, ty);
+    if (hit.length) {
+      const kicker = copy.firstElementChild, navB = nav.getBoundingClientRect().bottom - h.top;
+      const room = Math.max(0, kicker.getBoundingClientRect().top - moved(kicker).f - h.top - navB - 22);
+      let lift = 0;
+      for (const [, y] of hit) { const n = B + MV - (ty + y * s); if (n <= room) lift = Math.max(lift, n); }
+      if (lift > 0) copy.style.marginTop = `${-lift.toFixed(0)}px`;
+    }
+    return [tx, ty];
   }
 
   // headline: split into letters for the entrance
@@ -1430,51 +1585,44 @@ void main(){
   });
   const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
   fit(); addEventListener('resize', fit);
+  if (document.fonts) document.fonts.ready.then(fit);                   // re-check the reviews once Poppins has loaded
 
   const onScroll = () => nav.classList.toggle('is-solid', scrollY > 20);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  // the product frame
+  // the products (names for the hotspot tags; glow tints a tag's glass in that product's tone).
+  // PRICES ARE PLACEHOLDERS — set the real ones here; the bundle card adds them up and takes the discount off itself
+  const CURRENCY = 'AED', BUNDLE_OFF = .2;                       // UAE dirham
   const PRODUCTS = [
-    // tone: the halo behind the bottle in the card · glow: the same tone, fainter, tinting the hotspot tag's glass
-    { name: 'Ocean Whisper',     meta: 'Extrait de Parfum · 100 ML',  tone: 'rgba(170,214,240,.62)', glow: 'rgba(150,206,242,.42)' },   // sea
-    { name: 'Jasmine Royale',    meta: 'Fabric Scent Spray · 300 ML', tone: 'rgba(255,242,222,.72)', glow: 'rgba(255,240,214,.42)' },   // jasmine ivory
-    { name: 'Citrus Jasmine',    meta: 'Scent · Aroma Oil',           tone: 'rgba(248,210,124,.62)', glow: 'rgba(248,204,112,.42)' },   // citrus gold
-    { name: 'Portable Diffuser', meta: 'Fragrance Diffuser',          tone: 'rgba(242,212,204,.68)', glow: 'rgba(244,200,190,.42)' }    // blush
+    { name: 'Ocean Whisper',     price: 320, glow: 'rgba(150,206,242,.42)' },   // sea
+    { name: 'Jasmine Royale',    price: 145, glow: 'rgba(255,240,214,.42)' },   // jasmine ivory
+    { name: 'Citrus Jasmine',    price: 95,  glow: 'rgba(248,204,112,.42)' },   // citrus gold
+    { name: 'Portable Diffuser', price: 240, glow: 'rgba(244,200,190,.42)' }    // blush
   ];
   const $ = id => document.getElementById(id);
+  const money = n => Math.round(n).toLocaleString('en-US');
+  // the bundle: the sum of the four, less the discount
+  (() => {
+    const full = PRODUCTS.reduce((t, p) => t + p.price, 0), now = full * (1 - BUNDLE_OFF);
+    $('pc-now').textContent = money(now);
+    $('pc-was').textContent = `${money(full)} ${CURRENCY}`;
+    document.querySelectorAll('.pc-cur,.st-cur').forEach(el => el.textContent = CURRENCY);
+    document.querySelector('.pc-badge').textContent = `Save ${Math.round(BUNDLE_OFF * 100)}%`;
+    $('pc-price').setAttribute('aria-label', `${money(now)} ${CURRENCY}, was ${money(full)} ${CURRENCY}`);
+  })();
   const flip = el => { el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip'); };
-  const imgs = [...document.querySelectorAll('.pc-img')], segs = [...document.querySelectorAll('.seg')];
-  const info = $('pc-info'), nameEl = $('pc-name'), sizeEl = $('pc-size'), nEl = $('pc-n'), media = $('pc-media');
+  const media = $('pc-media'), bdImgs = [...document.querySelectorAll('.bd-item')];
   const prods = [...document.querySelectorAll('.product')], spots = [...document.querySelectorAll('.hotspot')];
-  let cur = 0;
+  // the bundle card stays put; picking a product on the scene lifts that piece inside the bundle
   function select(i, user) {
     i = (i + PRODUCTS.length) % PRODUCTS.length;
-    const p = PRODUCTS[i], changed = i !== cur;
-    imgs.forEach((im, k) => { im.classList.toggle('is-on', k === i); im.classList.toggle('is-prev', changed && k === cur); });
-    if (changed) setTimeout(() => imgs.forEach((im, k) => k !== i && im.classList.remove('is-prev')), 1000);
-    segs.forEach((sg, k) => {
-      sg.classList.remove('is-on'); sg.classList.toggle('is-done', k < i);
-      sg.setAttribute('aria-selected', k === i ? 'true' : 'false');
-    });
-    void segs[i].offsetWidth; segs[i].classList.add('is-on');           // restart the timer bar
-    cur = i;
-    const nn = String(i + 1).padStart(2, '0');
-    nameEl.textContent = p.name; sizeEl.textContent = p.meta; nEl.textContent = nn;
-    media.style.setProperty('--tone', p.tone);
-    if (changed) flip(nEl);
-    info.classList.remove('swap'); void info.offsetWidth; if (changed) info.classList.add('swap');
+    bdImgs.forEach(im => im.classList.toggle('is-on', +im.dataset.i === i));
+    media.classList.toggle('has-on', !!user);
     prods.forEach(b => b.classList.toggle('is-on', !!user && +b.dataset.i === i));
   }
-  segs.forEach((sg, k) => {
-    sg.addEventListener('click', () => select(k, true));
-    sg.querySelector('i').addEventListener('animationend', () => { if (k === cur) select(cur + 1); });
-  });
-  $('pc-next').addEventListener('click', () => select(cur + 1, true));
-  $('pc-prev').addEventListener('click', () => select(cur - 1, true));
+  const clearSel = () => { bdImgs.forEach(im => im.classList.remove('is-on')); media.classList.remove('has-on'); prods.forEach(b => b.classList.remove('is-on')); };
   prods.concat(spots).forEach(b => b.addEventListener('click', () => select(+b.dataset.i, true)));
-  document.addEventListener('hs:preloader-start', () => select(0));
-  select(0);
+  document.addEventListener('hs:preloader-start', clearSel);
 
   // page switcher — changes the whole hero. Only one page exists for now, so every page replays
   // the Coastal Edit (demo); give each entry its own content when the other pages are ready.
@@ -1530,7 +1678,7 @@ vec4 leaves(vec2 frag, float k){
   /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
      (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
      one by one at random, so what is left is a lace of leaf shapes. */
-  float cs = floor(mix(3., 8.5, k*k))*uDpr;
+  float cs = floor(mix(7., 15.5, k*k))*uDpr;      /* larger leaves, so fewer of them */
   vec2 g = frag/cs, cb = floor(g);
   float crum = pow(k, 2.2)*1.04;
   vec4 r = vec4(0.);
@@ -1542,7 +1690,7 @@ vec4 leaves(vec2 frag, float k){
     vec2 lp = g - c - .5 - (vec2(h2, h3) - .5)*.4;
     float ang = h2*6.2832, ca = cos(ang), sa = sin(ang);
     vec2 q = mat2(ca, -sa, sa, ca)*lp;
-    float dl = max(length(q - vec2(.64, 0.)), length(q + vec2(.64, 0.))) - 1.06;   /* leaf ≈ 1.7 × .84 cells */
+    float dl = max(length(q - vec2(.55, 0.)), length(q + vec2(.55, 0.))) - .91;    /* leaf ≈ 1.45 × .72 cells */
     float cov = 1. - smoothstep(-.9/cs, .9/cs, dl);
     if (cov > r.x) r = vec4(cov, h3, step(h21(c*2.31 + 5.3) + .04, k*.62), step(.94, h21(c*.71 + floor(uT*16.))));
   }}
@@ -1556,20 +1704,20 @@ void main(){
   float m = fbm(ROT*np*7.5 + vec2(0., uT*.5)) - .5;
   float e = uFront - (y + n*.24 + m*.06);        /* > 0: the front has passed this point */
   float ed = e*uDir;                              /* > 0: inside the burgundy */
+  if (ed < -.14) { gl_FragColor = vec4(0.); return; }   /* well clear of the front on the page side */
+  if (ed > .26) { gl_FragColor = vec4(DK, 1.); return; } /* deep in the burgundy: flat colour, nothing else to draw */
   float side = step(0., ed);
   float k = (1. - smoothstep(0., .2, ed))*side;   /* 1 at the front, 0 deep inside the veil */
-  vec4 L = leaves(frag, k);
+  vec4 L = k > 0. ? leaves(frag, k) : vec4(0.);
   float aBg = 1. - smoothstep(.04, .2, k);        /* the solid surface hands over to the leaf mesh… */
   float a = side*max(aBg, L.x);                   /* …which crumbles leaf by leaf */
   float on = L.z;                                 /* some leaves catch the light — a flat colour, like the lit pixels */
   vec3 col = mix(DK, mix(RO*.95, mix(IV, GD, L.y), L.y*.85), on*.6*L.x);
-  float ae = abs(e);
-  float rim = exp(-ae*55.), rimCore = exp(-ae*170.);
-  float inner = ed > 0. ? exp(-ed*24.) : 0.;
   float outer = ed < 0. ? exp(ed*14.) : 0.;
   float glit = L.w*k*on*L.x;                      /* the glint lights the leaf, not its whole cell */
-  float st = stars(frag)*exp(-abs(ed + .02)*30.); /* sparkles only along the front — not a faint field over the whole veil */
-  vec3 light = mix(RO*1.4, WH, rimCore)*rim*.85 + WH*inner*.4 + mix(RO, GD, .5)*outer*.26 + WH*(st + glit*.9);
+  float st = abs(ed) < .16 ? stars(frag)*exp(-abs(ed + .02)*30.) : 0.; /* sparkles only along the front */
+  /* no white glowing line along the front (as in the preloader) — just a faint warmth and the sparkles */
+  vec3 light = mix(RO, GD, .5)*outer*.16 + WH*(st*.8 + glit*.9);
   float la = clamp(dot(light, vec3(.3333)), 0., 1.);
   float oa = clamp(a + la, 0., 1.);
   vec3 oc = col*a + light;
@@ -1621,8 +1769,8 @@ void main(){
   });
   function stepDust(front, dt, t) {
     if (front > -.15 && front < 1.15) {
-      const yb = VH * (1 - front), n = Math.round(dt * 560);
-      for (let i = 0; i < n && DUST.length < 1500; i++) {
+      const yb = VH * (1 - front), n = Math.round(dt * 170 + Math.random() * .6);   // fewer specks, each a larger leaf
+      for (let i = 0; i < n && DUST.length < 500; i++) {
         DUST.push({ x: Math.random() * VW, y: yb + (Math.random() - .5) * VH * .24, vx: (Math.random() - .5) * 28, vy: -(30 + Math.random() * 140),
           life: .6 + Math.random() * 1.1, age: 0, s: (Math.random() < .12 ? 2.4 : 1.1) + Math.random(), ci: (Math.random() * DCOL.length) | 0, ph: Math.random() * 6.28,
           rot: Math.random() * 6.283, vr: (Math.random() - .5) * 4 });
@@ -1635,7 +1783,7 @@ void main(){
       if (p.age >= p.life) { DUST[i] = DUST[DUST.length - 1]; DUST.pop(); continue; }
       p.vx += Math.sin(t * 2.4 + p.ph) * 24 * dt; p.vy -= 28 * dt;
       p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
-      const k = p.age / p.life, a = (k < .15 ? k / .15 : 1 - (k - .15) / .85) * .85, L = p.s * 2.3;
+      const k = p.age / p.life, a = (k < .15 ? k / .15 : 1 - (k - .15) / .85) * .85, L = p.s * 4.2;
       dctx.setTransform(VD, 0, 0, VD, VD * p.x, VD * p.y); dctx.rotate(p.rot);
       dctx.globalAlpha = a; dctx.drawImage(LEAF[p.ci], -L / 2, -L / 2, L, L);
     }
@@ -1653,7 +1801,7 @@ void main(){
     veil.classList.remove('mark', 'mark-out', 'fb-in', 'fb-out');
     veil.classList.add('is-on');
     hideTip();                                                                               // close any open hotspot tag
-    const swap = () => { hero.classList.add('is-reset'); void hero.offsetWidth; select(0); };   // covered: back to the pre-entrance state
+    const swap = () => { hero.classList.add('is-reset'); void hero.offsetWidth; clearSel(); };   // covered: back to the pre-entrance state
     const replay = () => { hero.classList.remove('is-reset'); setPager(n); veil.classList.add('mark-out'); };   // …and play in again
     const done = () => { veil.classList.remove('is-on', 'mark', 'mark-out', 'fb-in', 'fb-out'); busy = false; };
     if (!veilGL()) {                                                                         // no WebGL: a plain wipe, same rhythm
@@ -1704,7 +1852,7 @@ void main(){
   document.addEventListener('hs:preloader-start', () => setPager(0));
 
   // hotspot label — lives above the card; opens to the right, flips left only at the screen edge
-  const tip = $('spot-tip'), tipName = $('st-name'), tipType = $('st-type'); let tipFor = null, hideT = 0;
+  const tip = $('spot-tip'), tipName = $('st-name'), tipType = $('st-type'), tipPrice = $('st-price'); let tipFor = null, hideT = 0;
   let tipW = 0;
   function placeTip() {
     if (!tipFor) return;
@@ -1724,6 +1872,7 @@ void main(){
         if (tipFor) tipFor.classList.remove('is-active');
         tip.classList.remove('is-on');
         tipFor = b; tipName.textContent = b.dataset.name; tipType.textContent = b.dataset.type;
+        tipPrice.textContent = money(PRODUCTS[+b.dataset.i].price);
         tip.style.setProperty('--tone', PRODUCTS[+b.dataset.i].glow);
         tip.style.left = '0px'; tipW = tip.offsetWidth;                                      // measure unconstrained by the old position
       }
