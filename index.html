@@ -6,7 +6,7 @@
 <title>Hayat Secret — Ocean Whisper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Poppins:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Poppins:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
 :root{
   --bb:#130C0D;      /* Burgundy Black — Pantone 440 CP */
@@ -29,21 +29,21 @@ button{font:inherit;color:inherit}
 /* ============================== TYPE SYSTEM ==============================
    Four voices, nothing else (the preloader carries no text — only the logo artwork):
    · Display  Cormorant Garamond, roman only — the headline (400), product names (500) and every numeral
-              (400 when large, 500 when small), always in lining figures.
-   · Accent   Pinyon Script, in gold — the word "Whisper" and the review rating.
+              (400 when large, 500 when small; the review rating in light 300), always in lining figures.
+   · Accent   Great Vibes, in gold — the word "Whisper" only.
    · Text     IBM Plex Sans Arabic, the brand typeface, always 500, in normal case (no tracked capitals):
               text M  14px · .02em — navigation, the hero kicker, the page-change title
               text S  12.5px · .01em — every other label (card meta, pager, hotspot tag, replay)
    · Social   Poppins — the calls to action and the reviews: rounded, friendly, the voice of a social feed
-              button 14.5px 500 · review count 12.5px 500                                                     */
+              button 15.5px 400 · review count 13px 400                                                       */
 .nav-links a,.kicker,.veil-mark span{font-family:var(--font);font-size:14px;font-weight:500;letter-spacing:.02em;text-transform:none;line-height:1}
-.pc-info p,.pg-title,#replay,.st-type,.pc-badge,.st-cur,.pc-cur,.pc-was{font-family:var(--font);font-size:12.5px;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1}
+.pc-info p,.pg-title,#replay,.st-type,.st-cur,.pc-cur{font-family:var(--font);font-size:12.5px;font-weight:500;letter-spacing:.01em;text-transform:none;line-height:1}
+.pc-off{font-family:var(--social);font-size:12px;font-weight:600;letter-spacing:0;line-height:1}
 .btn,.pc-cta,.reviews{font-family:var(--social);text-transform:none;letter-spacing:0}
-.btn,.pc-cta{font-size:14.5px;font-weight:500}
-.pc-badge{font-family:var(--social);font-size:12px;font-weight:600}
-.title,.pc-info h2,.st-name,.pg-num,.pc-idx,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now{font-family:var(--serif);font-style:normal;text-transform:none;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.btn,.pc-cta{font-size:15.5px;font-weight:400}
+.title,.pc-info h2,.st-name,.pg-num,.pc-idx,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now,.pc-was{font-family:var(--serif);font-style:normal;text-transform:none;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 .title,.pg-num .cur{font-weight:400}
-.pc-info h2,.st-name,.pc-idx,.pg-num .tot,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now{font-weight:500;letter-spacing:0}
+.pc-info h2,.st-name,.pc-idx,.pg-num .tot,.kicker .no,.nav-links sup,.bag .n,.st-price b,.pc-now,.pc-was{font-weight:500;letter-spacing:0}
 .pc-info h2,.st-name{line-height:1.05;letter-spacing:-.005em}
 
 /* ============================== NAVIGATION ============================== */
@@ -73,11 +73,12 @@ a:hover .roll::after{transform:none}
 .menu-btn{display:none}
 
 /* ================================= HERO ================================= */
-.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:linear-gradient(180deg,#2f72c6 0%,#4c8fda 45%,#6aa5e1 100%)}
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;background:#24170f}   /* the photograph's own shadowed brown, should any sliver ever show */
 .hero-stage{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0}
 .layer{position:absolute;inset:0;will-change:transform}
 .l-bg{transform:translate3d(calc(var(--px,0)*-5px),calc(var(--py,0)*-3px),0)}
-.l-bg img{position:absolute;left:0;top:0;width:1672px;height:941px;display:block;transform-origin:58% 72%;transform:scale(1.12);transition:transform 3.4s cubic-bezier(.16,.7,.2,1)}
+/* the golden-hour cabin photograph sits where the cabin hero file puts it: the band y 74–874 of the 1672-wide stage */
+.l-bg img{position:absolute;left:0;top:74px;width:1672px;height:800.3px;display:block;transform-origin:58% 72%;transform:scale(1.12);transition:transform 3.4s cubic-bezier(.16,.7,.2,1)}
 /* colour light over the photograph, behind the bottles: a golden haze rising from the lower left
    (warms the sea and rocks and gives the copy a richer ground) and a soft sun leak top right */
 .tint{position:absolute;inset:0;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 2.4s ease .4s}
@@ -97,6 +98,10 @@ a:hover .roll::after{transform:none}
   transition:opacity 1.3s ease var(--d,0s),transform 1.8s var(--ease) var(--d,0s),filter .5s ease;
   transform-origin:50% 100%;scale:var(--ps,1)}   /* each bottle is sized about its own base, so it stays standing on its step */
 .product img{display:block;width:100%;height:100%;pointer-events:none;transition:transform .7s var(--ease)}
+/* the diffuser's mist (placed over its top opening by the script) — it fades in after the products have landed */
+.mist{position:absolute;left:0;top:0;width:360px;height:600px;pointer-events:none;opacity:0;transition:opacity 2.2s ease 1.4s}
+.is-revealed .mist{opacity:1}
+.is-revealed .hero.is-reset .mist{opacity:0;transition:none}
 .product:hover img,.product.is-on img{transform:translateY(-10px)}
 .product:hover,.product.is-on{filter:brightness(1.05) drop-shadow(0 0 26px rgba(255,255,255,.3))}
 .product:focus-visible{outline:1px solid #fff;outline-offset:10px;border-radius:10px}
@@ -170,21 +175,25 @@ a:hover .roll::after{transform:none}
 .title .line{display:block;overflow:hidden;padding:.05em .04em .16em 0;margin:-.05em 0 -.16em}
 .title .ch{display:inline-block;transform:translateY(115%) rotate(4deg);transform-origin:0 100%;transition:transform 1.3s var(--ease) calc(.2s + var(--i)*.05s)}
 .is-revealed .title .ch{transform:none}
-/* "Whisper" — a script line in rose, written in from left to right */
-.script{position:relative;display:block;width:max-content;margin:calc(var(--fs)*-.34) 0 0 calc(var(--fs)*.46);font-family:"Pinyon Script",cursive;font-weight:400;font-size:calc(var(--fs)*1.16);line-height:1.12;letter-spacing:0;text-shadow:none}
-.script .w{display:inline-block;padding:.02em .14em .14em .06em;
+/* "Whisper" — the gold script line, written in from left to right. Its soft shadow sits on the wrapper, outside the
+   writing mask: on the word itself the mask clipped the shadow to the word's box, a darker rectangle behind it */
+.script{position:relative;display:block;width:max-content;margin:calc(var(--fs)*-.36) 0 0 calc(var(--fs)*.44);font-family:"Great Vibes",cursive;font-weight:400;font-size:calc(var(--fs)*1.12);line-height:1.18;letter-spacing:0;text-shadow:none;
+  filter:drop-shadow(0 3px 14px rgba(24,12,6,.42))}
+/* champagne gold, its light drifting slowly along the word */
+.script .w{display:inline-block;padding:.04em .16em .16em .08em;
   background:linear-gradient(100deg,#FFF7E8 0%,#F2DCAE 16%,#DDB572 34%,#FCEFD2 50%,#E4C186 66%,#F2DCAE 84%,#FFF7E8 100%) 0 0/200% 100% repeat-x;
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 4px 18px rgba(5,24,44,.5));
   -webkit-mask-image:linear-gradient(90deg,#000 44%,transparent 56%);mask-image:linear-gradient(90deg,#000 44%,transparent 56%);
   -webkit-mask-size:250% 100%;mask-size:250% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:100% 0;mask-position:100% 0;
   transition:-webkit-mask-position 2.3s cubic-bezier(.45,.05,.25,1) .55s,mask-position 2.3s cubic-bezier(.45,.05,.25,1) .55s;
   animation:shimmer 7s linear infinite}
 .is-revealed .script .w{-webkit-mask-position:0 0;mask-position:0 0}
 @keyframes shimmer{to{background-position:200% 0}}
-.swash{position:absolute;left:6%;right:2%;bottom:-.06em;width:92%;height:.42em;overflow:visible;pointer-events:none}
-.swash path{fill:none;stroke:url(#swash-g);stroke-width:2.2;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.7s cubic-bezier(.6,0,.2,1) 2.2s}
-.is-revealed .swash path{stroke-dashoffset:0}
+/* the flourish under it: a pen stroke, thin at both ends and fuller in the middle, drawn in after the word */
+.swash{position:absolute;left:4%;bottom:-.1em;width:94%;height:.44em;overflow:visible;pointer-events:none;
+  clip-path:inset(-30% 100% -30% 0);transition:clip-path 1.6s cubic-bezier(.6,0,.2,1) 2.1s}
+.is-revealed .swash{clip-path:inset(-30% 0 -30% 0)}
+.swash path{fill:url(#swash-g);stroke:none}
 .ctas{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:calc(var(--fs)*.24)}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:14px;height:54px;padding:0 7px 0 24px;border-radius:999px;color:var(--ink);
   background:linear-gradient(135deg,#FBF0D9 0%,#EBCF97 48%,#D3AE6A 100%);box-shadow:0 18px 36px -18px rgba(5,24,44,.7),inset 0 1px 0 rgba(255,255,255,.6);transition:box-shadow .35s,transform .35s}
@@ -202,21 +211,19 @@ a:hover .roll::after{transform:none}
 /* social proof beside the main call to action: the rating as a number, a hairline, then the stars over the
    review count (the count underlines on hover) */
 .reviews{display:inline-flex;align-items:center;gap:10px;text-shadow:0 1px 14px rgba(4,24,46,.25)}
-/* the rating is set in the same script and gold as "Whisper" */
-.rv-num{font-family:"Pinyon Script",cursive;font-size:46px;font-weight:400;line-height:1;letter-spacing:0;padding:.04em .14em .14em .04em;margin:-.12em -.06em -.18em 0;
-  background:linear-gradient(100deg,#F6E3BC 0%,#DDB572 40%,#F4DDAE 66%,#D3A962 100%);-webkit-background-clip:text;background-clip:text;
-  color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 3px 12px rgba(5,24,44,.45))}
-.rv-txt{display:flex;flex-direction:column;gap:6px;padding-left:10px;border-left:1px solid rgba(255,255,255,.38)}
-.rv-stars{color:#EED39A;font-size:11.5px;letter-spacing:2px;line-height:1}
-.rv-count{font-size:12.5px;font-weight:500;line-height:1;opacity:.88;padding-bottom:2px;
+/* the rating: a large, light display-serif figure in ivory */
+.rv-num{font-family:var(--serif);font-size:52px;font-weight:300;line-height:.9;letter-spacing:-.01em;color:#FFF4DF;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.rv-txt{display:flex;flex-direction:column;gap:7px;padding-left:12px;border-left:1px solid rgba(255,255,255,.38)}
+.rv-stars{color:#EED39A;font-size:12px;letter-spacing:2px;line-height:1}
+.rv-count{font-size:13px;font-weight:400;line-height:1;opacity:.92;padding-bottom:2px;
   background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .45s var(--ease)}
 .reviews:hover .rv-count{background-size:100% 1px}
 /* tighter reviews, for screens where the bottles stand close to the copy */
 .hero.rv-tight .ctas{gap:14px}
-.hero.rv-tight .rv-num{font-size:38px}
+.hero.rv-tight .rv-num{font-size:44px}
 .hero.rv-tight .reviews{gap:8px}
 .hero.rv-tight .rv-txt{gap:5px;padding-left:8px}
-.hero.rv-tight .rv-count{font-size:11.5px}
+.hero.rv-tight .rv-count{font-size:12px}
 
 /* product card — a glass frame that scrolls through the edit */
 @property --tone{syntax:'<color>';inherits:true;initial-value:rgba(170,214,240,.62)}
@@ -226,13 +233,13 @@ a:hover .roll::after{transform:none}
   -webkit-backdrop-filter:blur(22px) saturate(1.35);backdrop-filter:blur(22px) saturate(1.35)}
 /* hairline frame: bright at the top-left where the light hits, champagne at the bottom-right */
 .pcard::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
-  background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(255,255,255,.2) 36%,rgba(255,255,255,.1) 62%,rgba(240,206,146,.8));
+  background:linear-gradient(160deg,rgba(255,244,228,.9),rgba(255,236,214,.25) 36%,rgba(227,189,145,.2) 62%,rgba(227,189,145,.85));
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
-.pc-top{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:2px 6px 0}
+.pc-top{display:flex;align-items:center;justify-content:space-between;gap:14px;height:26px;padding:2px 6px 0}
 .pc-mark{height:22px;width:auto;display:block;opacity:.92}
-/* the bundle: the four pieces stand together in the frame; the one picked on the scene lifts, the rest step back */
-.pc-badge{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-shadow:none}
-.pc-media{--tone:rgba(255,226,180,.62);position:relative;height:clamp(206px,27vh,268px);margin:12px 0 0;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.22);
+/* the bundle: the four pieces stand together in the frame; the one picked on the scene — or pointed at in the list
+   below — steps forward, the rest step back */
+.pc-media{--tone:rgba(255,226,180,.62);position:relative;height:clamp(186px,25vh,256px);margin:12px 0 0;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.22);
   background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03) 56%,rgba(255,247,234,.24))}
 .pc-media::before{content:"";position:absolute;left:50%;top:42%;width:124%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,var(--tone),rgba(255,255,255,0) 56%)}  /* warm light behind the group */
 /* a shallow glass pedestal the four pieces share — every base stands inside its ellipse
@@ -250,26 +257,42 @@ a:hover .roll::after{transform:none}
 .bd-citrus{--x:30%;--b:10%;--h:37%;z-index:4}
 .pc-media.has-on .bd-item{opacity:.45}
 .pc-media.has-on .bd-item.is-on{opacity:1;transform:translateX(-50%) translateY(-6px)}
-.pc-info{padding:16px 6px 0}
-.pc-info h2{margin:0;font-size:24px;white-space:nowrap}
-.pc-info p{margin:0 0 8px;opacity:.8}
-/* bundle price: the price to pay in the display serif, then the four pieces' full price struck through */
+.pc-media.is-peek .bd-item{opacity:.4}
+.pc-media.is-peek .bd-item.peek{opacity:1;transform:translateX(-50%) translateY(-8px)}
+.pc-info{padding:14px 6px 0}
+.pc-info p{margin:0 0 7px;opacity:.85}
+.pc-info h2{margin:0;font-size:25px;white-space:nowrap}
+/* the price: the bundle price large, then the four pieces' full price struck through in red */
 .pc-price{display:flex;align-items:baseline;gap:6px;margin:10px 0 0}
-.pc-now{font-size:27px;line-height:1;color:#FFF3DC}
-.pc-cur{opacity:.9}
-.pc-was{margin-left:6px;opacity:.6;text-decoration:line-through;text-decoration-thickness:1px}
-/* what's inside, as small glass chips */
-.pc-chips{display:flex;flex-wrap:wrap;gap:4px;margin:12px 0 0;padding:0;list-style:none}
-.pc-chips li{display:inline-flex;align-items:center;height:23px;padding:0 7px;border-radius:999px;border:1px solid rgba(255,255,255,.42);background:rgba(255,255,255,.1);
-  font-family:var(--font);font-size:11px;font-weight:500;letter-spacing:0;line-height:1}
-.pc-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;height:46px;margin:16px 0 0;padding:0 6px 0 18px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-shadow:none;transition:background .3s}
+.pc-now{font-size:34px;line-height:1;color:#FFF5E6}
+.pc-cur{opacity:.92}
+.pc-was{position:relative;margin-left:8px;font-size:17px;line-height:1;color:#FF7F86;text-decoration:none}
+.pc-was::after{content:"";position:absolute;left:-3px;right:-3px;top:54%;height:2px;margin-top:-1px;border-radius:2px;background:#E2384B;
+  transform:scaleX(0);transform-origin:0 50%;transition:transform .6s var(--ease) 1.6s}
+.is-revealed .pc-was::after{transform:scaleX(1)}
+/* the offer, top right: a red pill */
+.pc-off{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:999px;background:#D42A40;color:#fff;text-shadow:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 6px 16px -6px rgba(140,16,32,.6)}
+/* what's inside, as small glass chips — hovering one brings that piece forward in the group */
+.pc-chips{display:flex;flex-wrap:nowrap;gap:4px;margin:12px 0 0;padding:0;list-style:none}   /* the four side by side, on one line */
+.pc-chips li{flex:1 1 auto;min-width:0;justify-content:center;white-space:nowrap;display:inline-flex;align-items:center;height:24px;padding:0 6px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.1);
+  font-family:var(--font);font-size:11.5px;font-weight:500;letter-spacing:0;line-height:1;cursor:default;transition:background .3s,color .3s,border-color .3s}
+.pc-chips li:hover,.pc-chips li.is-on{background:rgba(255,255,255,.94);border-color:#fff;color:var(--ink);text-shadow:none}
+.pc-cta{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:12px;height:46px;margin:16px 0 0;padding:0 6px 0 18px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--ink);text-shadow:none;transition:background .3s}
+.pc-cta::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,rgba(236,205,150,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+.pc-cta:hover::before{transform:translateX(120%)}
+.pc-cta > *{position:relative}
 .pc-cta:hover{background:#fff}
 .pc-cta .roll{white-space:nowrap;line-height:1.3}
-.pc-cta .ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#F2DCAE;transition:transform .45s var(--ease)}
-.pc-cta:hover .ic{transform:translateX(2px)}
-.pc-cta svg{width:14px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* the arrow, as on the main button: on hover it is pushed out to the right and a fresh one slides in behind it */
+.pc-cta .ic{position:relative;overflow:hidden;flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#F2DCAE;transition:transform .55s var(--ease)}
+.pc-cta .ic svg{position:absolute;left:50%;top:50%;width:14px;height:10px;margin:-5px 0 0 -7px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .55s var(--ease)}
+.pc-cta .ic .a2{transform:translateX(-26px)}
+.pc-cta:hover .ic{transform:scale(1.05)}
+.pc-cta:hover .ic .a1{transform:translateX(26px)}
+.pc-cta:hover .ic .a2{transform:none;transition-delay:.08s}
 
-.hero-foot{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:24px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;pointer-events:none}
+.hero-foot{position:absolute;z-index:5;left:var(--g);right:var(--g);bottom:24px;display:flex;align-items:flex-end;justify-content:flex-end;gap:20px;pointer-events:none}
 .hero-foot > *{pointer-events:auto}                                    /* the empty middle of the row doesn't block the bottles */
 /* page switcher — changes the whole hero. Kept light: no panel, just thin type and hairlines over a soft shade */
 .pager{position:relative;display:flex;align-items:center;gap:26px;text-shadow:0 1px 12px rgba(4,20,38,.35)}
@@ -317,7 +340,7 @@ a:hover .roll::after{transform:none}
 .hero-veil.mark-out .veil-mark b{transform:scaleX(0);transition-duration:.3s}
 /* while the curtain is closed the hero goes back to its pre-entrance state, then plays in again */
 .is-revealed .hero.is-reset .rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows,
-.is-revealed .hero.is-reset .title .ch,.is-revealed .hero.is-reset .script .w,.is-revealed .hero.is-reset .swash path,.is-revealed .hero.is-reset .l-bg img{transition:none!important}
+.is-revealed .hero.is-reset .title .ch,.is-revealed .hero.is-reset .script .w,.is-revealed .hero.is-reset .swash,.is-revealed .hero.is-reset .l-bg img{transition:none!important}
 .is-revealed .hero.is-reset .hero-copy .rise,.is-revealed .hero.is-reset .pcard.rise,.is-revealed .hero.is-reset .product,.is-revealed .hero.is-reset .hotspot,.is-revealed .hero.is-reset .shadows{opacity:0}
 .is-revealed .hero.is-reset .hero-copy .rise{transform:translateY(22px)}
 .is-revealed .hero.is-reset .pcard.rise{transform:translateY(-44%) translateX(44px)}
@@ -325,7 +348,7 @@ a:hover .roll::after{transform:none}
 .is-revealed .hero.is-reset .hotspot{transform:scale(.4)}
 .is-revealed .hero.is-reset .title .ch{transform:translateY(115%) rotate(4deg)}
 .is-revealed .hero.is-reset .script .w{-webkit-mask-position:100% 0;mask-position:100% 0}
-.is-revealed .hero.is-reset .swash path{stroke-dashoffset:1}
+.is-revealed .hero.is-reset .swash{clip-path:inset(-30% 100% -30% 0)}
 .is-revealed .hero.is-reset .l-bg img{transform:scale(1.12)}
 #replay{display:inline-flex;align-items:center;gap:10px;height:32px;padding:0 15px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;white-space:nowrap;cursor:pointer;text-shadow:0 1px 12px rgba(4,20,38,.35);transition:background .3s,color .3s,border-color .3s}
 #replay:hover{background:#fff;color:var(--ink);border-color:#fff;text-shadow:none}
@@ -342,6 +365,8 @@ a:hover .roll::after{transform:none}
 /* while the preloader is up the hero lies under it: its looping animations wait until the page is through, so nothing
    under the curtain repaints every frame (the gold shimmer on "Whisper" is a full repaint of a drop-shadowed script line) */
 body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .kicker .wave path,body:not(.is-ready) .script .w{animation-play-state:paused}
+/* page change: the bundle's strike is drawn again with the rest of the entrance */
+.is-revealed .hero.is-reset .pc-was::after{transition:none;transform:scaleX(0)}
 
 /* near-square landscape screens (4:3 tablets, small laptops): text on top, products below, no card */
 .hero.is-compact .hero-copy{top:clamp(112px,15vh,150px);transform:none;--fs:clamp(58px,7.4vw,112px)}
@@ -367,21 +392,26 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
   #replay{width:34px;height:34px;padding:0;justify-content:center;font-size:14px;letter-spacing:0}#replay .lbl{display:none}
   .hero-foot{bottom:20px}
   /* the cabin's ceiling and the top of the window frame fade out completely, so the photo melts into the sky above */
-  .is-portrait .l-bg img,.is-portrait .tint{-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%);mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%)}
+  .is-portrait .l-bg img,.is-portrait .tint{-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%,#000 97%,transparent);mask-image:linear-gradient(180deg,transparent 0,transparent 20%,#000 44%,#000 97%,transparent)}
+  /* behind it: the golden-hour sky above, and at the foot the display's own shadowed colour, which the photograph's
+     front edge melts into */
+  .hero.is-portrait{background:linear-gradient(180deg,#59637a 0%,#7d8597 34%,#aea8a8 60%,#cfae96 78%,#4a3124 calc(100% - 64px),#2c1c13 100%)}
 }
 
 /* ================================ PRELOADER ================================ */
 #hs-pre{position:fixed;inset:0;z-index:50;overflow:hidden;pointer-events:auto;contain:strict}
 #hs-pre.is-through{pointer-events:none}
 .pl-scene{position:absolute;inset:0}
-.pl-bg{position:absolute;inset:0;background:var(--bb)}
+.pl-bg{position:absolute;inset:0;background:#FDFBF9}   /* light mode: a warm white ground */
 #hs-stage,#hs-gl,#hs-fx{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+/* the logo sits above the dissolving white (the GL canvas), so it can fly into the nav while the ground breaks away */
+#hs-gl{z-index:1}#hs-stage{z-index:2}#hs-fx{z-index:3}.pl-vig{z-index:4}.pl-ui{z-index:5}
 #hs-logo-g{visibility:hidden}
-.pl-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,rgba(0,0,0,0) 52%,rgba(0,0,0,.5) 100%)}
+.pl-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,rgba(231,212,199,0) 55%,rgba(231,212,199,.28) 100%)}   /* the faintest Warm Ivory edge */
 /* no text around the mark — the logo stands alone; a hairline along the foot is the only progress cue */
 .pl-ui{position:absolute;inset:0;pointer-events:none}
-.pl-bar{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(231,212,199,.12)}
-.pl-bar i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,rgba(231,212,199,.2),rgba(231,212,199,.9))}
+.pl-bar{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(19,12,13,.07)}
+.pl-bar i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,rgba(156,97,103,.2),rgba(156,97,103,.9))}
 @media (prefers-reduced-motion:reduce){ .hotspot i{animation:none} }
 </style>
 <noscript><style>#hs-pre{display:none}body{overflow:auto}.rise,.product,.shadows,.hotspot{opacity:1!important;transform:none!important}.l-bg img{transform:none}</style></noscript>
@@ -414,9 +444,9 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
 <main>
 <section class="hero" id="hero" aria-label="Ocean Whisper">
   <div class="hero-stage" id="hero-stage">
-    <!-- the cabin photograph uncropped: the cabin hero file shows its band y 74–874; the band above (the ceiling beam)
-         and below (the floor) is the same photograph, there so the scene can zoom out on less-wide screens -->
-    <div class="layer l-bg"><img src="assets/hero/01-coastal-cabin-display.jpg" alt="" width="1672" height="941">
+    <!-- the cabin at golden hour, from the cabin hero file (its frame: the band y 74–874 of the stage); the products are
+         the file's cutouts with its golden-hour colour filter baked in (the *-golden.png files) -->
+    <div class="layer l-bg"><img src="assets/hero/01-coastal-cabin-golden-hour.jpg" alt="" width="1672" height="800">
       <div class="tint" aria-hidden="true"><i class="t-warm"></i><i class="t-haze"></i><i class="t-sun"></i></div>
     </div>
     <div class="layer l-products">
@@ -426,17 +456,19 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
           <filter id="contact-blur" x="-35%" y="-100%" width="170%" height="280%" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="3"/></filter>
         </defs>
         <!-- contact + cast shadows from the cabin hero file: each product stands on a step of the display -->
-        <g style="--d:.55s" transform="translate(536 809) scale(1) translate(-617 -813)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="642" cy="810" rx="66" ry="7"/><ellipse cx="618" cy="808" rx="60" ry="9" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
-        <g style="--d:.35s" transform="translate(792 736) scale(1) translate(-805 -771)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="830" cy="768" rx="74" ry="7"/><ellipse cx="806" cy="765" rx="67" ry="12" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
-        <g style="--d:.45s" transform="translate(1008 644) scale(0.9) translate(-992 -685)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="1017" cy="682" rx="65" ry="7"/><ellipse cx="992" cy="680" rx="59" ry="9" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
-        <g style="--d:.65s" transform="translate(1220 778) scale(1) translate(-1164 -785)"><ellipse fill="#482e20" opacity=".30" filter="url(#cast-blur)" cx="1189" cy="782" rx="99" ry="7"/><ellipse cx="1164" cy="777" rx="90" ry="13" fill="#372414" opacity=".63" filter="url(#contact-blur)"/></g>
+        <g style="--d:.55s" transform="translate(536 809) scale(1) translate(-617 -813)"><ellipse fill="#26150e" opacity=".38" filter="url(#cast-blur)" cx="642" cy="810" rx="66" ry="7"/><ellipse cx="618" cy="808" rx="60" ry="9" fill="#372414" opacity=".70" filter="url(#contact-blur)"/></g>
+        <g style="--d:.35s" transform="translate(792 736) scale(1) translate(-805 -771)"><ellipse fill="#26150e" opacity=".38" filter="url(#cast-blur)" cx="830" cy="768" rx="74" ry="7"/><ellipse cx="806" cy="765" rx="67" ry="12" fill="#372414" opacity=".70" filter="url(#contact-blur)"/></g>
+        <g style="--d:.45s" transform="translate(1008 644) scale(0.9) translate(-992 -685)"><ellipse fill="#26150e" opacity=".38" filter="url(#cast-blur)" cx="1017" cy="682" rx="65" ry="7"/><ellipse cx="992" cy="680" rx="59" ry="9" fill="#372414" opacity=".70" filter="url(#contact-blur)"/></g>
+        <g style="--d:.65s" transform="translate(1220 778) scale(1) translate(-1164 -785)"><ellipse fill="#26150e" opacity=".38" filter="url(#cast-blur)" cx="1189" cy="782" rx="99" ry="7"/><ellipse cx="1164" cy="777" rx="90" ry="13" fill="#372414" opacity=".70" filter="url(#contact-blur)"/></g>
       </svg>
       <!-- positions from the cabin hero file (its group transforms applied): Jasmine Royale on the top step at 90%,
            Ocean Whisper on the middle step, Citrus Jasmine low left, the diffuser on the right -->
-      <button class="product" type="button" data-i="1" aria-label="Jasmine Royale" style="left:950.4px;top:188.6px;width:114.3px;height:457.2px;--d:.45s"><img src="assets/hero/02-jasmine-royale-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="0" aria-label="Ocean Whisper" style="left:720px;top:250px;width:145px;height:488px;--d:.35s"><img src="assets/hero/04-ocean-whisper-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="2" aria-label="Citrus Jasmine" style="left:471px;top:518px;width:130px;height:294px;--d:.55s"><img src="assets/hero/03-citrus-jasmine-cutout.png" alt=""></button>
-      <button class="product" type="button" data-i="3" aria-label="Portable Diffuser" style="left:1116px;top:457px;width:207px;height:323px;--d:.65s"><img src="assets/hero/05-portable-diffuser-cutout.png" alt=""></button>
+      <button class="product" type="button" data-i="1" aria-label="Jasmine Royale" style="left:950.4px;top:188.6px;width:114.3px;height:457.2px;--d:.45s"><img src="assets/hero/02-jasmine-royale-cutout-golden.png" alt=""></button>
+      <button class="product" type="button" data-i="0" aria-label="Ocean Whisper" style="left:720px;top:250px;width:145px;height:488px;--d:.35s"><img src="assets/hero/04-ocean-whisper-cutout-golden.png" alt=""></button>
+      <button class="product" type="button" data-i="2" aria-label="Citrus Jasmine" style="left:471px;top:518px;width:130px;height:294px;--d:.55s"><img src="assets/hero/03-citrus-jasmine-cutout-golden.png" alt=""></button>
+      <button class="product" type="button" data-i="3" aria-label="Portable Diffuser" style="left:1116px;top:457px;width:207px;height:323px;--d:.65s"><img src="assets/hero/05-portable-diffuser-cutout-golden.png" alt=""></button>
+      <!-- the diffuser's mist: soft wisps rising from its top opening, drawn on a small canvas placed over it -->
+      <canvas class="mist" id="mist" aria-hidden="true"></canvas>
       <button class="hotspot" type="button" data-i="0" data-name="Ocean Whisper" data-type="Extrait de Parfum" style="left:865px;top:295px;--d:1.1s" aria-label="Ocean Whisper"><i></i></button>
       <button class="hotspot" type="button" data-i="1" data-name="Jasmine Royale" data-type="Fabric Scent Spray" style="left:1067px;top:240px;--d:1.2s" aria-label="Jasmine Royale"><i></i></button>
       <button class="hotspot" type="button" data-i="2" data-name="Citrus Jasmine" data-type="Aroma Oil" style="left:603px;top:556px;--d:1.3s" aria-label="Citrus Jasmine"><i></i></button>
@@ -461,18 +493,13 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
   </div>
 
   <div class="hero-copy">
-    <p class="kicker rise" style="--d:.1s">
-      <span class="no">N°01</span>
-      <svg class="wave" viewBox="0 0 48 10" aria-hidden="true"><path d="M-16 5q4-4 8 0t8 0 8 0 8 0 8 0 8 0 8 0 8 0 8 0"/></svg>
-      <span>The Coastal Edit</span>
-    </p>
     <h1 class="title" aria-label="Ocean Whisper">
       <span class="line l1" aria-hidden="true">Ocean</span>
       <span class="script" aria-hidden="true">
         <span class="w">Whisper</span>
         <svg class="swash" viewBox="0 0 400 70" preserveAspectRatio="none">
           <defs><linearGradient id="swash-g" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#FFF7E8" stop-opacity="0"/><stop offset=".3" stop-color="#F6E3BC"/><stop offset="1" stop-color="#D9B06A"/></linearGradient></defs>
-          <path pathLength="1" d="M8 46C70 66 150 64 214 44S332 8 392 24"/>
+          <path d="M6 47C68 66 150 66 214 46C268 29 330 9 394 21C332 13 270 36 216 51C150 70 66 69 6 47Z"/>
         </svg>
       </span>
     </h1>
@@ -490,38 +517,29 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
   <aside class="pcard rise" style="--d:.5s" aria-label="The Coastal Bundle">
     <div class="pc-top">
       <img class="pc-mark" src="assets/hayat-secret-icon-white.svg" alt="">
-      <span class="pc-badge">Save 20%</span>
+      <span class="pc-off" id="pc-off"></span>
     </div>
     <!-- a small studio group shot: back row (the tall spray, the diffuser) a step behind, front row (the perfume,
          the oil) forward and lower, all on one glass pedestal with their own contact shadows -->
     <div class="pc-media" id="pc-media">
       <i class="bd-plinth" aria-hidden="true"></i>
-      <span class="bd-item bd-jasmine" data-i="1"><img src="assets/hero/08-jasmine-royale-preview.png" alt="Jasmine Royale"></span>
-      <span class="bd-item bd-diffuser" data-i="3"><img src="assets/hero/10-portable-diffuser-preview.png" alt="Portable Diffuser"></span>
-      <span class="bd-item bd-ocean" data-i="0"><img src="assets/hero/07-ocean-whisper-preview.png" alt="Ocean Whisper"></span>
-      <span class="bd-item bd-citrus" data-i="2"><img src="assets/hero/09-citrus-jasmine-preview.png" alt="Citrus Jasmine"></span>
+      <span class="bd-item bd-jasmine" data-i="1"><img src="assets/hero/08-jasmine-royale-preview-golden.png" alt="Jasmine Royale"></span>
+      <span class="bd-item bd-diffuser" data-i="3"><img src="assets/hero/10-portable-diffuser-preview-golden.png" alt="Portable Diffuser"></span>
+      <span class="bd-item bd-ocean" data-i="0"><img src="assets/hero/07-ocean-whisper-preview-golden.png" alt="Ocean Whisper"></span>
+      <span class="bd-item bd-citrus" data-i="2"><img src="assets/hero/09-citrus-jasmine-preview-golden.png" alt="Citrus Jasmine"></span>
     </div>
     <div class="pc-info">
       <p class="pc-kick">Bundle · 4 pieces</p>
-      <h2>The Coastal Bundle</h2>
-      <!-- the bundle price: the four pieces' prices added up, less the bundle discount (filled in from the product data) -->
+      <h2 class="pc-title">The Coastal Bundle</h2>
+      <!-- the bundle price, then the four pieces' full price struck through in red (both from the product data) -->
       <div class="pc-price" id="pc-price"><b class="pc-now" id="pc-now"></b><small class="pc-cur"></small><s class="pc-was" id="pc-was"></s></div>
-      <ul class="pc-chips" aria-label="In the bundle"><li>Extrait</li><li>Spray</li><li>Oil</li><li>Diffuser</li></ul>
+      <!-- what's inside — hovering a piece brings it forward in the group above -->
+      <ul class="pc-chips" aria-label="In the bundle"><li data-i="0">Extrait</li><li data-i="1">Spray</li><li data-i="2">Oil</li><li data-i="3">Diffuser</li></ul>
     </div>
-    <a class="pc-cta" href="#"><span class="roll" data-t="Shop the bundle"><span>Shop the bundle</span></span><span class="ic" aria-hidden="true"><svg viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></span></a>
+    <a class="pc-cta" href="#"><span class="roll" data-t="Shop the bundle"><span>Shop the bundle</span></span><span class="ic" aria-hidden="true"><svg class="a1" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg><svg class="a2" viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></span></a>
   </aside>
 
   <div class="hero-foot rise" style="--d:.6s">
-    <div class="pager" aria-label="Hero pages">
-      <div class="pg-body" aria-live="polite">
-        <div class="pg-num"><span class="cur"><span id="pg-cur">01</span></span><span class="tot">/ 03</span></div>
-        <div class="pg-meta"><span class="pg-title"><span id="pg-title">The Coastal Edit</span></span><span class="pg-track" id="pg-track"><i class="on"></i><i></i><i></i></span></div>
-      </div>
-      <div class="pg-arrows">
-        <button class="pg-arrow" type="button" id="pg-prev" aria-label="Previous page"><svg viewBox="0 0 16 12"><path d="M15 6H1.5M6.5 1.5 1.5 6l5 4.5"/></svg></button>
-        <button class="pg-arrow" type="button" id="pg-next" aria-label="Next page"><svg viewBox="0 0 16 12"><path d="M1 6h13.5M9.5 1.5 14.5 6l-5 4.5"/></svg></button>
-      </div>
-    </div>
     <button id="replay" type="button" aria-label="Replay intro"><span class="lbl">Replay intro</span><span aria-hidden="true">↻</span></button>
   </div>
 </section>
@@ -534,13 +552,13 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
     <svg id="hs-stage" xmlns="http://www.w3.org/2000/svg">
       <!--DEFS:START-->
       <defs>
-        <linearGradient id="hs-g1" gradientUnits="userSpaceOnUse" x1="419.505" y1="454.972" x2="494.468" y2="427.391"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g2" gradientUnits="userSpaceOnUse" x1="685.262" y1="466.287" x2="653.330" y2="423.256"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g3" gradientUnits="userSpaceOnUse" x1="557.110" y1="601.008" x2="643.891" y2="567.063"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g4" gradientUnits="userSpaceOnUse" x1="612.625" y1="562.235" x2="493.366" y2="571.061"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g5" gradientUnits="userSpaceOnUse" x1="547.263" y1="365.796" x2="605.376" y2="528.915"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g6" gradientUnits="userSpaceOnUse" x1="590.756" y1="199.128" x2="499.228" y2="344.009"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
-        <linearGradient id="hs-g7" gradientUnits="userSpaceOnUse" x1="428.018" y1="439.536" x2="543.822" y2="564.656"><stop offset="0" stop-color="#E7D4C7"/><stop offset="1" stop-color="#E7D4C7" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g1" gradientUnits="userSpaceOnUse" x1="419.505" y1="454.972" x2="494.468" y2="427.391"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g2" gradientUnits="userSpaceOnUse" x1="685.262" y1="466.287" x2="653.330" y2="423.256"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g3" gradientUnits="userSpaceOnUse" x1="557.110" y1="601.008" x2="643.891" y2="567.063"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g4" gradientUnits="userSpaceOnUse" x1="612.625" y1="562.235" x2="493.366" y2="571.061"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g5" gradientUnits="userSpaceOnUse" x1="547.263" y1="365.796" x2="605.376" y2="528.915"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g6" gradientUnits="userSpaceOnUse" x1="590.756" y1="199.128" x2="499.228" y2="344.009"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
+        <linearGradient id="hs-g7" gradientUnits="userSpaceOnUse" x1="428.018" y1="439.536" x2="543.822" y2="564.656"><stop offset="0" stop-color="#130C0D"/><stop offset="1" stop-color="#130C0D" stop-opacity="0"/></linearGradient>
         <linearGradient id="hs-g8" gradientUnits="userSpaceOnUse" x1="563.080" y1="345.900" x2="712.313" y2="615.588"><stop offset="0" stop-color="#9C6167"/><stop offset=".68" stop-color="#9C6167" stop-opacity="0"/></linearGradient>
         <linearGradient id="hs-g9" gradientUnits="userSpaceOnUse" x1="403.498" y1="585.001" x2="616.419" y2="769.540"><stop offset=".32" stop-color="#9C6167" stop-opacity="0"/><stop offset="1" stop-color="#9C6167"/></linearGradient>
         <linearGradient id="hs-g10" gradientUnits="userSpaceOnUse" x1="579.713" y1="108.797" x2="475.945" y2="279.001"><stop offset="0" stop-color="#9C6167" stop-opacity="0"/><stop offset="1" stop-color="#9C6167"/></linearGradient>
@@ -551,13 +569,13 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
       <!-- Monogram: 11 ribbon pieces (A–K). "base" = solid colour, "shade" = gradient light/shadow on top.
            Paint order is the original artwork order — keep it. -->
       <g id="hs-mark">
-        <path data-piece="A" data-role="base" fill="#E7D4C7" d="M547.19,193.02c2.050,22.37-11.1,43.77-26.09,59.19-16.94,17.4-38,30.05-55.63,46.68-32.79,30.93-49.910,76.25-46.55,121.1-.16-2.04-1.36-4.5-1.92-6.5-1.47-5.27-2.89-10.54-4.3-15.81-1.910-7.1-5.23-15.11-5.77-22.45-3.43-45.76,14.45-91.58,48.24-122.69,31.79-29.27,86.72-56.84,79.52-108.47.09.25.18.52.28.78,4.33,14.54,8.67,29.07,13.02,43.61,1.28,4.34,2.56,8.69,3.79,13.03-.03.38.11,1.51.46,3.55.28,1.62.52,3.24.7,4.89-1.4-4.71-2.82-9.44-4.22-14.16-.61-2.03-1.14-4.09-1.81-6.1-1.28-3.76.19,2.2.29,3.35Z"/>
+        <path data-piece="A" data-role="base" fill="#130C0D" d="M547.19,193.02c2.050,22.37-11.1,43.77-26.09,59.19-16.94,17.4-38,30.05-55.63,46.68-32.79,30.93-49.910,76.25-46.55,121.1-.16-2.04-1.36-4.5-1.92-6.5-1.47-5.27-2.89-10.54-4.3-15.81-1.910-7.1-5.23-15.11-5.77-22.45-3.43-45.76,14.45-91.58,48.24-122.69,31.79-29.27,86.72-56.84,79.52-108.47.09.25.18.52.28.78,4.33,14.54,8.67,29.07,13.02,43.61,1.28,4.34,2.56,8.69,3.79,13.03-.03.38.11,1.51.46,3.55.28,1.62.52,3.24.7,4.89-1.4-4.71-2.82-9.44-4.22-14.16-.61-2.03-1.14-4.09-1.81-6.1-1.28-3.76.19,2.2.29,3.35Z"/>
         <path data-piece="B" data-role="base" fill="#9C6167" d="M565.18,271.18c-1.11,13.81-5.6,27.29-13.07,38.96-7.89,12.33-19.2,21.8-30.56,30.83-12.38,9.83-25.31,19.08-36.68,30.13-10.71,10.39-19.77,22.45-26.88,35.57-2.37,4.38-4.53,8.87-6.45,13.45,0,0-12.38,21.43-11.56,69.93-.01-.07-.03-.15-.04-.23.01.25.04.52.05.77-.4-1.47-.78-2.930-1.18-4.4,0-.01-.01-.03-.01-.04-.33-.97-.64-1.77-.72-2.08-1.47-5.26-2.9-10.53-4.32-15.81-1.89-7.1-5.22-15.1-5.77-22.45-1.91-25.49,2.66-51.14,13.27-74.42,10.74-23.58,27.24-42.61,47.29-58.77,17.69-14.26,38.31-27.09,51.01-46.4,8.04-12.24,12.74-26.51,13.72-41.08h0c.29-4.26.27-8.55-.09-12.82-.07-.81-.15-1.6-.24-2.4-.19-1.64-.42-3.27-.7-4.89-.36-2.04-.49-3.17-.46-3.55.04-.64.53.66,1.28,3.12,2.54,8.33,8,29.98,8.82,34.38.01.08.03.16.05.25,2.46,10.45,4.13,21.02,3.24,31.93Z"/>
         <path data-piece="C" data-role="base" fill="#9C6167" d="M555.59,353.66c-4.21,11.28-13.49,53.25-13.86,54.93-.01.04-.01.05-.01.05-6.52,3.16-12.91,6.61-19.17,10.3-31.48,18.59-59.52,43.65-82.56,71.64.05-.07.05-.27-.01-.54-.82-48.51,11.56-69.93,11.56-69.93,10.94-10.75,22.63-20.71,35.03-29.77,14.49-10.59,30.15-20.78,46.78-28.38,7.24-3.31,14.66-6.14,22.26-8.3Z"/>
         <path data-piece="D" data-role="base" fill="#9C6167" d="M569.98,612.1c2.74,2.16,5.44,4.28,8.06,6.38-.26.01-.53.04-.79.05-47.62,3.01-93.37-19.92-120.07-59.3-1.1-1.62-1.39-4.61-1.92-6.52-1.47-5.26-2.89-10.53-4.3-15.81-1.42-5.27-2.82-10.55-4.17-15.84-.21-.79-.83-5.47-1.6-6.59,19.16,28.27,48.14,47.95,80.43,55.76,11.57,16.08,28.52,29.41,44.36,41.86Z"/>
         <path data-piece="E" data-role="base" fill="#9C6167" d="M694.08,517.88c-2.38-13.93-6.74-27.33-12.91-39.9,2.09-9.77,2.89-19.82,2.37-29.81,0,0,.08-4.73.16-12,2.32,7.68,4.67,16.55,6.82,26.55,1.84,7.35,3.39,14.74,4.32,22.18,1.35,10.96,1.090,22.1-.75,32.97Z"/>
-        <path data-piece="F" data-role="base" fill="#E7D4C7" d="M675.89,625.99s.01-.03.01-.04c.07-.33.15-.73.24-1.17,3.95-18.88,4.11-38.55.57-57.51-3.52-18.86-10.78-37.04-21.37-53.05-11.19-16.92-25.99-30.23-41.88-42.64-29.05-22.68-66.69-51-60.85-92.92,1.21-8.63,4.36-17.25,6.61-25.65,2.2-8.24,5.93-17.1,7.11-25.52-6.950,49.8,44.51,77.68,76.08,105.39,30.3,26.59,48.74,63.93,50.41,104.33,1.1,26.46-6.49,51.54-13.18,76.82l-3.75,11.94Z"/>
-        <path data-piece="G" data-role="base" fill="#E7D4C7" d="M654.66,709.28c-13.85,28.41-43.49,43.9-74.17,46.39-29.32,2.38-58.65-5.9-83.74-20.9-54.18-32.39-83.17-92.4-91.75-153.23-2.73-19.37-3.58-39.02-2.66-58.55.47-10.05,1.41-20.08,2.82-30.05.68-4.83,1.48-9.64,2.39-14.42.44-2.32.9-4.63,1.4-6.93.44-2.07,3.21-13.19.52-2.88,1-3.85,2.28-7.86,3-11.8.6-3.29-1.3,3.95-.89,2.53-3.35,11.6-6.42,23.29-9.47,34.98-9.65,37.02-15.47,74.07-13.34,112.45,1.84,33.14,8.82,66.27,22.62,96.56,25.26,55.44,77.5,101.43,140.59,103.75,35.56,1.3,72.68-13.32,88.96-46.71,3.68-7.55,4.95-17.42,7.11-25.51,1.61-6.03,3.22-12.06,4.77-18.11.59-2.3.81-5.45,1.83-7.54h0Z"/>
+        <path data-piece="F" data-role="base" fill="#130C0D" d="M675.89,625.99s.01-.03.01-.04c.07-.33.15-.73.24-1.17,3.95-18.88,4.11-38.55.57-57.51-3.52-18.86-10.78-37.04-21.37-53.05-11.19-16.92-25.99-30.23-41.88-42.64-29.05-22.68-66.69-51-60.85-92.92,1.21-8.63,4.36-17.25,6.61-25.65,2.2-8.24,5.93-17.1,7.11-25.52-6.950,49.8,44.51,77.68,76.08,105.39,30.3,26.59,48.74,63.93,50.41,104.33,1.1,26.46-6.49,51.54-13.18,76.82l-3.75,11.94Z"/>
+        <path data-piece="G" data-role="base" fill="#130C0D" d="M654.66,709.28c-13.85,28.41-43.49,43.9-74.17,46.39-29.32,2.38-58.65-5.9-83.74-20.9-54.18-32.39-83.17-92.4-91.75-153.23-2.73-19.37-3.58-39.02-2.66-58.55.47-10.05,1.41-20.08,2.82-30.05.68-4.83,1.48-9.64,2.39-14.42.44-2.32.9-4.63,1.4-6.93.44-2.07,3.21-13.19.52-2.88,1-3.85,2.28-7.86,3-11.8.6-3.29-1.3,3.95-.89,2.53-3.35,11.6-6.42,23.29-9.47,34.98-9.65,37.02-15.47,74.07-13.34,112.45,1.84,33.14,8.82,66.27,22.62,96.56,25.26,55.44,77.5,101.43,140.59,103.75,35.56,1.3,72.68-13.32,88.96-46.71,3.68-7.55,4.95-17.42,7.11-25.51,1.61-6.03,3.22-12.06,4.77-18.11.59-2.3.81-5.45,1.83-7.54h0Z"/>
         <path data-piece="H" data-role="base" fill="#9C6167" d="M533.95,449.25c-7.21,51.64,47.73,79.21,79.53,108.48,33.79,31.1,51.67,76.92,48.24,122.68.16-2.1,1.7-5.69,2.19-7.44,1.68-6.01,3.31-12.04,4.92-18.07,2.19-8.2,5.96-17.14,6.6-25.65,3.43-45.76-14.44-91.58-48.24-122.68-31.8-29.27-86.73-56.84-79.53-108.48-1.17,8.42-4.91,17.28-7.11,25.51-2.250,8.4-5.39,17.02-6.6,25.65h0Z"/>
         <path data-piece="I" data-role="base" fill="#9C6167" d="M668.82,572.49c-7.43,8.9-16.09,16.7-25.62,23.24-3.95,2.7-8.06,5.19-12.29,7.47-14.86,7.93-31.27,13.06-48.11,14.86-17.59-14.26-38.3-28.83-52.23-46.7,14.33,2.9,29.23,3.48,44.15,1.47,7.71-1.05,15.31-2.79,22.7-5.19,6.34-2.07,12.53-4.62,18.47-7.63,12.96-6.5,24.83-15.16,34.91-25.57,7.75,11.8,13.8,24.63,18.02,38.06Z"/>
         <path data-piece="C" data-role="shade" fill="url(#hs-g1)" d="M533.33,361.97l-10.79,56.98c-31.48,18.59-59.52,43.65-82.56,71.64.05-.07.05-.27-.01-.54-.82-48.51,11.56-69.930,11.56-69.93,10.94-10.75,22.63-20.71,35.03-29.77,14.49-10.59,30.15-20.78,46.78-28.38Z"/>
@@ -574,7 +592,7 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
         <path data-piece="A" data-role="shade" fill="url(#hs-g10)" d="M547.19,193.02c2.05,22.37-11.1,43.77-26.09,59.19-16.94,17.4-38,30.05-55.63,46.68-32.79,30.93-49.91,76.25-46.55,121.1-.16-2.04-1.36-4.5-1.92-6.5-1.47-5.27-2.89-10.54-4.3-15.81-1.91-7.1-5.23-15.11-5.77-22.45-3.43-45.76,14.45-91.58,48.24-122.69,31.79-29.27,86.72-56.84,79.52-108.47.09.25.18.52.28.78,4.33,14.54,8.67,29.07,13.02,43.61,1.28,4.34,2.56,8.69,3.79,13.03-.03.38.11,1.51.46,3.55.28,1.62.52,3.24.7,4.89-1.4-4.71-2.82-9.44-4.22-14.16-.61-2.03-1.14-4.09-1.81-6.1-1.28-3.76.19,2.2.29,3.35Z"/>
       </g>
       <!-- Wordmark: HAYAT SECRET (left → right along the arc) -->
-      <g id="hs-wordmark" fill="#E7D4C7">
+      <g id="hs-wordmark" fill="#130C0D">
         <path data-letter="H" d="M333.4,737.96l-8.47-23.99-15,5.3c-.61.22-1.03.53-1.26.94-.23.41-.31,1.01-.24,1.78l-.98.34-4.59-12.99.98-.34c.46.66.91,1.07,1.33,1.24.43.17.94.15,1.55-.07l35.27-12.45c.61-.22,1.03-.52,1.25-.92.22-.4.31-1,.25-1.8l.98-.34,4.59,12.99-.98.34c-.44-.67-.88-1.08-1.32-1.25-.44-.17-.96-.14-1.57.07l-13.41,4.74,8.47,23.99,13.41-4.74c.61-.22,1.03-.52,1.27-.93.23-.4.31-1,.24-1.8l.98-.34,4.59,12.99-.98.34c-.46-.66-.91-1.07-1.33-1.24-.43-.17-.94-.15-1.550.07l-35.27,12.45c-.61.22-1.03.52-1.25.92-.23.4-.31,1-.25,1.8l-.98.34-4.59-12.99.98-.34c.43.65.87,1.06,1.31,1.23.44.18.96.16,1.57-.06l15-5.3Z"/>
         <path data-letter="A" d="M353.73,789.56l-11.25-16.6-6.8,1.02c-.94.14-1.62.36-2.03.63-.78.53-.92,1.5-.42,2.9l-.86.58-8.19-12.08.86-.58c.63.62,1.25.99,1.86,1.12.61.13,1.6.09,2.96-.13l37.18-5.59c1.18-.18,2.04-.45,2.58-.81.82-.56,1.06-1.47.71-2.75l.86-.58,8.78,12.95-.86.58c-1.02-.85-1.9-1.02-2.65-.51-.52.35-.99.92-1.42,1.71l-18.72,33c-.8,1.4-1.26,2.47-1.4,3.21-.13.74-.02,1.54.35,2.38l-.86.58-9.11-13.45.86-.58c1,1.05,1.95,1.26,2.86.65.38-.25.81-.81,1.3-1.66l3.44-5.99ZM357.17,783.88l9-14.74-17.09,2.8,8.09,11.94Z"/>
         <path data-letter="Y" d="M388.24,817.16l-10.48,10.85c-.46.48-.71.95-.72,1.41-.02.46.17,1.04.57,1.72l-.72.74-9.95-9.61.72-.74c.71.38,1.3.56,1.77.54.47-.02.94-.28,1.41-.76l10.48-10.85,3.69-24.34c.31-2.09.42-3.6.33-4.51-.09-.91-.44-1.75-1.05-2.52l.72-.74,12.53,12.11-.72.74c-1.2-.83-2.19-.85-2.95-.06-.27.28-.54,1.2-.82,2.76l-2.48,14.02,14.090-2.81c1.52-.3,2.44-.61,2.75-.94.34-.36.5-.8.47-1.32-.03-.52-.25-1.06-.66-1.6l.72-.74,12.28,11.86-.72.74c-.79-.58-1.64-.9-2.55-.96-.92-.06-2.41.1-4.5.49l-24.19,4.53Z"/>
@@ -588,7 +606,7 @@ body:not(.is-ready) .t-haze,body:not(.is-ready) .hotspot i,body:not(.is-ready) .
         <path data-letter="T" d="M741.52,712.13l31.74,10.59c.63.21,1.16.23,1.58.05.42-.18.86-.6,1.31-1.27l.98.33-4.36,13.06-.98-.33c.04-.8-.05-1.4-.28-1.8-.23-.4-.66-.7-1.3-.91l-31.74-10.59-4.34,13c-.2.61-.22,1.13-.05,1.55.17.42.6.86,1.28,1.31l-.33.98-10.82-3.61.33-.98c.82.02,1.43-.08,1.81-.3.39-.22.69-.64.89-1.25l11.72-35.11c.21-.63.23-1.16.06-1.58-.17-.42-.6-.86-1.28-1.31l.33-.98,10.82,3.61-.33.98c-.82-.05-1.42.05-1.81.28-.39.23-.69.67-.9,1.3l-4.33,12.97Z"/>
       </g>
       <!-- Tagline: SCENT YOUR MOMENTS (left → right) -->
-      <g id="hs-tagline" fill="#E7D4C7">
+      <g id="hs-tagline" fill="#130C0D">
         <path d="M392.65,869.41l-4.39,2.02-.22-.47c.44-.29.7-.48.77-.57.19-.26.08-.79-.34-1.58-1.16-2.13-2.73-3.92-4.71-5.37-1.63-1.2-3.27-1.94-4.92-2.22-.8-.13-1.54-.08-2.23.14-.69.22-1.22.6-1.61,1.13-.32.44-.5.95-.52,1.54-.02.58.11,1.130.4,1.64.31.57.76,1.13,1.35,1.69.58.56,1.59,1.4,3.020,2.52,1.98,1.55,3.35,2.71,4.13,3.48.78.77,1.33,1.52,1.66,2.25.88,1.94.69,3.76-.56,5.46-1.2,1.63-2.85,2.46-4.97,2.5-2.36.05-4.86-.89-7.49-2.83-1.52-1.12-2.74-2.25-3.64-3.39-.91-1.14-1.84-2.71-2.81-4.69-.29-.53-.48-.82-.56-.88-.13-.1-.45-.09-.97.02l-.19-.49,4.41-1.85.21.48c-.43.23-.68.4-.77.53-.21.28.04,1.13.73,2.55.62,1.27,1.32,2.37,2.08,3.29.77.92,1.7,1.79,2.8,2.6,2.22,1.64,4.27,2.39,6.14,2.26,1.24-.09,2.2-.58,2.86-1.48.87-1.18.81-2.47-.17-3.89-.31-.46-.68-.88-1.1-1.25-.42-.37-1.67-1.38-3.73-3.02-1.47-1.17-2.57-2.16-3.3-2.96-.73-.8-1.3-1.63-1.69-2.5-.37-.81-.5-1.67-.4-2.57.1-.9.43-1.73.98-2.47.94-1.27,2.22-2.02,3.84-2.24,1.19-.15,2.55.04,4.08.57,1.52.53,3.02,1.34,4.5,2.42,1.2.89,2.23,1.83,3.09,2.83.86,1,1.72,2.27,2.59,3.81.2.34.33.53.4.58.16.12.5.1,1.04-.06l.23.46Z"/>
         <path d="M409.9,884.63l-3.57,1.95-.2-.41c.21-.2.36-.37.44-.5.12-.2.07-.53-.16-1-.91-1.88-2.38-3.44-4.41-4.66-1.98-1.2-3.97-1.66-5.96-1.37-2.24.32-3.95,1.47-5.15,3.45-1.3,2.15-1.51,4.36-.64,6.64.68,1.8,1.92,3.25,3.72,4.34,2.03,1.23,4.16,1.71,6.39,1.43.87-.11,1.37-.27,1.5-.49.1-.16.16-.44.19-.86l.45-.02.49,4.13-.45.07c-.15-.49-.3-.77-.44-.86-.07-.05-.22-.05-.45-.02-1.69.2-3.24.16-4.64-.14-1.4-.3-2.81-.88-4.24-1.74-2.49-1.51-4.14-3.43-4.94-5.75-.4-1.16-.57-2.36-.5-3.57.1-1.55.56-3,1.38-4.36,1.55-2.57,3.81-4.03,6.77-4.38,2.46-.28,4.95.34,7.48,1.87,2.24,1.36,4.050,3.21,5.43,5.55.12.2.23.33.32.39.2.12.51.09.95-.08l.23.39Z"/>
         <path d="M412.53,895.44l-3.05,6.07,10.13,5.08c.41.21.73.29.96.25s.49-.22.76-.55l.41.21-1.74,3.47-.41-.21c.1-.42.1-.73,0-.94-.1-.21-.36-.42-.77-.62l-13.17-6.61.2-.4c.43.09.75.09.96-.02.21-.11.41-.36.61-.76l6.57-13.08c.21-.41.29-.73.24-.96-.04-.23-.23-.49-.55-.77l.2-.39,13.07,6.56c.41.21.73.29.96.24.23-.04.49-.23.77-.55l.4.2-1.74,3.47-.39-.2c.09-.42.08-.74-.02-.95-.1-.21-.36-.41-.77-.62l-10.04-5.04-2.78,5.53,6.4,3.21c.41.21.73.29.96.24.23-.04.48-.23.77-.55l.4.2-1.74,3.47-.4-.2c.09-.42.08-.74-.03-.95-.11-.21-.36-.42-.76-.62l-6.4-3.21Z"/>
@@ -637,35 +655,39 @@ window.HSArt = (() => {
 </script>
 <script>
 /* =========================================================================
-   HAYAT SECRET — PRELOADER · "Distillation"
-   1. Gather   Roses and petals ride soft air currents in from every edge. A few spiral into the
-               heart of the monogram and condense into a glowing essence. Petals that drift
-               towards the logo turn into scent dust instead of crossing it.
-   2. Bloom    From the essence the 11 ribbons open like petals — each grows from its base to
-               its tip while it unfolds into place. The wordmark spreads along its arc and a
-               satin sheen passes over the monogram. The resting logo is the approved artwork.
-   3. Reveal   From the same heart the screen dissolves into pixels, sparkles and petals.
+   HAYAT SECRET — PRELOADER · light mode
+   1. Draw     On a warm white ground the monogram is drawn line by line — its 11 ribbons one after
+               another from the bottom up, each growing from its base to its tips. The wordmark
+               spreads along its arc and a satin sheen passes over the monogram. The resting logo
+               is the identity's light-background artwork (Burgundy Black + Dusty Rose).
+   2. Reveal   From the bottom up the screen breaks into large leaf silhouettes and a few leaves of
+               scent dust, and the page shows through.
    Debug: ?t=4.6 freezes at 4.6s · ?speed=.3 slow motion · ?sprites shows the rose sprites · R replays
    ========================================================================= */
 (() => {
   'use strict';
   const NS = 'http://www.w3.org/2000/svg';
-  const IVORY = '#E7D4C7', BB = '#130C0D';
+  // light mode: a warm white ground, the logo in its light-background colourway (Burgundy Black + Dusty Rose)
+  const INK = '#130C0D', PAPER = '#FDFBF9';
   const qs = new URLSearchParams(location.search);
   const FREEZE = qs.has('t') ? parseFloat(qs.get('t')) : null;
   const SPEED = qs.has('speed') ? Math.max(.05, parseFloat(qs.get('speed')) || 1) : 1;
   const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches && !qs.has('motion');
 
   /* ---------- timeline (seconds) ---------- */
-  // the logo builds in about 2.9 s (it took 4.3 s): a shorter gather, the ribbons opening faster and closer together,
-  // the name and the tagline overlapping them; the reveal follows straight after
+  // the logo is drawn line by line: the 11 ribbons one after another from the bottom up, each starting as the one
+  // before it finishes; then the name and the tagline; the reveal follows straight after
   const T = {
-    gatherStart: .1, gatherEnd: .78,
-    bloom: .74, pieceGap: .05, pieceDur: .72,       // a brisker build: the ribbons open faster and closer together
-    wordStart: 1.38, wordGap: .024, wordDur: .64,
-    tagStart: 1.62, tagGap: .014, tagDur: .6,
-    sheenStart: 1.8, sheenDur: .68,                 // the sheen passes while the tagline settles…
-    countEnd: 2.3, minDissolve: 2.7, dissolveDur: 2.3, tail: 2.2   // …the reveal follows at once, and climbs in 2.3 s
+    gatherStart: .1, gatherEnd: .3,                 // (no gather any more — kept for the reduced-motion path)
+    bloom: .3, pieceGap: .2, pieceAccel: .004,      // ribbon after ribbon, gathering pace:
+    lineDur: .36, fillLag: .1, fillDur: .36,        // the pen line traces it, the colour floods in a beat behind
+    wordStart: 1.98, wordGap: .045,                 // the name, pen-drawn letter by letter
+    wordPen: .32, wordLag: .12, wordFill: .3,
+    wordDur: .52,                                   // (the glide, kept for the reduced-motion path)
+    tagStart: 2.6, tagGap: .012, tagDur: .46,
+    sheenStart: 2.8, sheenDur: .6,                  // the sheen passes while the tagline settles…
+    countEnd: 3.2, minDissolve: 3.4, dissolveDur: 1.6, tail: 2.2,   // …the reveal follows at once: a plain 1.6 s fade from the bottom up
+    flyEnd: .6, flyFadeA: .58, flyFadeB: .78        // in the reveal (as fractions of it): the mark's flight into the nav
   };
   const LOGO = { cx: 540, cy: 540, w: 474, h: 792, hx: 522, hy: 640 };   // vertical lockup bounds + the heart of the drop
 
@@ -767,6 +789,20 @@ window.HSArt = (() => {
     const glintG = svgEl('g', { 'pointer-events': 'none' });
     markG.appendChild(glintG);
     pieces.forEach(pc => { pc.gl = [0, 1].map(() => glintG.appendChild(svgEl('circle', { r: 14, fill: 'url(#hs-glint)', opacity: 0 }))); });
+    // the pen line: each ribbon's own outline, in the ribbon's own colour, traced ahead of its colour (above the mark,
+    // so it shows over the ribbons below it; it is removed once the ribbon has filled in)
+    const penG = svgEl('g', { fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'pointer-events': 'none' });
+    markG.appendChild(penG);
+    pieces.forEach(pc => { pc.pen = penG.appendChild(svgEl('path', { d: pc.base.getAttribute('d'), stroke: pc.base.getAttribute('fill'), visibility: 'hidden' })); });
+    // the wordmark is pen-drawn as well: each letter's outline traced, left to right, then inked in
+    const wordPenG = svgEl('g', { fill: 'none', stroke: INK, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'pointer-events': 'none' });
+    logoG.appendChild(wordPenG);
+    letters.forEach(el => { el._pen = wordPenG.appendChild(svgEl('path', { d: el.getAttribute('d'), pathLength: 1, 'stroke-dasharray': '1 1', visibility: 'hidden' })); });
+    // the mark's own box — the ribbons only, not the sheen or the pens (for its flight into the nav's logo at the reveal)
+    const mb = pieces.reduce((a, pc) => { const b = pc.base.getBBox();
+      return { x: Math.min(a.x, b.x), y: Math.min(a.y, b.y), r: Math.max(a.r, b.x + b.width), b: Math.max(a.b, b.y + b.height) }; },
+      { x: Infinity, y: Infinity, r: -Infinity, b: -Infinity });
+    mb.width = mb.r - mb.x; mb.height = mb.b - mb.y;
 
     // wordmark + tagline: letter centres and their angle on the arc (for the tracking animation)
     letters.concat(tagLetters).forEach(el => { const b = el.getBBox(); el._c = [b.x + b.width / 2, b.y + b.height / 2]; });
@@ -781,7 +817,7 @@ window.HSArt = (() => {
       els.forEach(el => el._ang = ang(el._c) - mid);
       return [ux, uy];
     };
-    return { essence, sheenRect, wordArc: arc(letters), tagArc: arc(tagLetters) };
+    return { essence, sheenRect, wordArc: arc(letters), tagArc: arc(tagLetters), markBox: { x: mb.x, y: mb.y, w: mb.width, h: mb.height } };
   })();
 
   /* ---------- layout ---------- */
@@ -812,46 +848,44 @@ window.HSArt = (() => {
   let pollen = [];      // growth-front positions this frame (screen px), consumed by the particle system
   function renderIntro(t) {
     pollen = [];
-    // essence: gathers while the petals spiral in, flashes at the bloom, then gives way to the ribbons
-    const gather = smooth(T.gatherStart + .15, T.bloom, t), after = smooth(T.bloom, T.bloom + .9, t);
-    const flash = Math.exp(-Math.pow((t - T.bloom) / .16, 2));
-    const eo = gather * (1 - after) * (.82 + .18 * Math.sin(t * 4.2)) + flash * .45;
-    rig.essence.setAttribute('opacity', clamp01(eo).toFixed(3));
-    rig.essence.setAttribute('r', (50 + 85 * gather + 55 * flash).toFixed(1));
-
-    markK = .955 + .045 * eOutQuart(clamp01((t - T.bloom) / 1.8));
+    // no essence glow and no glints any more: the mark is simply drawn, line after line
+    markK = .975 + .025 * eOutQuart(clamp01((t - T.bloom) / 2.4));
     if (markK >= .99999) markG.removeAttribute('transform');
     else markG.setAttribute('transform', `translate(${LOGO.hx} ${LOGO.hy}) scale(${markK.toFixed(5)}) translate(${-LOGO.hx} ${-LOGO.hy})`);
 
+    const penW = (1.5 / (s * markK)).toFixed(2);        // the pen is 1.5 screen px wide, whatever the logo's size
     for (const pc of pieces) {
-      const st = T.bloom + pc.i * T.pieceGap, dur = pc.id === 'G' ? T.pieceDur * 1.35 : T.pieceDur;
-      const p = clamp01((t - st) / dur);
+      // each ribbon: a fine pen line traces its outline from its base to its tips, and the colour floods in right
+      // behind it; the line then fades into the finished ribbon
+      // the first ribbons are drawn unhurried, the later ones come quicker — an accelerando into the name
+      const k = pc.id === 'G' ? 1.35 : 1, st = T.bloom + pc.i * T.pieceGap - T.pieceAccel * pc.i * (pc.i - 1), L = pc.len;
+      const pl = clamp01((t - st) / (T.lineDur * k));
+      const p = clamp01((t - st - T.fillLag * k) / (T.fillDur * k));
+      const penOut = clamp01((t - st - (T.fillLag + T.fillDur) * k) / .25);
+      const eu = eOutCubic(clamp01(pl * 1.1)), rot = pc.rot0 * .35 * (1 - eu), sc = .96 + .04 * eu;   // barely unfolding
+      const [px, py] = pc.pv;
+      const tf = eu >= 1 ? null : `translate(${px} ${py}) rotate(${rot.toFixed(3)}) scale(${sc.toFixed(4)}) translate(${-px} ${-py})`;
+      if (pl <= 0 || penOut >= 1) pc.pen.setAttribute('visibility', 'hidden');
+      else {
+        const ro = eOutCubic(pl) * (L / 2 + 2);
+        pc.pen.setAttribute('visibility', 'visible'); pc.pen.setAttribute('stroke-width', penW);
+        pc.pen.setAttribute('opacity', (1 - penOut).toFixed(3));
+        if (tf) pc.pen.setAttribute('transform', tf); else pc.pen.removeAttribute('transform');
+        if (2 * ro >= L) { pc.pen.setAttribute('stroke-dasharray', 'none'); pc.pen.setAttribute('stroke-dashoffset', 0); }
+        else { pc.pen.setAttribute('stroke-dasharray', `${(2 * ro).toFixed(2)} ${(L - 2 * ro).toFixed(2)}`); pc.pen.setAttribute('stroke-dashoffset', mod(ro - pc.p0, L).toFixed(2)); }
+      }
       const els = pc.shade ? [pc.base, pc.shade] : [pc.base];
       if (p <= 0 || p >= 1) {
         els.forEach(e => { e.removeAttribute('mask'); e.removeAttribute('transform'); if (p <= 0) e.setAttribute('visibility', 'hidden'); else e.removeAttribute('visibility'); });
-        pc.gl[0].setAttribute('opacity', 0); pc.gl[1].setAttribute('opacity', 0);
         continue;
       }
-      const eu = eOutCubic(clamp01(p * 1.1)), rot = pc.rot0 * (1 - eu), sc = .86 + .14 * eu;
-      const [px, py] = pc.pv;
-      const tf = `translate(${px} ${py}) rotate(${rot.toFixed(3)}) scale(${sc.toFixed(4)}) translate(${-px} ${-py})`;
-      els.forEach(e => { e.removeAttribute('visibility'); e.setAttribute('mask', `url(#hs-m-${pc.id})`); e.setAttribute('transform', tf); });
-      const L = pc.len, r = eInOutSine(p) * (L / 2 + 70);
+      els.forEach(e => { e.removeAttribute('visibility'); e.setAttribute('mask', `url(#hs-m-${pc.id})`); if (tf) e.setAttribute('transform', tf); else e.removeAttribute('transform'); });
+      const r = eInOutSine(p) * (L / 2 + 70);
       if (2 * r >= L) { pc.maskPath.setAttribute('stroke-dasharray', 'none'); pc.maskPath.setAttribute('stroke-dashoffset', 0); }
       else {
         pc.maskPath.setAttribute('stroke-dasharray', `${(2 * r).toFixed(2)} ${(L - 2 * r).toFixed(2)}`);
         pc.maskPath.setAttribute('stroke-dashoffset', mod(r - pc.p0, L).toFixed(2));
       }
-      const ga = Math.pow(Math.sin(Math.PI * p), 1.3) * .7, cr = Math.cos(rot / DEG), sr = Math.sin(rot / DEG);
-      [pc.p0 - r, pc.p0 + r].forEach((pos, j) => {
-        if (2 * r >= L && j) { pc.gl[j].setAttribute('opacity', 0); return; }
-        const f = mod(pos, L) / L * 320, k0 = Math.min(319, f | 0), w = f - k0, P2 = pc.pts;
-        const qx = P2[2 * k0] + (P2[2 * k0 + 2] - P2[2 * k0]) * w, qy = P2[2 * k0 + 1] + (P2[2 * k0 + 3] - P2[2 * k0 + 1]) * w;
-        const dx = (qx - px) * sc, dy = (qy - py) * sc;
-        const X = px + dx * cr - dy * sr, Y = py + dx * sr + dy * cr;
-        pc.gl[j].setAttribute('cx', X.toFixed(1)); pc.gl[j].setAttribute('cy', Y.toFixed(1)); pc.gl[j].setAttribute('opacity', ga.toFixed(3));
-        if (ga > .15) pollen.push(toScreen(X, Y));
-      });
     }
     // wordmark & tagline: letters glide in along the arc from slightly wider spacing (outer letters first) — never overlapping
     const track = (els, [ux, uy], start, gap, dur, spread) => els.forEach((el, i) => {
@@ -861,7 +895,21 @@ window.HSArt = (() => {
       if (p >= 1) el.removeAttribute('transform');
       else el.setAttribute('transform', `rotate(${(-el._ang * spread * (1 - e) * DEG).toFixed(3)} ${ux.toFixed(1)} ${uy.toFixed(1)})`);
     });
-    track(letters, rig.wordArc, T.wordStart, T.wordGap, T.wordDur, -.22);
+    // the name: each letter's outline drawn by the pen, left to right, then the ink fills it and the line fades into it
+    const wPen = (1.2 / s).toFixed(2);
+    letters.forEach((el, i) => {
+      const st = T.wordStart + i * T.wordGap;
+      const pl = clamp01((t - st) / T.wordPen), pf = clamp01((t - st - T.wordLag) / T.wordFill);
+      const out = clamp01((t - st - T.wordLag - T.wordFill) / .2);
+      el.removeAttribute('transform');
+      el.setAttribute('opacity', eOutCubic(pf).toFixed(3));
+      if (pl <= 0 || out >= 1) el._pen.setAttribute('visibility', 'hidden');
+      else {
+        el._pen.setAttribute('visibility', 'visible'); el._pen.setAttribute('stroke-width', wPen);
+        el._pen.setAttribute('stroke-dashoffset', (1 - eInOutSine(pl)).toFixed(4));
+        el._pen.setAttribute('opacity', (1 - out).toFixed(3));
+      }
+    });
     track(tagLetters, rig.tagArc, T.tagStart, T.tagGap, T.tagDur, -.3);
     const sp = clamp01((t - T.sheenStart) / T.sheenDur);
     rig.sheenRect.setAttribute('x', lerp(160, 860, eInOutSine(sp)).toFixed(1));
@@ -875,7 +923,8 @@ window.HSArt = (() => {
     const c = document.createElement('canvas');
     c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
     const x = c.getContext('2d');
-    x.fillStyle = BB; x.fillRect(0, 0, c.width, c.height);
+    x.fillStyle = PAPER; x.fillRect(0, 0, c.width, c.height);
+    if (glOK) { finishSnapshot(c, x); return; }   // the logo is not in the snapshot: it stays live above it and fades out whole
     x.setTransform(dpr * s, 0, 0, dpr * s, dpr * tx, dpr * ty);
     for (const p of markPaths) {
       const m = /url\(#([^)]+)\)/.exec(p.fill);
@@ -886,13 +935,46 @@ window.HSArt = (() => {
       } else x.fillStyle = p.fill;
       x.fill(p.path);
     }
-    x.fillStyle = IVORY;
+    x.fillStyle = INK;
     letterPaths.forEach(p => x.fill(p));
+    finishSnapshot(c, x);
+  }
+  function finishSnapshot(c) {
     sw = Math.ceil(W / 4); sh = Math.ceil(H / 4);
     const sc = document.createElement('canvas'); sc.width = sw; sc.height = sh;
     const sx = sc.getContext('2d'); sx.drawImage(c, 0, 0, sw, sh);
     sample = sx.getImageData(0, 0, sw, sh).data;
     if (glOK) uploadTexture(c);
+  }
+
+  /* ---------- the exit: the mark flies into the navigation's logo while the white breaks away ----------
+     At the reveal the wordmark and tagline fade, and the mark lifts and shrinks along a gentle arc onto the nav's
+     logo (top left), then dissolves into it as the page shows through — the preloader's logo becomes the site's */
+  const FLY = false;            // off: the logo breaks away with the white ground, in the same dissolve (kept switchable)
+  const bgEl = pre.querySelector('.pl-bg'), wordG = $('hs-wordmark'), tagG = $('hs-tagline');
+  let navIcon = null;
+  const placeLogo = () => logoG.setAttribute('transform', `translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${s.toFixed(5)})`);
+  function fly(u) {
+    if (!navIcon) {
+      // where the nav's logo will rest: its box now, less the entrance offset it still carries (.rise slides it up
+      // into place as the page shows); if the image has not decoded yet its width is taken from its proportions
+      const el = document.querySelector('.brand .icon'), r = el && el.getBoundingClientRect(), rise = el && el.closest('.rise');
+      const m = rise ? new DOMMatrix(getComputedStyle(rise).transform) : new DOMMatrix();
+      navIcon = r && r.height ? { x: r.left - m.e + (r.width || r.height * .5) / 2, y: r.top - m.f + r.height / 2, h: r.height * .92 } : { x: 60, y: 38, h: 40 };
+    }
+    const mbx = rig.markBox, q = clamp01(u / T.flyEnd), k = q < .5 ? 4 * q * q * q : 1 - Math.pow(-2 * q + 2, 3) / 2;
+    const mcx = mbx.x + mbx.w / 2, mcy = mbx.y + mbx.h / 2;
+    const S = s * lerp(1, navIcon.h / (mbx.h * s), k);
+    const cx = lerp(tx + mcx * s, navIcon.x, k), cy = lerp(ty + mcy * s, navIcon.y, k) - Math.sin(Math.PI * k) * H * .05;   // a gentle arc
+    logoG.setAttribute('transform', `translate(${(cx - mcx * S).toFixed(2)} ${(cy - mcy * S).toFixed(2)}) scale(${S.toFixed(5)})`);
+    const wo = (1 - smooth(0, .16, u)).toFixed(3);
+    wordG.setAttribute('opacity', wo); tagG.setAttribute('opacity', wo);
+    logoG.setAttribute('opacity', (1 - smooth(T.flyFadeA, T.flyFadeB, u)).toFixed(3));
+  }
+  function unfly() {
+    navIcon = null; bgEl.style.visibility = '';
+    logoG.removeAttribute('opacity'); wordG.removeAttribute('opacity'); tagG.removeAttribute('opacity');
+    placeLogo();
   }
   const sampleAt = (x, y) => { const i = ((Math.min(sh - 1, y >> 2) * sw) + Math.min(sw - 1, x >> 2)) * 4; return [sample[i], sample[i + 1], sample[i + 2]]; };
 
@@ -1003,8 +1085,9 @@ window.HSArt = (() => {
       rot: 0, fl: Math.random() * 6.283, vf: 2 + Math.random() * 2, z: .5, amax: .95, a: 0 });
     RS.sort((p, q) => p.z - q.z);
   }
+  const PETALS = false;                                      // no roses or petals drift in any more (kept switchable)
   function emitPetals(t, dt, u) {
-    if (REDUCED) return;
+    if (REDUCED || !PETALS) return;
     while (seedCount < SEEDS && t >= T.gatherStart + seedCount / SEEDS * .34) { seedCount++; spawnSeed(t); }
     const area = clamp((W * H) / (1280 * 800), .45, 1.5);
     let rate = 13 * area * smooth(.05, 1.2, t);
@@ -1081,93 +1164,14 @@ precision highp float;
 uniform sampler2D uTex;
 uniform vec2 uRes, uC;
 uniform float uMaxR, uFront, uFx, uStyl, uT, uDpr;
-const vec3 IV = vec3(.906,.831,.780);
-const vec3 RO = vec3(.612,.380,.404);
-const vec3 DK = vec3(.075,.047,.051);
-const vec3 WH = vec3(1.,.965,.94);
-float h21(vec2 p){ vec3 p3 = fract(vec3(p.xyx)*.1031); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.x + p3.y)*p3.z); }
-float vn(vec2 p){ vec2 i=floor(p), f=fract(p); vec2 u=f*f*f*(f*(f*6.-15.)+10.);
-  return mix(mix(h21(i),h21(i+vec2(1.,0.)),u.x), mix(h21(i+vec2(0.,1.)),h21(i+vec2(1.,1.)),u.x), u.y); }
-const mat2 ROT = mat2(1.6, 1.2, -1.2, 1.6);
-float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<5;i++){ v+=a*vn(p); p=ROT*p+vec2(11.7,5.3); a*=.5; } return v; }
-float b2(vec2 a){ a=floor(a); return fract(dot(a, vec2(.5, a.y*.75))); }
-float b4(vec2 a){ return b2(.5*a)*.25 + b2(a); }
-float b8(vec2 a){ return b4(.5*a)*.25 + b2(a); }
-float stars(vec2 frag){
-  float cs = 30.*uDpr;
-  vec2 cell = floor(frag/cs);
-  float acc = 0.;
-  for(int j=-1;j<=1;j++){ for(int i=-1;i<=1;i++){
-    vec2 c = cell + vec2(float(i), float(j));
-    float h = h21(c + .37);
-    if (h < .42) continue;
-    float h2 = h21(c*1.73 + 4.1), h3 = h21(c*.61 + 9.7);
-    vec2 sp = (c + vec2(h2, h3))*cs;
-    float big = step(.94, h);
-    float sz = (.55 + .7*h3 + big*1.6)*uDpr;
-    vec2 v = frag - sp;
-    float core = exp(-dot(v,v)/(sz*sz*1.6));
-    float ln = sz*(5. + big*7.);
-    float fl = exp(-abs(v.x)/(sz*.5))*exp(-abs(v.y)/ln) + exp(-abs(v.y)/(sz*.5))*exp(-abs(v.x)/ln);
-    float win = 1. - smoothstep(.5*cs, .92*cs, max(abs(v.x), abs(v.y)));   /* flares end inside the 3x3 neighbourhood — no seams */
-    float tw = .5 + .5*sin(uT*(2.5 + h2*6.) + h3*31.);
-    acc += (core*1.6 + fl*(.45 + big*.9))*win*(.35 + .65*tw);
-  }}
-  return acc;
-}
-/* leaves: near the front the screen (and the logo on it) breaks into tiny flat leaf silhouettes instead of
-   pixels — same rhythm as the pixels, different shape.  x: coverage · y: hue · z: lit · w: glint */
-vec4 leaves(vec2 frag, float k){
-  /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
-     (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
-     one by one at random, so what is left is a lace of leaf shapes. */
-  float cs = floor(mix(7., 15.5, k*k))*uDpr;      /* larger leaves, so fewer of them */
-  vec2 g = frag/cs, cb = floor(g);
-  float crum = pow(k, 2.2)*1.04;
-  vec4 r = vec4(0.);
-  for(int j=-1;j<=1;j++){ for(int i=-1;i<=1;i++){
-    vec2 c = cb + vec2(float(i), float(j));
-    float h = h21(c*1.37 + 2.1);
-    if (h < crum) continue;                       /* this one has crumbled away */
-    float h2 = h21(c*.73 + 7.7), h3 = h21(c*.37 + 1.3);
-    vec2 lp = g - c - .5 - (vec2(h2, h3) - .5)*.4;
-    float ang = h2*6.2832, ca = cos(ang), sa = sin(ang);
-    vec2 q = mat2(ca, -sa, sa, ca)*lp;
-    float dl = max(length(q - vec2(.55, 0.)), length(q + vec2(.55, 0.))) - .91;    /* leaf ≈ 1.45 × .72 cells */
-    float cov = 1. - smoothstep(-.9/cs, .9/cs, dl);
-    if (cov > r.x) r = vec4(cov, h3, step(h21(c*2.31 + 5.3) + .04, k*.62), step(.94, h21(c*.71 + floor(uT*16.))));
-  }}
-  return r;
-}
+/* a plain fade from the bottom up: a soft gradient (FEATHER screen-heights tall) climbs the screen, the white
+   ground and the logo fading out under it. uFront carries the progress, 0 → 1 — no leaves, no sparkles. */
+const float FEATHER = .35;
 void main(){
-  vec2 frag = gl_FragCoord.xy;
-  float d = frag.y/uRes.y;                        /* the front climbs from the bottom of the screen (was: a ring from the heart) */
-  vec2 np = frag/uRes.y;
-  float amp = clamp(uFront*2.4, .1, 1.);
-  float n = fbm(np*2.4 + vec2(0., uT*.22)) - .5;
-  float m = fbm(ROT*np*7. - uT*.5) - .5;
-  float e = uFront - (d + n*.30*amp + m*.06*amp);
-  if (e > .14) { gl_FragColor = vec4(0.); return; }   /* well behind the front: already revealed — skip the rest */
-  if (e < -.26) { gl_FragColor = vec4(texture2D(uTex, frag/uRes).rgb, 1.); return; }   /* far ahead of it: the screen as is */
-  float outside = step(e, 0.);                    /* the screen that is still there */
-  float k = smoothstep(-.2, 0., e)*uFx*outside;
-  vec3 base = texture2D(uTex, frag/uRes).rgb;
-  vec4 L = k > 0. ? leaves(frag, k) : vec4(0.);   /* the leaf mesh only where it can show */
-  float aBg = 1. - smoothstep(.04, .2, k);        /* the solid surface hands over to the leaf mesh… */
-  float a = outside*max(aBg, L.x);                /* …which crumbles leaf by leaf */
-  float lum = dot(base, vec3(.299,.587,.114));
-  float on = L.z*(1. - smoothstep(.12, .4, lum)); /* some leaves on the burgundy catch a flat light; the logo keeps its colours */
-  vec3 col = mix(base, mix(RO*.95, mix(IV, WH, L.y*.5), L.y*.85), on*.6*L.x);
-  float outer = e < 0. ? exp(e*16.) : 0.;
-  float glit = L.w*k*on*L.x;                      /* the glint lights the leaf, not its whole cell */
-  float st = abs(e) < .16 ? stars(frag)*exp(-abs(e + .02)*24.) : 0.;
-  /* no white rim / bright inner glow along the front any more — just a faint rose warmth and the sparkles */
-  vec3 light = mix(RO, IV, .5)*outer*.16 + WH*(st*.8 + glit*.9);
-  light *= uFx;
-  float la = clamp(dot(light, vec3(.3333)), 0., 1.);
-  float oa = clamp(a + la, 0., 1.);
-  vec3 oc = col*a + light;
-  gl_FragColor = vec4(min(oc, vec3(oa)), oa);
+  float y = gl_FragCoord.y/uRes.y;                /* 0 at the bottom of the screen */
+  float line = -FEATHER + clamp(uFront, 0., 1.)*(1. + FEATHER);
+  float a = smoothstep(line, line + FEATHER, y);
+  gl_FragColor = vec4(texture2D(uTex, gl_FragCoord.xy/uRes).rgb*a, a);
 }`;
   let gl = null, glOK = false, uni = {}, tex = null;
   function initGL() {
@@ -1234,14 +1238,15 @@ void main(){
   function spawnDust(dt, front) {
     if (front <= .004 || !sample) return;
     const fy = H * (1 - front);
-    const n = Math.min(80, Math.round(dt * 800));                        // fewer specks, each a larger leaf
-    for (let i = 0; i < n && P.length < 1400; i++) {
+    const n = Math.min(12, Math.round(dt * 100 + Math.random() * .5));    // only a few specks, each a larger leaf
+    for (let i = 0; i < n && P.length < 180; i++) {
       const x = Math.random() * W, y = fy + (Math.random() - .5) * H * .12;
       if (x < 0 || y < 0 || x >= W || y >= H) continue;
       let c = sampleAt(x | 0, y | 0);
       const lum = (.299 * c[0] + .587 * c[1] + .114 * c[2]) / 255;
-      if (lum < .13) { if (Math.random() > .3) continue; c = Math.random() < .5 ? [231, 212, 199] : [201, 154, 156]; }
-      P.push({ x, y, vx: (Math.random() - .5) * 50, vy: -(24 + Math.random() * 90), age: 0, life: .9 + Math.random() * 1.5, sz: .9 + Math.random() * 1.5, c, ph: Math.random() * 6.28 });
+      // the white ground gives Dusty Rose and Warm Ivory leaves (white on white would not show)
+      if (lum > .88) c = Math.random() < .55 ? [156, 97, 103] : Math.random() < .5 ? [201, 154, 156] : [231, 212, 199];
+      P.push({ x, y, vx: (Math.random() - .5) * 50, vy: -(24 + Math.random() * 90), age: 0, life: .9 + Math.random() * 1.5, sz: 1.7 + Math.random() * 2.2, c, ph: Math.random() * 6.28 });
     }
   }
   function spawnPetal(front) {
@@ -1328,14 +1333,22 @@ void main(){
     const front = u >= 0 ? frontAt(u) : -1;
     if (u >= 0 && render) {
       if (glOK) {
-        if (u < 1.04) drawGL(t, front, smooth(0, .12, u), .22 * smooth(.08, .42, u));
-        if (!swapped) scene.style.visibility = 'hidden';
-        else if (u >= 1.04 && glCanvas.style.visibility !== 'hidden') glCanvas.style.visibility = 'hidden';
+        if (u < 1.04) drawGL(t, eInOutSine(clamp01(u)), 1, 0);              // a plain fade, climbing from the bottom
+        if (FLY) {
+          // the white ground now breaks away on the GL canvas; the logo stays live above it and flies into the nav
+          if (!swapped) bgEl.style.visibility = 'hidden';
+          if (u < T.flyFadeB) fly(u);
+          else if (scene.style.visibility !== 'hidden') { fly(T.flyFadeB); scene.style.visibility = 'hidden'; }
+        } else if (!swapped) bgEl.style.visibility = 'hidden';              // the GL canvas carries the white ground now; the logo stays above it
+        if (swapped && u >= 1.04 && glCanvas.style.visibility !== 'hidden') glCanvas.style.visibility = 'hidden';
       } else {
-        const r = Math.max(0, front) * H;                                    // no WebGL: a soft wipe from the bottom
-        const mask = `linear-gradient(to top, transparent ${r}px, #000 ${r + 90}px)`;
-        scene.style.webkitMaskImage = mask; scene.style.maskImage = mask;
+        const l = (-.35 + eInOutSine(clamp01(u)) * 1.35) * H;                 // no WebGL: the same fade from the bottom up
+        const mask = `linear-gradient(to top, transparent ${l.toFixed(1)}px, #000 ${(l + .35 * H).toFixed(1)}px)`;
+        bgEl.style.webkitMaskImage = mask; bgEl.style.maskImage = mask;
       }
+      // the logo fades out whole, in step with the white climbing away — gone just as the fade reaches it, so it is
+      // never cut in two by the edge and never left standing over the page
+      if (!FLY) stage.style.opacity = (1 - eInOutSine(clamp01(u / .6))).toFixed(3);
       if (!swapped) { swapped = true; pre.classList.add('is-through'); }
       vig.style.opacity = (1 - clamp01(u * 2.4)).toFixed(3);              // the vignette belongs to the burgundy, gone before the page shows
       if (u > .08 && !revealed) { revealed = true; document.body.classList.add('is-revealed'); document.dispatchEvent(new CustomEvent('hs:reveal')); }
@@ -1343,8 +1356,7 @@ void main(){
     }
 
     emitPetals(t, dt, u);
-    if (u >= 0 && u < 1) spawnDust(dt, front);
-    if (u > .22 && u < .7) { petalAcc += dt * 11; while (petalAcc >= 1) { spawnPetal(front); petalAcc--; } }
+    if (PETALS && u > .22 && u < .7) { petalAcc += dt * 11; while (petalAcc >= 1) { spawnPetal(front); petalAcc--; } }
     stepPetals(t, dt, front, u);
     stepDust(dt, front);
     if (render) {
@@ -1384,7 +1396,9 @@ void main(){
     petalAcc = edgeAcc = roseAcc = gustAcc = 0; roseCount = seedCount = gustSide = 0;
     pre.style.display = ''; pre.classList.remove('is-through');
     scene.style.visibility = ''; scene.style.webkitMaskImage = scene.style.maskImage = '';
+    bgEl.style.webkitMaskImage = bgEl.style.maskImage = ''; stage.style.opacity = '';
     glCanvas.style.visibility = ''; vig.style.opacity = '';
+    unfly();
     fx.setTransform(1, 0, 0, 1, 0, 0); fx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
     document.body.classList.remove('is-revealed', 'is-ready');
     window.scrollTo(0, 0);
@@ -1452,8 +1466,9 @@ void main(){
   const hero = document.getElementById('hero'), stage = document.getElementById('hero-stage');
   const nav = document.getElementById('nav');
   const AW = 1672, AH = 941;
-  // the photograph (the whole stage) always covers the screen. On the cabin hero file's own 1920×919 it shows at the
-  // file's scale; on less-wide screens it zooms out into the band above and below the file's frame (y 74–874)
+  // the golden-hour photograph is the cabin hero file's frame: the band y 74–874 of the 1672×941 stage
+  const FY = 74, FH = 800.3, PORTRAIT_LIFT = 40;
+  const PX = 9, PY = 7;      // the photo's least overhang past each edge: more than the parallax moves it (5px / 3px)
   // ── the two numbers to tune ──
   const OVER = 1.01;         // the photo covers the whole screen, a hair larger so the parallax never shows its edge
   const BOTTLES = .88;       // the bottles a touch smaller than in the cabin file (1 = its own size), each on its own step
@@ -1476,7 +1491,11 @@ void main(){
     });
     shadowGs.forEach(({ g, t }, k) => g.setAttribute('transform', (k === 0 && cx ? `translate(${cx.toFixed(1)} 0) ` : '') +
       t.replace(/scale\(([\d.]+)\)/, (m, v) => `scale(${(+v * f).toFixed(4)})`)));   // the first group is the jar's shadow
+    // the mist canvas: its foot on the diffuser's opening (x 1219.5, y≈469 on the stage, sized about the base at y 780)
+    mistEl.style.left = `${(1219.5 - 180).toFixed(1)}px`;
+    mistEl.style.top = `${(780 - (780 - 466) * f - 600 + 10).toFixed(1)}px`;
   }
+  const mistEl = document.getElementById('mist');
   function fit() {
     const W = hero.clientWidth, H = hero.clientHeight, ar = W / H, compact = ar >= 1.15 && ar < 1.5;
     const portrait = matchMedia('(max-aspect-ratio: 23/20)').matches;      // the same test as the photograph's <source>
@@ -1485,23 +1504,26 @@ void main(){
     let s, tx, ty;
     copy.style.marginTop = '';                                // the copy always sits centred on the page
     if (!portrait) {
-      // the photo as it is, edge to edge: it covers the screen, centred — nothing added around it or faded out
-      s = Math.max(W / AW, H / AH) * OVER;
-      const sw = AW * s, sh = AH * s;
+      // the photo as it is, edge to edge: its frame (y FY…FY+FH of the stage) covers the screen, centred — nothing
+      // added around it or faded out. On the cabin file's own 1920×919 it shows exactly the file
+      // always a little larger than the screen than the parallax moves it (±5px across, ±3px down), on every side
+      s = Math.max(Math.max(W / AW, H / FH) * OVER, (W + 2 * PX) / AW, (H + 2 * PY) / FH);
+      const sw = AW * s;
       sizeProducts(BOTTLES);
       tx = (W - sw) / 2;
       // the bottles, as a group, centred top to bottom between the nav and the foot of the screen (compact: low,
       // under the copy) — within the photo's own top and bottom, and never with their footing (y≈830) off the screen
       const gTop = Math.min(...BOX0.map(([, y, , hh]) => y + hh * (1 - BOTTLES))), gFoot = 818;
-      const yMin = H - sh, yMax = Math.max(yMin, Math.min(0, H - 16 - 830 * s));
+      const yMin = H - (FY + FH) * s + PY, yMax = Math.max(yMin, Math.min(-FY * s - PY, H - 16 - 830 * s));
       ty = clamp(compact ? yMax : (nav.offsetHeight + H) / 2 - (gTop + gFoot) / 2 * s, yMin, yMax);
       [tx, ty] = settle(s, tx, ty, W, sw, yMax, BOTTLES);      // the diffuser clear of the card, the bottles clear of the reviews
     } else {
-      // portrait: fit the whole product group on the display (x 471–1323 on the cabin stage) across the screen,
-      // the uncropped photograph's foot on the screen's foot
+      // portrait: fit the whole product group on the display (x 471–1323 on the cabin stage) across the screen. The
+      // photograph ends at the display's front (y≈874); it stands a little above the screen's foot so the bottles
+      // keep clear of the pager, on a band of the display's own shadowed colour (.hero-foot-band)
       s = Math.max((W * .96) / 860, (H * .46) / AH);
       tx = W / 2 - 897 * s;
-      ty = H - AH * s;
+      ty = H - PORTRAIT_LIFT - (FY + FH) * s;
       sizeProducts(1);
     }
     stage.style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${s.toFixed(4)})`;
@@ -1526,7 +1548,7 @@ void main(){
     if (card && card.offsetWidth) {
       cl = card.getBoundingClientRect().left - moved(card).e - h.left;
       const [x4, , w4] = BOXES[3], maxTx = cl + .3 * w4 * s - (x4 + w4) * s;
-      if (tx > maxTx) tx = Math.max(maxTx, W - sw + 4);
+      if (tx > maxTx) tx = Math.max(maxTx, W - sw + PX);
     }
     hero.classList.remove('rv-tight');
     if (!copy.offsetWidth) return [tx, ty];
@@ -1557,12 +1579,12 @@ void main(){
     if (!hit.length) return [tx, ty];
     let need = 0;
     for (const [x] of hit) need = Math.max(need, R + M - (tx + x * s));
-    let cap = Math.max(0, -tx - 4);
+    let cap = Math.max(0, -tx - PX);
     if (isFinite(cl)) { const [x4, , w4] = BOXES[3]; cap = Math.min(cap, Math.max(0, cl + .3 * w4 * s - (tx + (x4 + w4) * s))); }
     tx += Math.min(need, cap);
     // 4 · the Citrus jar slides right along its step
     if (hits(tx, ty).includes(BOXES[2])) {
-      const cx = Math.min(70, Math.max(0, (R + M - (tx + BOXES[2][0] * s)) / s));
+      const cx = Math.min(70, Math.max(0, (R + M - (tx + BOXES[2][0] * s)) / s));    // ≤70: it keeps clear of the Ocean bottle
       sizeProducts(f, cx);
       BOXES = BOXES.map((b, k) => k === 2 ? [b[0] + cx, b[1], b[2], b[3]] : b);
     }
@@ -1587,6 +1609,89 @@ void main(){
   fit(); addEventListener('resize', fit);
   if (document.fonts) document.fonts.ready.then(fit);                   // re-check the reviews once Poppins has loaded
 
+  /* the diffuser's mist. Wisps leave the opening as a narrow, dense column, then rise into a slowly turning field
+     of air (value-noise turbulence that grows with height), so the plume curls, splits into tendrils and thins out
+     the way a diffuser's vapour does. Each wisp is a soft sprite with a smoky, irregular texture (made here, once)
+     that turns as it rises; a faint haze pools on the rim. ~130 wisps at most, drawn at up to 60 fps — and only
+     while the hero is on screen, the page is through the preloader and motion is welcome */
+  (() => {
+    const cv = mistEl, cx = cv.getContext('2d'), CW = 360, CH = 600, K = 1.25;   // canvas in stage px, drawn at 1.25×
+    cv.width = CW * K; cv.height = CH * K;
+    // value noise and a little fractal sum of it — for the sprites' texture and for the moving air
+    const hash = (a, b) => { let n = (a * 374761393 + b * 668265263) | 0; n = Math.imul(n ^ (n >>> 13), 1274126177); return ((n ^ (n >>> 16)) >>> 0) / 4294967295; };
+    const noise = (x, y) => {
+      const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi, u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      return (hash(xi, yi) * (1 - u) + hash(xi + 1, yi) * u) * (1 - v) + (hash(xi, yi + 1) * (1 - u) + hash(xi + 1, yi + 1) * u) * v;
+    };
+    const fbm = (x, y) => noise(x, y) * .55 + noise(x * 2.03 + 5.2, y * 2.03 + 1.3) * .3 + noise(x * 4.1 + 9.1, y * 4.1 + 7.7) * .15;
+    // five smoke sprites: a soft round fall-off broken up by noise, so every wisp has ragged, vapour-like edges
+    const SPR = [0, 1, 2, 3, 4].map(seed => {
+      const S = 96, c = document.createElement('canvas'); c.width = c.height = S;
+      const g = c.getContext('2d'), img = g.createImageData(S, S), d = img.data;
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+        const dx = x / (S / 2) - 1, dy = y / (S / 2) - 1, f = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy)), soft = f * f * (3 - 2 * f);
+        const a = Math.max(0, soft * (fbm(x / 17 + seed * 13.1, y / 17 + seed * 7.3) * 1.75 - .42));
+        const i = (y * S + x) * 4; d[i] = 255; d[i + 1] = 247; d[i + 2] = 238; d[i + 3] = Math.min(255, a * 300);
+      }
+      g.putImageData(img, 0, 0); return c;
+    });
+    const OX = CW / 2, OY = CH - 10, wisps = [];
+    let acc = 0, t = 0, last = 0, raf = 0, onScreen = true;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const spawn = () => wisps.push({
+      x: OX + (Math.random() - .5) * 9, y: OY - 2, vx: (Math.random() - .5) * 8, vy: -(52 + Math.random() * 22),
+      age: 0, life: 3.4 + Math.random() * 2.6, s0: 8 + Math.random() * 7, s1: 70 + Math.random() * 80,
+      rot: Math.random() * 6.283, vr: (Math.random() - .5) * .7, spr: SPR[(Math.random() * SPR.length) | 0], a0: .5 + Math.random() * .3 });
+    function step(dt) {
+      t += dt; acc += dt * 27;
+      while (acc >= 1) { acc--; if (wisps.length < 170) spawn(); }
+      for (let i = wisps.length - 1; i >= 0; i--) {
+        const p = wisps[i]; p.age += dt;
+        if (p.age >= p.life || p.y < -40) { wisps[i] = wisps[wisps.length - 1]; wisps.pop(); continue; }
+        const h = Math.min(1, Math.max(0, (OY - p.y) / CH));
+        // the air: a direction from slowly drifting noise; its pull grows with height, so the column stays straight at
+        // the opening and curls higher up. Buoyancy fades as the vapour cools; a faint lean to the left, over the window
+        const th = fbm(p.x * .0085 + t * .06, p.y * .0085 - t * .18) * 6.283 * 2.4, turb = 3 + 74 * h * h + 20 * h;
+        const tvx = Math.cos(th) * turb - 9 * h, tvy = -(56 * (1 - h) + 12) + Math.sin(th) * turb * .6;
+        const kk = Math.min(1, dt * (1.2 + 2.2 * h));
+        p.vx += (tvx - p.vx) * kk; p.vy += (tvy - p.vy) * kk;
+        p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt;
+      }
+    }
+    function draw() {
+      cx.setTransform(K, 0, 0, K, 0, 0); cx.clearRect(0, 0, CW, CH);
+      // a faint haze pooling on the rim, where the vapour leaves the opening
+      const rim = cx.createRadialGradient(OX, OY, 0, OX, OY, 30);
+      rim.addColorStop(0, 'rgba(255,247,238,.32)'); rim.addColorStop(1, 'rgba(255,247,238,0)');
+      cx.save(); cx.translate(OX, OY); cx.scale(1, .38); cx.translate(-OX, -OY); cx.fillStyle = rim; cx.fillRect(OX - 30, OY - 30, 60, 60); cx.restore();
+      // the widest, oldest wisps first, the dense young column on top of them
+      wisps.sort((a, b) => b.age / b.life - a.age / a.life);
+      for (const p of wisps) {
+        const k = p.age / p.life, e = 1 - (1 - k) * (1 - k), s = p.s0 + (p.s1 - p.s0) * e;
+        const a = p.a0 * Math.min(1, k / .05) * Math.pow(1 - k, 1.7) * (.42 + .58 * Math.min(1, 18 / s));
+        if (a < .006) continue;
+        const c = Math.cos(p.rot) * K, sn = Math.sin(p.rot) * K;
+        cx.setTransform(c, sn, -sn, c, p.x * K, p.y * K);
+        cx.globalAlpha = a; cx.drawImage(p.spr, -s / 2, -s * .6, s, s * 1.2);
+      }
+      cx.globalAlpha = 1;
+    }
+    function frame(now) {
+      raf = 0;
+      const dt = Math.min(.05, (now - last) / 1000 || 0);
+      if (dt >= 1 / 62) { last = now; step(dt); draw(); }
+      if (running()) raf = requestAnimationFrame(frame);
+    }
+    const running = () => onScreen && !document.hidden && document.body.classList.contains('is-revealed') && !still;
+    const kick = () => { if (!raf && running()) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+    for (let i = 0; i < 300; i++) step(1 / 50);                      // the plume is already there when it fades in
+    draw();
+    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; kick(); }).observe(hero);
+    document.addEventListener('visibilitychange', kick);
+    document.addEventListener('hs:reveal', kick);
+    if (document.body.classList.contains('is-revealed')) kick();
+  })();
+
   const onScroll = () => nav.classList.toggle('is-solid', scrollY > 20);
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
@@ -1601,33 +1706,45 @@ void main(){
   ];
   const $ = id => document.getElementById(id);
   const money = n => Math.round(n).toLocaleString('en-US');
-  // the bundle: the sum of the four, less the discount
+  // the bundle card: the bundle price, the four pieces' full price struck through, the offer — all from PRODUCTS,
+  // so a price changes in one place
   (() => {
     const full = PRODUCTS.reduce((t, p) => t + p.price, 0), now = full * (1 - BUNDLE_OFF);
     $('pc-now').textContent = money(now);
     $('pc-was').textContent = `${money(full)} ${CURRENCY}`;
     document.querySelectorAll('.pc-cur,.st-cur').forEach(el => el.textContent = CURRENCY);
-    document.querySelector('.pc-badge').textContent = `Save ${Math.round(BUNDLE_OFF * 100)}%`;
+    $('pc-off').textContent = `Save ${Math.round(BUNDLE_OFF * 100)}%`;
     $('pc-price').setAttribute('aria-label', `${money(now)} ${CURRENCY}, was ${money(full)} ${CURRENCY}`);
   })();
   const flip = el => { el.classList.remove('flip'); void el.offsetWidth; el.classList.add('flip'); };
   const media = $('pc-media'), bdImgs = [...document.querySelectorAll('.bd-item')];
   const prods = [...document.querySelectorAll('.product')], spots = [...document.querySelectorAll('.hotspot')];
-  // the bundle card stays put; picking a product on the scene lifts that piece inside the bundle
+  const lines = [...document.querySelectorAll('.pc-chips li')];
+  // the bundle card stays put; picking a product on the scene lifts that piece inside the bundle (and lights its chip)
   function select(i, user) {
     i = (i + PRODUCTS.length) % PRODUCTS.length;
     bdImgs.forEach(im => im.classList.toggle('is-on', +im.dataset.i === i));
     media.classList.toggle('has-on', !!user);
     prods.forEach(b => b.classList.toggle('is-on', !!user && +b.dataset.i === i));
+    lines.forEach(l => l.classList.toggle('is-on', !!user && +l.dataset.i === i));
   }
-  const clearSel = () => { bdImgs.forEach(im => im.classList.remove('is-on')); media.classList.remove('has-on'); prods.forEach(b => b.classList.remove('is-on')); };
+  const clearSel = () => {
+    bdImgs.forEach(im => im.classList.remove('is-on')); media.classList.remove('has-on');
+    prods.forEach(b => b.classList.remove('is-on')); lines.forEach(l => l.classList.remove('is-on'));
+  };
+  // pointing at a chip brings its piece forward in the group for as long as the pointer stays
+  lines.forEach(l => {
+    l.addEventListener('pointerenter', () => { media.classList.add('is-peek'); bdImgs.forEach(im => im.classList.toggle('peek', im.dataset.i === l.dataset.i)); });
+    l.addEventListener('pointerleave', () => { media.classList.remove('is-peek'); bdImgs.forEach(im => im.classList.remove('peek')); });
+  });
   prods.concat(spots).forEach(b => b.addEventListener('click', () => select(+b.dataset.i, true)));
   document.addEventListener('hs:preloader-start', clearSel);
 
   // page switcher — changes the whole hero. Only one page exists for now, so every page replays
   // the Coastal Edit (demo); give each entry its own content when the other pages are ready.
   const PAGES = [{ title: 'The Coastal Edit' }, { title: 'Edit N°02' }, { title: 'Edit N°03' }];
-  const veil = $('hero-veil'), veilTitle = $('veil-title'), pgCur = $('pg-cur'), pgTitle = $('pg-title'), pgTrack = [...$('pg-track').children];
+  // (the pager was taken off the hero; the page change below stays in place for when it comes back)
+  const veil = $('hero-veil'), veilTitle = $('veil-title'), pgCur = $('pg-cur'), pgTitle = $('pg-title'), pgTrack = $('pg-track') ? [...$('pg-track').children] : [];
   const glC = $('veil-gl'), dustC = $('veil-dust'), dctx = dustC.getContext('2d');
   let page = 0, busy = false;
 
@@ -1657,7 +1774,7 @@ float stars(vec2 frag){
   for(int j=-1;j<=1;j++){ for(int i=-1;i<=1;i++){
     vec2 c = cell + vec2(float(i), float(j));
     float h = h21(c + .37);
-    if (h < .42) continue;
+    if (h < .8) continue;                         /* only a sparse few sparkles */
     float h2 = h21(c*1.73 + 4.1), h3 = h21(c*.61 + 9.7);
     vec2 sp = (c + vec2(h2, h3))*cs;
     float big = step(.94, h);
@@ -1678,7 +1795,7 @@ vec4 leaves(vec2 frag, float k){
   /* a mesh of tiny overlapping leaves — each leaf is wider than its cell, so neighbours run into one another
      (3x3 neighbourhood); like the old pixels they grow towards the front (3 → 8 px cells) and crumble away
      one by one at random, so what is left is a lace of leaf shapes. */
-  float cs = floor(mix(7., 15.5, k*k))*uDpr;      /* larger leaves, so fewer of them */
+  float cs = floor(mix(24., 46., k*k))*uDpr;      /* few, large leaves (a quarter as many as before) */
   vec2 g = frag/cs, cb = floor(g);
   float crum = pow(k, 2.2)*1.04;
   vec4 r = vec4(0.);
@@ -1769,10 +1886,10 @@ void main(){
   });
   function stepDust(front, dt, t) {
     if (front > -.15 && front < 1.15) {
-      const yb = VH * (1 - front), n = Math.round(dt * 170 + Math.random() * .6);   // fewer specks, each a larger leaf
-      for (let i = 0; i < n && DUST.length < 500; i++) {
+      const yb = VH * (1 - front), n = Math.round(dt * 35 + Math.random() * .6);    // only a few specks, each a large leaf
+      for (let i = 0; i < n && DUST.length < 120; i++) {
         DUST.push({ x: Math.random() * VW, y: yb + (Math.random() - .5) * VH * .24, vx: (Math.random() - .5) * 28, vy: -(30 + Math.random() * 140),
-          life: .6 + Math.random() * 1.1, age: 0, s: (Math.random() < .12 ? 2.4 : 1.1) + Math.random(), ci: (Math.random() * DCOL.length) | 0, ph: Math.random() * 6.28,
+          life: .6 + Math.random() * 1.1, age: 0, s: 1.8 + Math.random() * 1.8, ci: (Math.random() * DCOL.length) | 0, ph: Math.random() * 6.28,
           rot: Math.random() * 6.283, vr: (Math.random() - .5) * 4 });
       }
     }
@@ -1843,12 +1960,13 @@ void main(){
   };
   function setPager(n) {
     page = n;
+    if (!pgCur) return;
     pgCur.textContent = String(n + 1).padStart(2, '0'); flip(pgCur);
     pgTitle.textContent = PAGES[n].title; flip(pgTitle);
     pgTrack.forEach((t, k) => t.classList.toggle('on', k === n));
   }
-  $('pg-next').addEventListener('click', () => goPage(page + 1));
-  $('pg-prev').addEventListener('click', () => goPage(page - 1));
+  $('pg-next')?.addEventListener('click', () => goPage(page + 1));
+  $('pg-prev')?.addEventListener('click', () => goPage(page - 1));
   document.addEventListener('hs:preloader-start', () => setPager(0));
 
   // hotspot label — lives above the card; opens to the right, flips left only at the screen edge
